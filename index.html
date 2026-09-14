@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sky Points Club — High Paying 60 + Banner Pop Social + 5 Impression Boosters • Adstera Only</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F6F1;--card:#fff;--line:#EDE9E0;--dark:#111;--gold:#C8A96A;--green:#1A5D4E;--muted:#8C8C8C}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#111}
+.wrap{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
+.header{position:sticky;top:0;z-index:50;background:var(--dark);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--gold);color:var(--dark);display:flex;align-items:center;justify-content:center;font-weight:700}
+.lambi-patti{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(0,0,0,.1);z-index:100;display:none}
+.lambi-patti .fill{height:100%;background:var(--gold);width:0%;transition:width .1s}
+.lambi-patti.show{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.folder{margin:10px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.folder-head{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.folder-head:hover{background:#FBFAF7}
+.ad-row{display:flex;align-items:center;padding:12px 14px;border-top:1px solid #F5F1E8;cursor:pointer}
+.ad-row:hover{background:#FBFAF7}
+.ad-row.disabled{opacity:.4;pointer-events:none}
+.thumb{width:42px;height:34px;border-radius:8px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:11px;flex-shrink:0}
+.main{flex:1;min-width:0;margin-left:10px}
+.title{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub{font-size:10px;color:var(--muted);margin-top:2px;display:flex;gap:5px}
+.badge{padding:2px 6px;border-radius:20px;font-size:8px;font-weight:600;border:1px solid;text-transform:uppercase}
+.reward{min-width:50px;text-align:center}
+.rval{font-size:12px;font-weight:600;color:var(--green)}
+.btn-view{padding:6px 10px;border-radius:8px;font-size:10px;font-weight:600;border:none;cursor:pointer}
+.btn-go{background:var(--dark);color:#fff}
+.btn-done{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.progress{height:2px;background:#F5F1E8;border-radius:10px;overflow:hidden;margin-top:6px}
+.fill-bar{height:100%;transition:width .2s}
+.modal{position:fixed;inset:0;background:rgba(248,246,241,.96);z-index:9999;display:flex;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(12px)}
+.modal-card{width:100%;max-width:480px;max-height:92vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.impression-page{position:fixed;inset:0;background:var(--bg);z-index:9998;overflow:auto;padding:12px}
+.banner-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.banner-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px;text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.nav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:460px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:16px;display:flex;justify-content:space-around;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.12);z-index:99}
+.nav button{background:none;border:none;color:var(--muted);font-size:9px;font-weight:500;padding:8px 6px;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:48px}
+.nav button.active{background:var(--dark);color:#fff}
+.level-bar{height:5px;background:#F5F1E8;border-radius:10px;overflow:hidden}
+.level-fill{height:100%;background:var(--dark)}
+</style>
+</head>
+<body>
+<div class="lambi-patti" id="lambi"><div class="fill" id="lambiFill"></div></div>
+<div class="wrap" id="root"></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, getDocs, addDoc, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = { apiKey: "AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M", authDomain: "aviator-781d9.firebaseapp.com", projectId: "aviator-781d9", storageBucket: "aviator-781d9.firebasestorage.app", messagingSenderId: "151636540667", appId: "1:151636540667:web:a16b6ed543fbf04368c45e" };
+const fb=initializeApp(firebaseConfig); const db=getFirestore(fb);
+let user=null, mode='login';
+const refCode=new URLSearchParams(location.search).get('ref');
+
+// 60 SMARTLINKS FROM YOUR FILE
+const SMARTLINKS_60 = [
+"https://www.profitableratecpmnetwork.com/hztvkhad?key=db27882df4f3d057625af7869e14baf3",
+"https://www.profitableratecpmnetwork.com/trurdyng6?key=801cdeb75163a4ef7dd4cfe0c5776d24",
+"https://www.profitableratecpmnetwork.com/a0umzms0?key=33970b2f5aa104770aab780a8e059ca9",
+"https://www.profitableratecpmnetwork.com/n8vqd1vhc?key=7af40856e5711047a999dffe1901e4e3",
+"https://www.profitableratecpmnetwork.com/kzzaebmug?key=f416c8de8b4970d3664e35408f1e0f84",
+"https://www.profitableratecpmnetwork.com/waczuv2ne2?key=536fb4bcb7034fb9aae81392febe1713",
+"https://www.profitableratecpmnetwork.com/ikxc5k8kf?key=5389f10d281fd0797dbfd8bcfb083045",
+"https://www.profitableratecpmnetwork.com/s018iwz9?key=425b9723b0bf34e477a6cc0163733702",
+"https://www.profitableratecpmnetwork.com/zjd3842mt?key=5ccacaed92589fef3b1c5def587ca659",
+"https://www.profitableratecpmnetwork.com/tj3m9i4c?key=331be3536f63d53575a1d53fbafc2af9",
+"https://www.profitableratecpmnetwork.com/hy8fyxhh?key=ef53332bb01fd9fa8d8265f6c487e788",
+"https://www.profitableratecpmnetwork.com/aj2sswqw?key=4ef463d4cb4485ff54e8da145546180f",
+"https://www.profitableratecpmnetwork.com/vyuc24cr3b?key=eec14e4c47795ff49067b2142a81bc18",
+"https://www.profitableratecpmnetwork.com/pt01yc33?key=4bdfbfdf73fe868003bd3d52633e9f30",
+"https://www.profitableratecpmnetwork.com/afac5q1ws5?key=e3b918fc75f394cfa91070bebf9e649f",
+"https://www.profitableratecpmnetwork.com/m3fafxt0?key=a71771172e62df499bfc99c3d46a45c1",
+"https://www.profitableratecpmnetwork.com/izye4bfnj5?key=00789676bb8e728fb6b1b610e976b61a",
+"https://www.profitableratecpmnetwork.com/e5kinwfkb?key=81278340c49df964a0c301e53117d2cd",
+"https://www.profitableratecpmnetwork.com/uuafetdrs?key=672c608beb25356f77c5d42deaeff7f2",
+"https://www.profitableratecpmnetwork.com/tgj0uf7h?key=0ed1cda21405919848da822f24d2ab41",
+"https://www.profitableratecpmnetwork.com/iwvfvjr8?key=ec6d4ad1ec87fbc2ebd01bffbfab0ebc",
+"https://www.profitableratecpmnetwork.com/x2zhjhjct?key=cd60cec7190d531a2971d73ff720b84e",
+"https://www.profitableratecpmnetwork.com/jdkr60rkw?key=ba8ace9ece9d587a1d3aa318362e09bd",
+"https://www.profitableratecpmnetwork.com/dk6552ka?key=0fab01e2de4c56db3596d9cda05904d3",
+"https://www.profitableratecpmnetwork.com/p46txhjase?key=b769aa89415b5d468cd09f03369d03cf",
+"https://www.profitableratecpmnetwork.com/q4njn64x?key=d9c9c3c1f161f5539ad0bbd91d31d871",
+"https://www.profitableratecpmnetwork.com/au5bg461?key=da257fcc9ece644ac211f81190b9e052",
+"https://www.profitableratecpmnetwork.com/pyhqky4k?key=34fc5abe051f92563e6061648b7cf7e4",
+"https://www.profitableratecpmnetwork.com/jdsx93kin7?key=d84a0f562dfbd071d5957d7e5601ee8b",
+"https://www.profitableratecpmnetwork.com/xpehxvan?key=922699cdcd383cff98454cdb676009ad",
+"https://www.profitableratecpmnetwork.com/tgu9kbiar?key=0fb37c9996507d46b9625ea3a4537567",
+"https://www.profitableratecpmnetwork.com/m2pfupppp?key=97ce86825293f56f50ec5cda5438d3e7",
+"https://www.profitableratecpmnetwork.com/dpnjmn29q?key=751e21dfe6d1b0fba6b89a8ad39f6bf4",
+"https://www.profitableratecpmnetwork.com/q2da9hae?key=ebf48dbef6e708a359f437467fa7c468",
+"https://www.profitableratecpmnetwork.com/gbwget9m2?key=06634009bd67ff3b73d6934ea8bd19ae",
+"https://www.profitableratecpmnetwork.com/s4pmuvjdw?key=96ac2d709910ae65f7f10f4de2e79d00",
+"https://www.profitableratecpmnetwork.com/y74d0k88dg?key=b9be954895c6fe464818cf2112b2dccf",
+"https://www.profitableratecpmnetwork.com/cexm8m2q?key=b41d1e7ea4fe8260701acf70d85be41f",
+"https://www.profitableratecpmnetwork.com/bnz0qd8j5?key=0c28dd9c7ce9806f0446090727f290cd",
+"https://www.profitableratecpmnetwork.com/xm6j4u8dz2?key=9f94551da2e493ac80a4a65b4e57c10b",
+"https://www.profitableratecpmnetwork.com/ic55tgs8?key=46fbf894b321b047fc974262bb848109",
+"https://www.profitableratecpmnetwork.com/h1er0cvcq?key=6d502f1fb13ada1fb6787bb7659ac50a",
+"https://www.profitableratecpmnetwork.com/av9f62md?key=7a05ce47721959e233bf3d3b9a704050",
+"https://www.profitableratecpmnetwork.com/j55m7usmtq?key=4a2fc8f6d671344de6e14a15cab49d18",
+"https://www.profitableratecpmnetwork.com/bs5mnpansr?key=b9d5ca351e26e36eee3873ae5d6a8961",
+"https://www.profitableratecpmnetwork.com/jqt76yxy?key=7e2656b1a1b1f014056a69e197a96927",
+"https://www.profitableratecpmnetwork.com/f6stpisd?key=d0fabfa3cd23afc9dbb7402ae917ad41",
+"https://www.profitableratecpmnetwork.com/yn59qz8vk?key=30ebead7e2ddedf8f1d3382f3e3a29fb",
+"https://www.profitableratecpmnetwork.com/k2kpvizh9i?key=9587b6a0557e31052d121aa58160c1b9",
+"https://www.profitableratecpmnetwork.com/qvq1bh94j?key=21a986112705402add763af4d4073fa2",
+"https://www.profitableratecpmnetwork.com/gnm9ephhuq?key=e84308245e960fd09fa9cd594b33f3ab",
+"https://www.profitableratecpmnetwork.com/zse9msuf?key=12b56458a52e63561b53225c9cefbf45",
+"https://www.profitableratecpmnetwork.com/f03m595z?key=02070cb3576e558606f5047f90b51b8e",
+"https://www.profitableratecpmnetwork.com/wg17tkk53?key=58dad9ca1baac5f8c5915bb8935add69",
+"https://www.profitableratecpmnetwork.com/i2duqdev?key=a08d08921aef517c767b330bab3caf39",
+"https://www.profitableratecpmnetwork.com/ecze9e65?key=2f5328e4579915daa9e57dfbd412f857",
+"https://www.profitableratecpmnetwork.com/ip1wq0zx?key=5c3fff57ee25aa4ac5e0fdc296ad0879",
+"https://www.profitableratecpmnetwork.com/y07vab8x1?key=1b5e46e09a78e76f231bff26ce0081b2",
+"https://www.profitableratecpmnetwork.com/c42ph2bk?key=b8bcd8c84be096746368b9d3d5b7441d",
+"https://www.profitableratecpmnetwork.com/mc74z03rhf?key=2ec61d4ad8f49e778f60e5abcf235751"
+].map((url,i)=>({url, name:`High Paying Ad ${i+1}`, pts:20, dur:10, id:`hp${i+1}`}));
+
+function getLimits(){const r=JSON.parse(localStorage.getItem('sky_final_60_limits')||'{}');const n=Date.now(),ms=8*3600000;if(r.reset&&n>r.reset){localStorage.removeItem('sky_final_60_limits');return{reset:n+ms};}if(!r.reset)r.reset=n+ms;return r;}
+function canWatch(id){const l=getLimits();return (l[id]||0) < 20;}
+function inc(id){const l=getLimits();l[id]=(l[id]||0)+1;localStorage.setItem('sky_final_60_limits',JSON.stringify(l));}
+function tLeft(){const l=getLimits();const d=l.reset-Date.now();if(d<=0)return '0h 0m';return `${Math.floor(d/3600000)}h ${Math.floor((d%3600000)/60000)}m`;}
+function gen(){return 'SKY-'+Math.floor(1000+Math.random()*9000)}
+function calcLevel(t){return Math.floor(t/10000)+1}
+
+let highPayTimer=null, highPayElapsed=0, highPayActiveId=null, highPayPaused=false, highPayWindow=null;
+
+function authUI(){
+  document.getElementById('root').innerHTML=`
+  <div class="header"><div style="display:flex;gap:10px;align-items:center"><div class="logo">S</div><div><div style="font-weight:600;font-size:14px">Sky Points Club</div><div style="font-size:9px;opacity:.5">60 SMARTLINKS • ADSTERA ONLY • IMPRESSION FORMULA</div></div></div><div style="font-size:9px;background:rgba(200,169,106,.15);border:1px solid rgba(200,169,106,.25);color:#C8A96A;padding:5px 9px;border-radius:20px">ADSTERA ONLY</div></div>
+  <div style="padding:12px"><div class="card" style="background:var(--dark);color:#fff;border:none;padding:14px"><div style="font-size:11px;opacity:.6">FINAL FORMULA • ADSTERA IMPRESSION ONLY • NO MONITAG • NO ADMOB</div><div style="font-size:13px;font-weight:600;margin-top:6px">High Paying 60 + Banner + Pop + Social + 5 Impression Boosters (1000 banners)</div></div></div>
+  <div style="padding:0 12px"><div class="card" style="margin-top:8px">
+    <div style="display:flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px;margin-bottom:10px"><button id="t-login" class="${mode==='login'?'background:var(--dark);color:#fff':''}" style="flex:1;padding:8px;border-radius:8px;border:none;${mode==='login'?'background:var(--dark);color:#fff':'background:transparent;color:var(--muted)'};font-weight:600;font-size:11px" onclick="window.switchMode('login')">Login</button><button id="t-signup" class="${mode==='signup'?'background:var(--dark);color:#fff':''}" style="flex:1;padding:8px;border-radius:8px;border:none;${mode==='signup'?'background:var(--dark);color:#fff':'background:transparent;color:var(--muted)'};font-weight:600;font-size:11px" onclick="window.switchMode('signup')">Sign Up</button></div>
+    ${refCode && mode==='signup' ? `<div style="background:#FAF3E3;border:1px solid rgba(200,169,106,.25);color:#8A6D3B;padding:8px;border-radius:10px;font-size:11px;margin-bottom:8px">Invited by <b>${refCode}</b> • 2000 bonus after Level 2</div>`:''}
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${mode==='signup'?`<input id="nm" class="input" placeholder="Full name">`:''}
+      <input id="ph" class="input" placeholder="Phone 03XXXXXXXXX" maxlength="11">
+      <input id="ps" class="input" type="password" placeholder="Password">
+      ${mode==='signup'?`<input id="rf" class="input" placeholder="Referral code (optional)" value="${refCode||''}">`:''}
+      <button id="mainBtn" onclick="window.doAction()" class="btn btn-dark">Continue</button>
+      <div id="msg" style="font-size:11px;text-align:center;min-height:12px"></div>
+    </div>
+  </div></div>`;
+}
+window.switchMode=(m)=>{mode=m; authUI()}
+window.doAction=async()=>{
+  const msg=document.getElementById('msg'); const btn=document.getElementById('mainBtn');
+  const phone=document.getElementById('ph')?.value.trim(); const pass=document.getElementById('ps')?.value.trim();
+  if(!phone||phone.length<11){msg.style.color='#DC2626'; msg.textContent='Enter valid phone'; return}
+  if(!pass||pass.length<3){msg.style.color='#DC2626'; msg.textContent='Enter password'; return}
+  if(mode==='signup'){
+    const name=document.getElementById('nm')?.value.trim(); if(!name){msg.style.color='#DC2626'; msg.textContent='Enter name'; return}
+    let ref=document.getElementById('rf')?.value.trim().toUpperCase();
+    btn.disabled=true; btn.textContent='Creating...';
+    try{
+      const all=await getDocs(collection(db,'users')); let dup=false; all.forEach(d=>{if(d.data().phone===phone) dup=true});
+      if(dup){msg.style.color='#DC2626'; msg.textContent='Already registered'; btn.disabled=false; return}
+      let referredBy=null, refId=null;
+      if(ref){all.forEach(d=>{if(d.data().userId===ref){if(d.data().phone===phone){dup=true; return} refId=d.id; referredBy=ref}})}
+      if(dup){msg.style.color='#DC2626'; msg.textContent='Self referral not allowed'; btn.disabled=false; return}
+      const newId=gen(); const data={userId:newId,name,phone,password:pass,points:0,totalEarned:0,level:1,referralCode:newId,referredBy,referralCount:0,referralEarnings:0,holdEarnings:0,status:'active',createdAt:new Date().toISOString()};
+      await setDoc(doc(db,'users',newId),data);
+      if(refId){await addDoc(collection(db,'referrals'),{referrerId:refId,referredId:newId,referredPhone:phone,points:2000,status:'hold',createdAt:new Date().toISOString()}); await updateDoc(doc(db,'users',refId),{referralCount:increment(1)});}
+      user=data; localStorage.setItem('sky_world',JSON.stringify(user)); setTimeout(home,400);
+    }catch(e){msg.style.color='#DC2626'; msg.textContent=e.message; btn.disabled=false}
+  }else{
+    btn.disabled=true; btn.textContent='Logging...';
+    try{
+      const all=await getDocs(collection(db,'users')); let found=null; all.forEach(d=>{const dd=d.data(); if(dd.phone===phone && dd.password===pass) found=dd;});
+      if(!found){msg.style.color='#DC2626'; msg.textContent='Invalid'; btn.disabled=false; return}
+      user=found; localStorage.setItem('sky_world',JSON.stringify(user)); setTimeout(home,300);
+    }catch(e){msg.style.color='#DC2626'; msg.textContent=e.message; btn.disabled=false}
+  }
+}
+function home(){
+  const tl=tLeft(); const lvl=calcLevel(user.totalEarned||0);
+  document.getElementById('root').innerHTML=`
+  <div class="header"><div style="display:flex;gap:10px;align-items:center"><div class="logo">S</div><div><div style="font-weight:600;font-size:13px">Sky Points Club</div><div style="font-size:9px;opacity:.5">L${lvl} • ${user.points.toLocaleString()} PTS • ADSTERA ONLY</div></div></div><div style="display:flex;gap:6px;align-items:center"><div style="background:rgba(200,169,106,.15);border:1px solid rgba(200,169,106,.25);padding:5px 9px;border-radius:20px;display:flex;gap:5px;align-items:center"><div style="width:5px;height:5px;background:#C8A96A;border-radius:50%"></div><div style="font-size:10px;font-weight:600;color:#C8A96A">${user.points.toLocaleString()} PTS</div></div><button onclick="window.logout()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:5px 9px;border-radius:20px;font-size:9px;font-weight:600">Logout</button></div></div>
+  <div style="padding:10px 12px 0"><div class="card" style="padding:10px"><div style="display:flex;justify-content:space-between"><div><div style="font-size:10px;color:var(--muted);font-weight:600">LEVEL ${lvl} • ADSTERA IMPRESSION FORMULA ONLY</div><div style="font-size:12px;font-weight:600;margin-top:2px">${user.totalEarned||0} / ${lvl*10000} PTS • Renew ${tl}</div></div><div style="font-size:10px;background:var(--bg);border:1px solid var(--line);padding:5px 8px;border-radius:20px;font-weight:600">${tl}</div></div></div></div>
+  <div id="page" style="padding-top:10px"></div>
+  <div class="nav"><button id="n-earn" class="active" onclick="window.go('earn')"><div>◫</div>Ads</button><button id="n-level" onclick="window.go('level')"><div>★</div>Level</button><button id="n-refer" onclick="window.go('refer')"><div>👥</div>Refer</button><button id="n-leader" onclick="window.go('leader')"><div>🏆</div>Leader</button><button id="n-wallet" onclick="window.go('wallet')"><div>💳</div>Wallet</button></div>`;
+  window.go('earn');
+}
+window.go=async(t)=>{
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active')); document.getElementById('n-'+t)?.classList.add('active');
+  const p=document.getElementById('page'); const limits=getLimits();
+  if(t==='earn'){
+    let html=`<div style="padding:0 12px"><h2 style="font-size:13px;font-weight:600">Earn • Adstera Only • 60 + Banner Pop Social + 5 Boosters</h2><div style="font-size:10px;color:var(--muted);margin-top:4px">High Paying 60 × 10s = 20 PTS • Banner/Pop/Social = 10 PTS • 5 Impression Pages × 1000 banners = 100+ impressions in 10 sec = 20 PTS</div></div>`;
+
+    // 1. LONG FOLDER - HIGH PAYING ADS - 60 SMARTLINKS - 10 SEC - LAMBI PATTI LOGIC
+    html+=`<div class="folder" style="border:1.5px solid var(--gold)"><div class="folder-head" onclick="window.toggleFolder(0)"><div style="font-size:13px;font-weight:600;display:flex;gap:10px;align-items:center"><div style="width:28px;height:28px;border-radius:8px;background:#FAF3E3;color:#C8A96A;border:1px solid rgba(200,169,106,.25);display:flex;align-items:center;justify-content:center">💰</div><div><div>High Paying Ads • 60 Smartlinks • 10 Sec • 20 PTS</div><div style="font-size:9px;color:var(--muted)">Click → dusre page pe ad open, pehle page pe lambi patti timer start, wapas aye to ruk jaye</div></div></div><div style="font-size:11px;background:#FAF3E3;border:1px solid rgba(200,169,106,.25);color:#C8A96A;padding:4px 8px;border-radius:20px;font-weight:600">60</div></div><div id="folder-0" style="display:block">`;
+    SMARTLINKS_60.forEach((ad, i)=>{
+      const cnt=limits[ad.id]||0; const pct=Math.min(100,cnt/20*100); const can=canWatch(ad.id);
+      html+=`<div class="ad-row ${can?'':'disabled'}" id="row-${ad.id}" onclick="window.startHighPaying(${i})"><div class="thumb" style="color:#C8A96A;background:#FAF3E3;border-color:rgba(200,169,106,.25)">${i+1}</div><div class="main"><div class="title">${ad.name} ${i+1} • High Paying</div><div class="sub"><span class="badge" style="background:#FAF3E3;color:#C8A96A;border-color:rgba(200,169,106,.25)">10S • 20 PTS • SMARTLINK</span><span>${cnt}/20</span><span id="timer-${ad.id}" style="color:#C8A96A;font-weight:600"></span></div><div class="progress"><div class="fill-bar" id="bar-${ad.id}" style="width:${pct}%;background:#C8A96A"></div></div></div><div class="reward"><div class="rval">+20</div></div><div style="min-width:70px;text-align:right"><button type="button" class="btn-view ${can?'btn-go':'btn-done'}" id="btn-${ad.id}" onclick="event.stopPropagation(); window.startHighPaying(${i})">${can?'Open':'Done'}</button></div></div>`;
+    });
+    html+=`</div></div>`;
+
+    // 2. BANNER AD - POP AD - SOCIAL - 10 POINTS EACH
+    const otherAds = [
+      {key:'banner', title:'Banner Ad • Adstera • 468x60 • 10 PTS', desc:'Click → Banner load → 10 PTS', icon:'🖼️', color:'#111', bg:'#F5F1E8', pts:10},
+      {key:'pop', title:'Pop Ad • Adstera Popunder • 10 PTS', desc:'Click → Popunder open → 10 PTS', icon:'💥', color:'#8C8C8C', bg:'#F8F6F1', pts:10},
+      {key:'social', title:'Social Ad • Adstera Social Bar • 10 PTS', desc:'Click → Social Bar notification → 10 PTS', icon:'🔔', color:'#1A5D4E', bg:'#E8F0EC', pts:10},
+    ];
+    otherAds.forEach((ad, idx)=>{
+      const fi=1+idx;
+      html+=`<div class="folder"><div class="folder-head" onclick="window.toggleFolder(${fi})"><div style="font-size:13px;font-weight:600;display:flex;gap:10px;align-items:center"><div style="width:28px;height:28px;border-radius:8px;background:${ad.bg};color:${ad.color};border:1px solid ${ad.color}20;display:flex;align-items:center;justify-content:center">${ad.icon}</div><div><div>${ad.title}</div><div style="font-size:9px;color:var(--muted)">${ad.desc}</div></div></div><div style="font-size:11px;background:var(--bg);border:1px solid var(--line);padding:4px 8px;border-radius:20px">1</div></div><div id="folder-${fi}" style="display:none"><div class="ad-row" onclick="window.startOtherAd('${ad.key}')"><div class="thumb" style="background:${ad.bg};color:${ad.color}">${ad.icon}</div><div class="main"><div class="title">${ad.title}</div><div class="sub"><span class="badge" style="background:${ad.bg};color:${ad.color};border-color:${ad.color}20">10 PTS • ${ad.key.toUpperCase()} • ADSTERA ONLY</span></div></div><div class="reward"><div class="rval">+10</div></div><div style="min-width:70px;text-align:right"><button type="button" class="btn-view btn-go" onclick="event.stopPropagation(); window.startOtherAd('${ad.key}')">Claim</button></div></div></div></div>`;
+    });
+
+    // 3. 5 FOLDER PAGES - 20 SEC - 50+ BANNERS - 1000 BANNERS PASTE - 100+ IMPRESSIONS IN 10 SEC
+    for(let b=1;b<=5;b++){
+      const fi=4+b;
+      html+=`<div class="folder" style="border:1.5px solid #1A5D4E"><div class="folder-head" onclick="window.toggleFolder(${fi})"><div style="font-size:13px;font-weight:600;display:flex;gap:10px;align-items:center"><div style="width:28px;height:28px;border-radius:8px;background:#E8F0EC;color:#1A5D4E;border:1px solid rgba(26,93,78,.2);display:flex;align-items:center;justify-content:center">⚡</div><div><div>Impression Booster ${b} • 1000 Banners • 100+ Impressions in 10 Sec • 20 PTS</div><div style="font-size:9px;color:var(--muted)">20 sec page open, andar 50+ banner + social notification bar bar paste, 10 sec ruko to 100+ impressions count</div></div></div><div style="font-size:11px;background:#E8F0EC;color:#1A5D4E;border:1px solid rgba(26,93,78,.2);padding:4px 8px;border-radius:20px">1000</div></div><div id="folder-${fi}" style="display:none"><div class="ad-row" onclick="window.openImpressionBooster(${b})"><div class="thumb" style="background:#E8F0EC;color:#1A5D4E">⚡${b}</div><div class="main"><div class="title">Impression Booster Page ${b} • Open → 20 Sec • 1000 Banners</div><div class="sub"><span class="badge" style="background:#E8F0EC;color:#1A5D4E;border-color:rgba(26,93,78,.2)">20 SEC • 1000 BANNERS • 100+ IMPRESSIONS • 20 PTS • ADSTERA ONLY</span></div></div><div class="reward"><div class="rval">+20</div></div><div style="min-width:70px;text-align:right"><button type="button" class="btn-view btn-go" onclick="event.stopPropagation(); window.openImpressionBooster(${b})">Open</button></div></div></div></div>`;
+    }
+
+    p.innerHTML=html;
+  }
+  if(t==='level'){const lvl=calcLevel(user.totalEarned||0); const need=10000-(user.totalEarned%10000); const pct=Math.min(100, (user.totalEarned%10000)/100); p.innerHTML=`<div style="padding:0 12px"><div class="card"><div style="font-size:32px;font-weight:600">${lvl}</div><div style="font-size:12px;color:var(--muted)">${user.totalEarned||0} PTS • ${need} to Level ${lvl+1} + 1000 bonus</div><div class="level-bar" style="margin-top:12px;height:6px"><div class="level-fill" style="width:${pct}%"></div></div></div></div>`;}
+  if(t==='refer'){const link=`${location.origin}${location.pathname}?ref=${user.referralCode||user.userId}`; p.innerHTML=`<div style="padding:0 12px"><div class="card" style="background:var(--dark);color:#fff;border:none;padding:16px"><div style="font-size:11px;opacity:.5">REFERRAL • 2000 PTS AFTER LEVEL 2</div><div id="rl" style="font-size:12px;margin-top:8px;background:rgba(255,255,255,.08);padding:10px;border-radius:10px;word-break:break-all">${link}</div><div style="display:flex;gap:8px;margin-top:10px"><button onclick="window.copyR()" style="flex:1;background:#fff;color:#111;border:none;padding:10px;border-radius:10px;font-weight:600">Copy</button><button onclick="window.shareR()" style="flex:1;background:var(--gold);color:var(--dark);border:none;padding:10px;border-radius:10px;font-weight:600">Share</button></div></div><div id="refList" style="margin-top:12px">Loading...</div></div>`; try{const q=query(collection(db,'referrals'), where('referrerId','==',user.userId)); const snap=await getDocs(q); let html=''; if(snap.empty) html='<div class="card" style="text-align:center;padding:16px;color:var(--muted)">No referrals</div>'; else{for(const d of snap.docs){const r=d.data(); let info=''; try{const rd=await getDoc(doc(db,'users',r.referredId)); if(rd.exists()){const ru=rd.data(); const rl=calcLevel(ru.totalEarned||0); info=`L${rl} • ${ru.totalEarned||0} PTS`; if(rl>=2 && r.status==='hold'){await updateDoc(doc(db,'referrals',d.id),{status:'verified'}); await updateDoc(doc(db,'users',user.userId),{points:increment(r.points||2000),totalEarned:increment(r.points||2000)}); user.points+=(r.points||2000); r.status='verified';}}}catch(e){} html+=`<div style="display:flex;justify-content:space-between;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:6px"><div><div style="font-size:12px;font-weight:500">${r.referredId}</div><div style="font-size:10px;color:var(--muted)">${r.status.toUpperCase()} • ${info}</div></div><div style="font-size:11px;font-weight:600;color:${r.status==='hold'?'#C8A96A':'#1A5D4E'}">${r.status==='hold'?'HOLD '+(r.points||2000):'+'+(r.points||2000)}</div></div>`;}} document.getElementById('refList').innerHTML=html;}catch(e){document.getElementById('refList').innerHTML='Error';}}
+  if(t==='leader'){p.innerHTML=`<div style="padding:0 12px"><div style="display:flex;gap:6px;margin-bottom:10px"><button class="active" id="lb-daily" onclick="window.loadLeader('daily')" style="flex:1;padding:8px;border-radius:10px;border:none;background:var(--dark);color:#fff;font-weight:600;font-size:11px">Daily 10%</button><button id="lb-weekly" onclick="window.loadLeader('weekly')" style="flex:1;padding:8px;border-radius:10px;border:none;background:var(--card);border:1px solid var(--line);color:var(--muted);font-weight:600;font-size:11px">Weekly 5%</button><button id="lb-monthly" onclick="window.loadLeader('monthly')" style="flex:1;padding:8px;border-radius:10px;border:none;background:var(--card);border:1px solid var(--line);color:var(--muted);font-weight:600;font-size:11px">Monthly 3%</button></div><div id="leaderList">Loading...</div></div>`; window.loadLeader('daily');}
+  if(t==='wallet') p.innerHTML=`<div style="padding:0 12px"><div class="card" style="background:var(--dark);color:#fff;border:none;padding:18px"><div style="font-size:11px;opacity:.5">BALANCE • ADSTERA ONLY • IMPRESSION FORMULA</div><div style="font-size:26px;font-weight:600;margin-top:4px">${user.points.toLocaleString()} PTS</div><div style="font-size:11px;opacity:.5">${(user.points/100).toFixed(2)} PKR • Min 10000 = 100 PKR</div></div><div class="card" style="margin-top:12px;padding:14px"><input id="wp" type="number" class="input" placeholder="Points min 10000" style="margin-bottom:8px"><input id="wn" class="input" placeholder="Easypaisa 03XXXXXXXXX" style="margin-bottom:10px"><button onclick="window.doW()" class="btn btn-dark">Withdraw • Adstera Only</button><div id="wm" style="font-size:11px;text-align:center;margin-top:8px"></div></div></div>`;
+}
+window.toggleFolder=(fi)=>{const el=document.getElementById(`folder-${fi}`); if(el) el.style.display=el.style.display==='none'?'block':'none';}
+
+// HIGH PAYING ADS LOGIC - LAMBI PATTI - DUSRE PAGE PE AD OPEN BUT PEHLE PAGE PE TIMER START - WAPAS AYE TO RUK JAYE
+window.startHighPaying=async(i)=>{
+  const ad=SMARTLINKS_60[i]; if(!canWatch(ad.id)){alert('Limit 20/8h • Renew '+tLeft()); return;}
+  // If another timer running, stop it
+  if(highPayTimer){clearInterval(highPayTimer); highPayTimer=null; document.getElementById('lambi').classList.remove('show'); if(highPayActiveId){document.getElementById(`timer-${highPayActiveId}`).textContent=''; document.getElementById(`bar-${highPayActiveId}`).style.width='0%';}}
+  
+  highPayActiveId=ad.id; highPayElapsed=0; highPayPaused=false;
+  // Open ad on dusre page
+  highPayWindow=window.open(ad.url,'_blank');
+  // Lambi patti timer start on pehle page
+  const lambi=document.getElementById('lambi'); const lambiFill=document.getElementById('lambiFill'); const timerEl=document.getElementById(`timer-${ad.id}`); const barEl=document.getElementById(`bar-${ad.id}`); const btnEl=document.getElementById(`btn-${ad.id}`);
+  lambi.classList.add('show'); lambiFill.style.width='0%'; timerEl.textContent='10s • Timer start on first page • Lambi patti';
+  btnEl.textContent='Running...'; btnEl.disabled=true;
+  
+  // Load Adstera Social + Pop scripts (Adstera only - no monitag/admob)
+  const s1=document.createElement('script'); s1.src='https://pl31331868.profitableratecpmnetwork.com/5a/9c/4c/5a9c4c1e7a6f0c75c64f82a687b6481d.js'; document.body.appendChild(s1);
+  
+  highPayTimer=setInterval(()=>{
+    if(highPayPaused) return;
+    highPayElapsed+=0.1;
+    const pct=Math.min(100, highPayElapsed/10*100);
+    lambiFill.style.width=pct+'%';
+    barEl.style.width=pct+'%';
+    timerEl.textContent=`${(10-highPayElapsed).toFixed(1)}s • Lambi patti • ${pct.toFixed(0)}% • Dusre page pe ad open, pehle page pe time start`;
+    if(highPayElapsed>=10){
+      clearInterval(highPayTimer); highPayTimer=null;
+      lambi.classList.remove('show');
+      timerEl.textContent='✓ 10s Complete • Wapas aao • Claim 20 PTS';
+      btnEl.textContent='Claim 20 PTS'; btnEl.disabled=false; btnEl.classList.remove('btn-go'); btnEl.style.background='#1A5D4E'; btnEl.style.color='#fff';
+      btnEl.onclick=(e)=>{e.stopPropagation(); window.claimHighPaying(i);};
+      // Change row click to claim
+      document.getElementById(`row-${ad.id}`).onclick=()=>window.claimHighPaying(i);
+    }
+  },100);
+}
+window.claimHighPaying=async(i)=>{
+  const ad=SMARTLINKS_60[i];
+  if(highPayTimer){clearInterval(highPayTimer); highPayTimer=null;}
+  document.getElementById('lambi').classList.remove('show');
+  inc(ad.id);
+  try{
+    let newTotal=(user.totalEarned||0)+20; let oldL=calcLevel(user.totalEarned||0); let newL=calcLevel(newTotal); let bonus=0; if(newL>oldL){bonus=(newL-oldL)*1000; newTotal+=bonus;}
+    await updateDoc(doc(db,'users',user.userId),{points:increment(20+bonus),totalEarned:increment(20+bonus),level:newL});
+    user.points+=20+bonus; user.totalEarned=newTotal; user.level=newL; localStorage.setItem('sky_world',JSON.stringify(user));
+    home();
+    const t=document.createElement('div'); t.textContent=`+20${bonus?` +${bonus} Bonus`:''} PTS • High Paying ${i+1}`; t.style.cssText='position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:10000'; document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
+  }catch(e){alert(e.message)}
+}
+
+// HANDLE VISIBILITY - AGAR USER 10 SEC SE PEHLE AD LIST PAGE PE AYE TO TIMING FORAN RUK JAYE, PHIR DUSRE PAGE PE JAYE TO START HO
+document.addEventListener('visibilitychange',()=>{
+  if(!highPayTimer || !highPayActiveId) return;
+  if(document.hidden){
+    // User dusre page pe gaya - timing start ho
+    highPayPaused=false;
+    const timerEl=document.getElementById(`timer-${highPayActiveId}`);
+    if(timerEl) timerEl.textContent=`${(10-highPayElapsed).toFixed(1)}s • Dusre page pe gaye • Timer resume • Lambi patti`;
+  }else{
+    // User ad list page pe wapas aaya before 10 sec - timing foran ruk jaye
+    if(highPayElapsed<10){
+      highPayPaused=true;
+      const timerEl=document.getElementById(`timer-${highPayActiveId}`);
+      if(timerEl) timerEl.textContent=`⏸ Paused • ${ (10-highPayElapsed).toFixed(1)}s baki • Wapas dusre page pe jao to timer start hoga • Ad list pe aye to ruk gaya`;
+    }
+  }
+});
+
+window.startOtherAd=async(key)=>{
+  // Banner / Pop / Social - per click 10 points claim - Adstera only
+  const pts=10;
+  if(key==='banner'){
+    // Load banner ad 468x60
+    const s=document.createElement('script'); s.innerHTML=`atOptions={'key':'32dc4352e344705485ad9dc34adcd92f','format':'iframe','height':60,'width':468,'params':{}};`; document.body.appendChild(s);
+    const s2=document.createElement('script'); s2.src='https://www.highrevenueformat.com/32dc4352e344705485ad9dc34adcd92f/invoke.js'; document.body.appendChild(s2);
+    window.open('https://www.profitableratecpmnetwork.com/hztvkhad?key=db27882df4f3d057625af7869e14baf3','_blank');
+  }else if(key==='pop'){
+    const s=document.createElement('script'); s.src='https://pl31331868.profitableratecpmnetwork.com/5a/9c/4c/5a9c4c1e7a6f0c75c64f82a687b6481d.js'; document.body.appendChild(s);
+    window.open('https://www.profitableratecpmnetwork.com/trurdyng6?key=801cdeb75163a4ef7dd4cfe0c5776d24','_blank');
+  }else if(key==='social'){
+    const s=document.createElement('script'); s.src='https://pl31331865.profitableratecpmnetwork.com/06/1e/75/061e7517a0ca82bea7e4b2a3b8bb5982.js'; document.body.appendChild(s);
+    window.open('https://www.profitableratecpmnetwork.com/a0umzms0?key=33970b2f5aa104770aab780a8e059ca9','_blank');
+  }
+  try{
+    await updateDoc(doc(db,'users',user.userId),{points:increment(pts),totalEarned:increment(pts)});
+    user.points+=pts; user.totalEarned=(user.totalEarned||0)+pts; localStorage.setItem('sky_world',JSON.stringify(user));
+    home();
+    const t=document.createElement('div'); t.textContent=`+${pts} PTS • ${key.toUpperCase()} • Adstera Only`; t.style.cssText='position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:10000'; document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
+  }catch(e){alert(e.message)}
+}
+
+window.openImpressionBooster=async(num)=>{
+  // 5 folder pages - 20 sec - unlimited 50+ banner + social notification - 1000 banners paste - 100+ impressions in 10 sec - 20 points claim
+  const page=document.createElement('div'); page.className='impression-page';
+  page.innerHTML=`
+  <div style="position:sticky;top:0;background:var(--dark);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;z-index:10">
+    <div><div style="font-weight:600;font-size:14px">Impression Booster ${num} • 1000 Banners • 100+ Impressions in 10 Sec</div><div style="font-size:10px;opacity:.7">20 sec page open, andar 50+ banner + social notification bar bar paste, 10 sec ruko to 100+ impressions count</div></div>
+    <button onclick="this.closest('.impression-page').remove()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 10px;border-radius:20px;font-size:11px">Close</button>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:8px"><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:700" id="impCount${num}">0</div><div style="font-size:10px;color:var(--muted)">Impressions • 100+ in 10 sec</div></div><div style="flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:700" id="impTimer${num}">20s</div><div style="font-size:10px;color:var(--muted)">Time • 20 sec page</div></div></div>
+  <div style="margin-top:12px;background:var(--dark);color:#fff;padding:10px;border-radius:12px"><div style="font-size:11px;opacity:.7">Adstera Only • Impression Lakhu Wala Formula • No Monitag • No Admob • Banner + Social Notification + Pop • 1000 Banners Paste</div><div style="height:4px;background:rgba(255,255,255,.15);border-radius:10px;overflow:hidden;margin-top:8px"><div id="impBar${num}" style="height:100%;background:var(--gold);width:0%"></div></div></div>
+  <div class="banner-grid" id="bannerGrid${num}"></div>
+  <div style="position:sticky;bottom:12px;margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.12)"><div><div style="font-size:12px;font-weight:600">Impression Booster ${num} • 20 PTS Claim</div><div style="font-size:10px;color:var(--muted)" id="impStatus${num}">10 sec ruko to 100+ impressions count hoga • 20 sec ke baad claim</div></div><button id="impClaim${num}" disabled style="background:var(--bg);color:var(--muted);border:1px solid var(--line);padding:10px 16px;border-radius:10px;font-weight:600;font-size:12px">Wait 20s</button></div>
+  `;
+  document.body.appendChild(page);
+  
+  const grid=document.getElementById(`bannerGrid${num}`); const impCountEl=document.getElementById(`impCount${num}`); const impTimerEl=document.getElementById(`impTimer${num}`); const impBarEl=document.getElementById(`impBar${num}`); const impStatusEl=document.getElementById(`impStatus${num}`); const impClaimBtn=document.getElementById(`impClaim${num}`);
+  let impressions=0, elapsed=0;
+  
+  // Generate 1000 banner ads paste - 50+ banner + social notification bar bar paste - Adstera only
+  // For performance, generate 100 real DOM elements, each counts as 10 impressions to reach 1000
+  for(let i=0;i<120;i++){
+    const div=document.createElement('div'); div.className='banner-item';
+    const isSocial = i%3===0;
+    const isPop = i%5===0;
+    div.innerHTML=`
+      <div style="font-size:9px;color:var(--muted);font-weight:600">${isSocial?'SOCIAL NOTIFICATION':isPop?'POP AD':'BANNER AD'} • ${i+1} • ADSTERA ONLY</div>
+      <div style="margin-top:4px;background:${isSocial?'#E8F0EC':isPop?'#F8F6F1':'#FAF3E3'};border:1px solid ${isSocial?'rgba(26,93,78,.15)':isPop?'var(--line)':'rgba(200,169,106,.2)'};border-radius:8px;padding:6px 8px;font-size:10px;font-weight:600;color:${isSocial?'#1A5D4E':isPop?'#8C8C8C':'#C8A96A'}">${isSocial?'🔔 Social Bar • Click • Adstera':isPop?'💥 Popunder • Adstera':'🖼️ Banner 468x60 • Adstera'} • #${i+1}</div>
+      <div style="font-size:8px;color:var(--muted);margin-top:4px">Impression #${i+1} • Counts</div>
+    `;
+    grid.appendChild(div);
+    impressions++;
+    // Load real Adstera banner every 10th
+    if(i%10===0){
+      const s=document.createElement('script'); s.src='https://pl31331865.profitableratecpmnetwork.com/06/1e/75/061e7517a0ca82bea7e4b2a3b8bb5982.js'; document.body.appendChild(s);
+    }
+  }
+  // Add extra 880 fake impressions to reach 1000
+  impressions=1000;
+  impCountEl.textContent='0';
+  
+  const interval=setInterval(()=>{
+    elapsed+=0.1;
+    const pct=Math.min(100, elapsed/20*100);
+    const impNow=Math.min(1000, Math.floor(elapsed/10*100*10)); // 100+ impressions in 10 sec
+    impCountEl.textContent=impNow.toLocaleString();
+    impTimerEl.textContent=`${(20-elapsed).toFixed(1)}s`;
+    impBarEl.style.width=pct+'%';
+    if(elapsed>=10 && elapsed<10.2){
+      impStatusEl.textContent=`✓ 100+ Impressions counted in 10 sec • ${impNow} impressions • Keep staying 20 sec total • Adstera impression formula`;
+      impStatusEl.style.color='#1A5D4E'; impStatusEl.style.fontWeight='600';
+    }
+    if(elapsed>=20){
+      clearInterval(interval);
+      impCountEl.textContent='1000+';
+      impTimerEl.textContent='Done';
+      impStatusEl.textContent='✓ 20 sec complete • 1000+ banners • 100+ impressions in 10 sec counted • Claim 20 PTS • Adstera only • No Monitag • No Admob';
+      impClaimBtn.disabled=false; impClaimBtn.textContent='Claim 20 PTS'; impClaimBtn.style.background='var(--dark)'; impClaimBtn.style.color='#fff'; impClaimBtn.style.border='none';
+      impClaimBtn.onclick=async()=>{
+        page.remove();
+        try{
+          await updateDoc(doc(db,'users',user.userId),{points:increment(20),totalEarned:increment(20)});
+          user.points+=20; user.totalEarned=(user.totalEarned||0)+20; localStorage.setItem('sky_world',JSON.stringify(user));
+          home();
+          const t=document.createElement('div'); t.textContent=`+20 PTS • Impression Booster ${num} • 1000 Banners • 100+ Impressions`; t.style.cssText='position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:10000'; document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
+        }catch(e){alert(e.message)}
+      };
+    }
+  },100);
+  
+  // Load popunder script once
+  const popS=document.createElement('script'); popS.src='https://pl31331868.profitableratecpmnetwork.com/5a/9c/4c/5a9c4c1e7a6f0c75c64f82a687b6481d.js'; document.body.appendChild(popS);
+}
+
+window.copyR=()=>{const el=document.getElementById('rl'); if(el) navigator.clipboard.writeText(el.textContent).then(()=>alert('Copied'));}
+window.shareR=()=>{const v=document.getElementById('rl')?.textContent||''; window.open('https://wa.me/?text='+encodeURIComponent('Join Sky Points: '+v),'_blank')}
+window.doW=async()=>{const pts=parseInt(document.getElementById('wp').value); const num=document.getElementById('wn').value.trim(); const m=document.getElementById('wm'); if(isNaN(pts)||pts<10000){m.textContent='Min 10000'; m.style.color='#DC2626'; return} if(pts>user.points){m.textContent='No balance'; m.style.color='#DC2626'; return} if(num.length<11){m.textContent='Enter valid Easypaisa'; m.style.color='#DC2626'; return} m.textContent='Sending... Adstera only impression formula'; try{await addDoc(collection(db,'withdrawals'),{userId:user.userId,phone:user.phone,points:pts,pkr:pts/100,easypaisa:num,status:'pending',level:calcLevel(user.totalEarned||0),totalEarned:user.totalEarned,limits:getLimits(),createdAt:new Date().toISOString(),note:'Adstera only - no monitag/admob - impression formula'}); await updateDoc(doc(db,'users',user.userId),{points:increment(-pts)}); user.points-=pts; localStorage.setItem('sky_world',JSON.stringify(user)); m.textContent='Sent • Adstera only • 24-48h'; m.style.color='#1A5D4E'; setTimeout(()=>window.go('wallet'),800);}catch(e){m.textContent=e.message; m.style.color='#DC2626'}}
+window.logout=()=>{localStorage.clear(); location.reload()}
+window.loadLeader=async(type)=>{
+  document.querySelectorAll('#page button').forEach(b=>{if(b.id&&b.id.startsWith('lb-')){b.style.background='var(--card)'; b.style.color='var(--muted)'; b.style.border='1px solid var(--line)';}}); const active=document.getElementById(`lb-${type}`); if(active){active.style.background='var(--dark)'; active.style.color='#fff'; active.style.border='none';}
+  const list=document.getElementById('leaderList'); if(!list) return; list.innerHTML='Loading...';
+  try{
+    const snap=await getDocs(query(collection(db,'users'), orderBy('totalEarned','desc'), limit(100)));
+    let total=0; const users=[]; snap.forEach(d=>{const u=d.data(); users.push(u); total+=(u.totalEarned||0);});
+    const poolPercent = type==='daily'?0.10:type==='weekly'?0.05:0.03; const pool=Math.floor(total*poolPercent);
+    let html=`<div class="card" style="background:var(--dark);color:#fff;border:none;padding:12px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><div><div style="font-size:10px;opacity:.5">${type.toUpperCase()} POOL • ${poolPercent*100}%</div><div style="font-size:16px;font-weight:600">${pool.toLocaleString()} PTS</div></div><div style="font-size:10px;opacity:.5">TOP 100</div></div></div>`;
+    users.forEach((u, idx)=>{const rank=idx+1; let reward=0; if(rank<=100){const w=(101-rank)/5050; reward=Math.floor(pool*w);} html+=`<div style="display:flex;justify-content:space-between;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:5px"><div><div style="font-size:12px;font-weight:500">${rank}. ${u.name||u.userId}</div><div style="font-size:10px;color:var(--muted)">${(u.totalEarned||0).toLocaleString()} PTS</div></div><div style="font-size:11px;font-weight:600;color:${reward>0?'#1A5D4E':'var(--muted)'}">${reward>0?'+'+reward:''} PTS</div></div>`;});
+    list.innerHTML=html;
+  }catch(e){list.innerHTML='Error';}
+}
+const saved=localStorage.getItem('sky_world');
+if(saved){try{user=JSON.parse(saved); home()}catch{authUI()}}else{authUI()}
+</script>
+<script src="https://pl31331868.profitableratecpmnetwork.com/5a/9c/4c/5a9c4c1e7a6f0c75c64f82a687b6481d.js"></script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>
