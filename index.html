@@ -24,204 +24,195 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Sky Points Club - VIP Earning</title>
+<title>Sky Points Club — Green Yellow VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+:root{--bg:#0A0F0A;--card:#111A11;--card2:#162116;--line:#1E321E;--green:#22C55E;--green2:#16A34A;--yellow:#FACC15;--yellow2:#EAB308;--text:#ECF5EC;--muted:#7A9A7A}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f6f7f9;color:#111;overflow-x:hidden}
-.card{background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid #eef0f2}
-.btn{border:none;border-radius:12px;padding:14px;font-weight:700;font-size:15px;cursor:pointer;width:100%;transition:.15s}
-.btn:active{transform:scale(.98)}
-.btn-green{background:#0a7a2a;color:#fff}
-.btn-dark{background:#111;color:#fff}
-.btn-light{background:#eef7ee;color:#0a7a2a;border:1px solid #c8e6c9}
-.input{width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid #e1e4e8;font-size:15px;outline:none;background:#fff}
-.input:focus{border-color:#0a7a2a}
-.badge{display:inline-block;background:#fef3c7;color:#92400e;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eef0f2;display:flex;justify-content:space-around;padding:8px 0 12px;max-width:480px;margin:0 auto;z-index:100}
-.nav button{background:none;border:none;font-size:11px;color:#9aa0a6;cursor:pointer;padding:4px 12px;border-radius:10px}
-.nav button.active{color:#0a7a2a;background:#eef7ee}
-.header{background:#0a7a2a;color:#fff;padding:16px;position:sticky;top:0;z-index:10}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.action{padding:16px;border-radius:14px;cursor:pointer;color:#fff;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-.action small{display:block;font-weight:400;opacity:.9;margin-top:2px;font-size:12px}
-.topbar{max-width:480px;margin:0 auto}
-.wrap{max-width:480px;margin:0 auto;padding-bottom:90px;min-height:100vh}
-.vip{background:linear-gradient(135deg,#facc15 0%,#eab308 100%);color:#111}
+body{font-family:'Manrope',sans-serif;background:radial-gradient(1000px at 50% -10%,#162E16 0%,#0A0F0A 60%);color:var(--text);min-height:100vh}
+.wrap{max-width:460px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:110px}
+.hero{padding:22px 16px 0;position:relative}
+.hero-card{background:linear-gradient(135deg,#111A11 0%,#1A2E1A 100%);border:1px solid rgba(34,197,94,.2);border-radius:28px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(34,197,94,.15);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(250,204,21,.2) 0%,transparent 70%);border-radius:50%}
+.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--green),var(--yellow));display:flex;align-items:center;justify-content:center;font-family:'Syne';font-weight:800;font-size:22px;color:#0A1A0A;box-shadow:0 10px 24px rgba(34,197,94,.35)}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:var(--green);font-size:10px;font-weight:800;letter-spacing:.8px;padding:7px 12px;border-radius:100px}
+.balance{font-family:'Syne';font-size:40px;font-weight:800;letter-spacing:-1px;margin-top:14px;line-height:.9}
+.balance span{font-family:'Manrope';font-size:13px;font-weight:600;color:var(--muted)}
+.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative}
+.tabs{display:flex;background:#0F1A0F;border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px;margin-bottom:14px}
+.tabs button{flex:1;padding:12px;border-radius:10px;border:none;background:transparent;color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
+.tabs button.active{background:linear-gradient(135deg,var(--green),var(--yellow));color:#0A1A0A;box-shadow:0 6px 18px rgba(34,197,94,.3)}
+.input{width:100%;background:#0F1A0F;border:1.5px solid var(--line);color:var(--text);padding:15px;border-radius:14px;font-size:14px;font-weight:600;outline:none}
+.input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.15);background:#111F11}
+.btn{width:100%;border:none;border-radius:14px;padding:16px;font-weight:800;font-size:14px;cursor:pointer;transition:.15s}
+.btn:active{transform:scale(.97)}
+.btn-main{background:linear-gradient(135deg,var(--green),var(--yellow));color:#0A1A0A;box-shadow:0 10px 28px rgba(34,197,94,.35),0 0 0 1px rgba(250,204,21,.2) inset}
+.btn-ghost{background:#162116;border:1px solid var(--line);color:var(--text)}
+.task{background:linear-gradient(180deg,#111A11,#162116);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:.2s}
+.task:hover{border-color:rgba(34,197,94,.4);transform:translateY(-1px)}
+.task-left{display:flex;gap:12px;align-items:center}
+.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:440px;background:rgba(17,26,17,.94);border:1px solid rgba(34,197,94,.15);backdrop-filter:blur(20px);border-radius:20px;display:flex;justify-content:space-around;padding:8px;box-shadow:0 16px 50px rgba(0,0,0,.5);z-index:99}
+.nav button{background:none;border:none;color:var(--muted);font-size:10px;font-weight:800;padding:10px 10px;border-radius:12px;cursor:pointer}
+.nav button.active{background:linear-gradient(135deg,var(--green),var(--yellow));color:#0A1A0A;box-shadow:0 4px 16px rgba(34,197,94,.3)}
+.ad{background:linear-gradient(180deg,rgba(17,26,17,.8),rgba(22,33,22,.8));border:1px dashed rgba(34,197,94,.25);border-radius:14px;padding:12px;text-align:center;margin:12px 0}
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 </style>
+
+<!-- ADMOB IDS INTEGRATED -->
+<script>
+// AdMob App ID: ca-app-pub-1723730011184925~4524533479
+const ADMOB_IDS = {
+  banner: "ca-app-pub-1723730011184925/9480154716",
+  interstitial: "ca-app-pub-1723730011184925/5987632264",
+  rewardedInterstitial: "ca-app-pub-1723730011184925/5223758662",
+  rewarded: "ca-app-pub-1723730011184925/1319785637",
+  native: "ca-app-pub-1723730011184925/8272206790",
+  appOpen: "ca-app-pub-1723730011184925/9871036952"
+};
+</script>
+<!-- For WebView AdMob, we use AdSense fallback + real AdMob SDK will auto load in Android WebView -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1723730011184925" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="wrap" id="root">
-<div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column">
-<div style="width:40px;height:40px;border:3px solid #e5e7eb;border-top-color:#0a7a2a;border-radius:50%;animation:spin .8s linear infinite"></div>
-<p style="margin-top:12px;font-size:13px;color:#6b7280">Loading Sky Points...</p>
-</div>
-</div>
+<div class="wrap" id="root"><div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px"><div style="width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#22C55E,#FACC15);display:flex;align-items:center;justify-content:center;font-family:'Syne';font-weight:800;color:#0A1A0A">S</div><div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#7A9A7A">SKY • GREEN YELLOW • NO.1</div><div style="width:28px;height:28px;border:2px solid #1E321E;border-top-color:#22C55E;border-radius:50%;animation:spin .8s linear infinite"></div></div></div>
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, updateDoc, increment, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M",
-  authDomain: "aviator-781d9.firebaseapp.com",
-  projectId: "aviator-781d9",
-  storageBucket: "aviator-781d9.firebasestorage.app",
-  messagingSenderId: "151636540667",
-  appId: "1:151636540667:web:a16b6ed543fbf04368c45e"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-let user = null;
-const refParam = new URLSearchParams(location.search).get('ref');
-
+const firebaseConfig = { apiKey: "AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M", authDomain: "aviator-781d9.firebaseapp.com", projectId: "aviator-781d9", storageBucket: "aviator-781d9.firebasestorage.app", messagingSenderId: "151636540667", appId: "1:151636540667:web:a16b6ed543fbf04368c45e" };
+const fb=initializeApp(firebaseConfig); const db=getFirestore(fb);
+let user=null; let mode='login';
+const refCode=new URLSearchParams(location.search).get('ref');
 function gen(){return 'SKY-'+Math.floor(1000+Math.random()*9000)}
 
-function loginPage(isLogin=false){
+function authUI(){
   document.getElementById('root').innerHTML=`
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;background:#0a7a2a">
-    <div class="card" style="width:100%;max-width:360px;padding:24px">
-      <div style="text-align:center;margin-bottom:20px">
-        <div style="width:56px;height:56px;background:#0a7a2a;color:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;margin:0 auto 12px">S</div>
-        <h1 style="font-size:22px;font-weight:800">Sky Points Club</h1>
-        <p style="font-size:12px;color:#6b7280;margin-top:4px">Pakistan's No.1 VIP Earning App</p>
-      </div>
-      ${refParam && !isLogin ? `<div style="background:#fef3c7;border:1px solid #fde68a;padding:10px 12px;border-radius:10px;font-size:12px;margin-bottom:14px">🎉 Referral <b>${refParam}</b> applied — you get 200 PTS bonus!</div>`:''}
-      <div id="form" style="display:flex;flex-direction:column;gap:10px">
-        ${!isLogin?`<input id="name" class="input" placeholder="Full Name">`:''}
-        <input id="phone" class="input" placeholder="03XXXXXXXXX" inputmode="numeric">
-        <input id="pass" class="input" type="password" placeholder="Password (6+ chars)">
-        ${!isLogin?`<input id="ref" class="input" placeholder="Referral Code (optional)" value="${refParam||''}" style="background:#fffbeb">`:''}
-        <button onclick="${isLogin?'doLogin()':'doReg()'}" class="btn btn-green" style="margin-top:6px">${isLogin?'Login':'Create Account & Get 100 PTS'}</button>
-        <div style="text-align:center;margin-top:8px">
-          <span onclick="${isLogin?'loginPage(false)':'loginPage(true)'}" style="font-size:13px;color:#0a7a2a;font-weight:700;cursor:pointer">${isLogin?'New here? Create Account':'Already have account? Login'}</span>
-        </div>
-        <div id="err" style="font-size:12px;color:#dc2626;text-align:center;min-height:16px"></div>
-      </div>
-      <p style="font-size:10px;color:#9ca3af;text-align:center;margin-top:16px">10000 PTS = 100 PKR | Easypaisa Withdraw</p>
+  <div class="hero"><div class="hero-card fade">
+    <div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:12px;align-items:center"><div class="logo">S</div><div><div style="font-family:'Syne';font-weight:800;font-size:18px">SKY POINTS CLUB</div><div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.8px">GREEN YELLOW • WORLD CLASS • NO.1</div></div></div><span class="pill">● LIVE VIP</span></div>
+    <div style="margin-top:18px"><div style="font-family:'Syne';font-size:28px;font-weight:800;line-height:.95">Watch Ads.<br>Earn Points.<br><span style="background:linear-gradient(135deg,#22C55E,#FACC15);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Withdraw Easypaisa.</span></div><div style="font-size:12px;color:var(--muted);margin-top:10px;font-weight:600">10000 PTS = 100 PKR • Refer = 500 PTS = 5 PKR • Instant</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px"><div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--muted)">WATCH AD</div><div style="font-weight:800;font-size:12px;margin-top:2px;color:var(--green)">10-50 PTS</div></div><div style="background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.22);border-radius:12px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--muted)">REFER</div><div style="font-weight:800;font-size:12px;margin-top:2px;color:var(--yellow)">500 PTS</div></div><div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--muted)">WITHDRAW</div><div style="font-weight:800;font-size:12px;margin-top:2px">Easypaisa</div></div></div>
+  </div></div>
+  <div style="padding:0 14px"><div class="card fade" style="margin-top:14px">
+    <div class="tabs"><button id="t-login" class="${mode==='login'?'active':''}" onclick="switchMode('login')">⚡ LOGIN</button><button id="t-signup" class="${mode==='signup'?'active':''}" onclick="switchMode('signup')">🚀 SIGN UP</button></div>
+    ${refCode && mode==='signup' ? `<div style="background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(250,204,21,.08));border:1px solid rgba(250,204,21,.25);color:#FACC15;padding:11px;border-radius:12px;font-size:12px;margin-bottom:12px;font-weight:700">🎁 Invited by <b>${refCode}</b> — Get 200 PTS Bonus!</div>`:''}
+    <div style="display:flex;flex-direction:column;gap:11px">
+      ${mode==='signup'?`<input id="nm" class="input" placeholder="Full Name — Ali Khan">`:''}
+      <input id="ph" class="input" placeholder="Phone 03XXXXXXXXX" inputmode="numeric" maxlength="11">
+      <input id="ps" class="input" type="password" placeholder="Password min 4 chars">
+      ${mode==='signup'?`<input id="rf" class="input" placeholder="Referral Code (optional)" value="${refCode||''}">`:''}
+      <button id="mainBtn" onclick="doAction()" class="btn btn-main">⚡ ${mode==='login'?'FAST LOGIN — CLICK HERE':'CREATE ACCOUNT — GREEN YELLOW VIP'}</button>
+      <button onclick="doAction()" class="btn btn-ghost">👉 ${mode==='login'?'Login Now Fast Button':'Sign Up Now Fast Button'}</button>
+      <div id="msg" style="font-size:12px;text-align:center;min-height:18px;font-weight:700"></div>
+      <div style="display:flex;gap:8px"><button onclick="testDB()" style="flex:1;background:#0F1A0F;border:1px dashed #1E321E;color:var(--muted);padding:10px;border-radius:12px;font-size:11px;font-weight:700">🔍 Test DB</button><button onclick="localStorage.clear();location.reload()" style="flex:1;background:#0F1A0F;border:1px dashed #1E321E;color:var(--muted);padding:10px;border-radius:12px;font-size:11px;font-weight:700">🧹 Clear</button></div>
     </div>
+  </div>
+  <div class="ad"><div style="font-size:9px;font-weight:800;letter-spacing:1.2px;color:var(--muted)">AD • BANNER • ${ADMOB_IDS.banner}</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1723730011184925" data-ad-slot="9480154716" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
   </div>`;
 }
 
-window.doReg=async()=>{
-  const name=document.getElementById('name').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-  const pass=document.getElementById('pass').value.trim();
-  let ref=document.getElementById('ref').value.trim().toUpperCase();
-  const err=document.getElementById('err');
-  if(!name||phone.length<11||pass.length<4){err.textContent='Please fill all fields correctly';return}
-  err.textContent='Creating...';
-  try{
-    const q=query(collection(db,'users'),where('phone','==',phone));
-    const s=await getDocs(q);
-    if(!s.empty){err.textContent='This number already registered';return}
-    let bonus=100,referredBy=null,refDoc=null;
-    if(ref){
-      const rq=query(collection(db,'users'),where('userId','==',ref));
-      const rs=await getDocs(rq);
-      if(!rs.empty){refDoc=rs.docs[0];referredBy=ref;bonus=200}
-    }
-    const uid=gen();
-    const data={userId:uid,name,phone,password:pass,points:bonus,referralCode:uid,referredBy,referralCount:0,referralEarnings:0,totalEarned:bonus,status:'active',createdAt:new Date().toISOString()};
-    await setDoc(doc(db,'users',uid),data);
-    if(refDoc){
-      await updateDoc(doc(db,'users',refDoc.id),{points:increment(500),referralCount:increment(1),referralEarnings:increment(500),totalEarned:increment(500)});
-      await addDoc(collection(db,'referrals'),{referrerId:refDoc.id,referredId:uid,points:500,createdAt:new Date().toISOString()});
-    }
-    user=data;localStorage.setItem('sky_u',JSON.stringify(user));main();
-  }catch(e){err.textContent='Network error, try again'}
+window.switchMode=(m)=>{mode=m; authUI()}
+window.testDB=async()=>{
+  const msg=document.getElementById('msg'); msg.style.color='#22C55E'; msg.textContent='Testing Firebase...';
+  try{const s=await getDocs(collection(db,'users')); msg.textContent=`✅ Firebase OK! Users: ${s.size} — Login ready! AdMob IDs loaded!`;}catch(e){msg.style.color='#FF5252'; msg.textContent='❌ '+e.message}
 }
 
-window.doLogin=async()=>{
-  const phone=document.getElementById('phone').value.trim();
-  const pass=document.getElementById('pass').value.trim();
-  const err=document.getElementById('err');
-  err.textContent='Checking...';
-  try{
-    const q=query(collection(db,'users'),where('phone','==',phone),where('password','==',pass));
-    const s=await getDocs(q);
-    if(s.empty){err.textContent='Wrong phone or password';return}
-    user=s.docs[0].data();localStorage.setItem('sky_u',JSON.stringify(user));main();
-  }catch(e){err.textContent='Network error'}
+window.doAction=async()=>{
+  const msg=document.getElementById('msg'); const btn=document.getElementById('mainBtn');
+  const phone=document.getElementById('ph')?.value.trim();
+  const pass=document.getElementById('ps')?.value.trim();
+  if(!phone||phone.length<11){msg.style.color='#FF5252'; msg.textContent='❌ Enter valid phone'; return}
+  if(!pass||pass.length<3){msg.style.color='#FF5252'; msg.textContent='❌ Enter password'; return}
+  if(mode==='signup'){
+    const name=document.getElementById('nm')?.value.trim();
+    if(!name){msg.style.color='#FF5252'; msg.textContent='❌ Enter name'; return}
+    let ref=document.getElementById('rf')?.value.trim().toUpperCase();
+    btn.disabled=true; btn.textContent='⏳ Creating VIP...'; msg.style.color='#7A9A7A'; msg.textContent='Creating...';
+    try{
+      const all=await getDocs(collection(db,'users'));
+      let dup=false; all.forEach(d=>{if(d.data().phone===phone) dup=true});
+      if(dup){msg.style.color='#FF5252'; msg.textContent='❌ Already registered — Login tab'; btn.disabled=false; btn.textContent='CREATE ACCOUNT — GREEN YELLOW VIP'; return}
+      let bonus=100, referredBy=null, refId=null;
+      if(ref){all.forEach(d=>{if(d.data().userId===ref){refId=d.id; referredBy=ref; bonus=200}})}
+      const newId=gen();
+      const data={userId:newId,name,phone,password:pass,points:bonus,referralCode:newId,referredBy,referralCount:0,referralEarnings:0,totalEarned:bonus,status:'active',createdAt:new Date().toISOString()};
+      await setDoc(doc(db,'users',newId),data);
+      if(refId){await updateDoc(doc(db,'users',refId),{points:increment(500),referralCount:increment(1),referralEarnings:increment(500),totalEarned:increment(500)}); await addDoc(collection(db,'referrals'),{referrerId:refId,referredId:newId,points:500,createdAt:new Date().toISOString()})}
+      user=data; localStorage.setItem('sky_world',JSON.stringify(user)); msg.style.color='#22C55E'; msg.textContent='✅ Account Created!'; setTimeout(home,600);
+    }catch(e){msg.style.color='#FF5252'; msg.textContent='❌ '+e.message; btn.disabled=false}
+  }else{
+    btn.disabled=true; btn.textContent='⚡ Logging in...'; msg.style.color='#7A9A7A'; msg.textContent='Checking...';
+    try{
+      const all=await getDocs(collection(db,'users'));
+      if(all.empty){msg.style.color='#FF5252'; msg.textContent='❌ No accounts — Sign Up first'; btn.disabled=false; btn.textContent='⚡ FAST LOGIN — CLICK HERE'; return}
+      let found=null, phoneExists=false;
+      all.forEach(d=>{const dd=d.data(); if(dd.phone===phone) phoneExists=true; if(dd.phone===phone && dd.password===pass) found=dd;});
+      if(!found){msg.style.color='#FF5252'; msg.textContent=phoneExists?'❌ Wrong password':'❌ Number not found — Sign Up'; btn.disabled=false; btn.textContent='⚡ FAST LOGIN — CLICK HERE'; return}
+      user=found; localStorage.setItem('sky_world',JSON.stringify(user)); msg.style.color='#22C55E'; msg.textContent='✅ Welcome VIP!'; setTimeout(home,500);
+    }catch(e){msg.style.color='#FF5252'; msg.textContent='❌ '+e.message; btn.disabled=false}
+  }
 }
 
-function main(){
-  if(!user)return loginPage(false);
+function home(){
   document.getElementById('root').innerHTML=`
-  <div class="topbar">
-    <div class="header"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:11px;opacity:.85">${user.userId} • VIP • ${user.referralCount||0} refs</div><div style="font-size:20px;font-weight:800;margin-top:2px">${user.points} PTS <span style="font-size:11px;font-weight:400;opacity:.85">= ${(user.points/100).toFixed(0)} PKR</span></div></div><button onclick="logout()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:8px 14px;border-radius:20px;font-size:12px">Logout</button></div></div>
-    <div style="padding:14px"><div id="content"></div></div>
-    <div class="nav"><button id="n-earn" class="active" onclick="go('earn')">💰<br>Earn</button><button id="n-play" onclick="go('play')">🎮<br>Play</button><button id="n-refer" onclick="go('refer')">👑<br>Refer</button><button id="n-wallet" onclick="go('wallet')">💳<br>Wallet</button><button id="n-profile" onclick="go('profile')">👤<br>Me</button></div>
-  </div>`;
-  go('earn');
+  <div style="padding:16px 16px 0"><div class="hero-card"><div style="display:flex;justify-content:space-between;align-items:center"><span style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.25);color:#22C55E;padding:7px 12px;border-radius:100px;font-size:10px;font-weight:800">● LIVE • GREEN YELLOW • NO.1</span><button onclick="logout()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:8px 12px;border-radius:100px;font-size:11px;font-weight:700">Logout</button></div><div class="balance">${user.points.toLocaleString()} <span>PTS</span></div><div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><span style="background:rgba(255,255,255,.08);padding:6px 10px;border-radius:100px;font-size:11px;font-weight:700">${user.userId}</span><span style="background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(250,204,21,.15));border:1px solid rgba(34,197,94,.2);color:#22C55E;padding:6px 10px;border-radius:100px;font-size:11px;font-weight:800">${(user.points/100).toFixed(0)} PKR</span><span style="background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.25);color:#FACC15;padding:6px 10px;border-radius:100px;font-size:11px;font-weight:800">${user.referralCount||0} Referrals</span></div></div></div>
+  <div style="padding:12px 14px"><div id="page" class="fade"></div>
+    <div class="ad"><div style="font-size:9px;font-weight:800;letter-spacing:1px;color:var(--muted)">BANNER AD • ${ADMOB_IDS.banner}</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1723730011184925" data-ad-slot="9480154716" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <div class="ad" style="border-color:rgba(250,204,21,.25)"><div style="font-size:9px;font-weight:800;letter-spacing:1px;color:#FACC15">NATIVE AD • ${ADMOB_IDS.native}</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1723730011184925" data-ad-slot="8272206790" data-ad-format="auto"></ins></div>
+  </div>
+  <div class="nav"><button id="n-earn" class="active" onclick="go('earn')">WATCH ADS</button><button id="n-play" onclick="go('play')">PLAY</button><button id="n-refer" onclick="go('refer')">REFER</button><button id="n-wallet" onclick="go('wallet')">EASYPAISA</button><button id="n-me" onclick="go('me')">ME</button></div>`;
+  go('earn'); try{(adsbygoogle=window.adsbygoogle||[]).push({}); (adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
 }
 
 window.go=(t)=>{
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
-  const el=document.getElementById('n-'+t); if(el) el.classList.add('active');
-  const c=document.getElementById('content');
-  if(t=='earn'){
-    c.innerHTML=`<div style="margin-bottom:12px"><h2 style="font-size:18px;font-weight:800">Earn Points</h2><p style="font-size:12px;color:#6b7280">Fast tasks, instant points</p></div>
-    <div onclick="addPts(10)" class="action" style="background:#2563eb;margin-bottom:10px"><div><div>Small Task — 10 PTS</div><small>5 sec • Tap to earn</small></div><div>›</div></div>
-    <div onclick="addPts(30)" class="action" style="background:#7c3aed;margin-bottom:10px"><div><div>Video Task — 30 PTS</div><small>15 sec • Tap to earn</small></div><div>›</div></div>
-    <div onclick="addPts(20)" class="action" style="background:#0d9488;margin-bottom:14px"><div><div>Daily Check-in — 20 PTS</div><small>Once per day</small></div><div>›</div></div>
-    <div class="card" style="padding:14px"><div style="font-size:12px;color:#6b7280">TIP</div><div style="font-size:13px;font-weight:600;margin-top:4px">Refer 1 friend = 500 PTS = 5 PKR instant. No limit.</div></div>`;
-  }
-  if(t=='play'){
-    c.innerHTML=`<h2 style="font-size:18px;font-weight:800;margin-bottom:12px">Play & Win</h2>
-    <div class="grid2"><div onclick="addPts(50)" class="card" style="padding:16px;text-align:center;cursor:pointer"><div style="font-size:24px">🎯</div><div style="font-weight:700;margin-top:6px;font-size:13px">Color Match</div><div style="font-size:11px;color:#6b7280">+50 PTS</div></div>
-    <div onclick="addPts(50)" class="card" style="padding:16px;text-align:center;cursor:pointer"><div style="font-size:24px">🔢</div><div style="font-weight:700;margin-top:6px;font-size:13px">Number Tap</div><div style="font-size:11px;color:#6b7280">+50 PTS</div></div>
-    <div onclick="addPts(50)" class="card" style="padding:16px;text-align:center;cursor:pointer"><div style="font-size:24px">🃏</div><div style="font-weight:700;margin-top:6px;font-size:13px">Memory Card</div><div style="font-size:11px;color:#6b7280">+50 PTS</div></div>
-    <div onclick="addPts(50)" class="card" style="padding:16px;text-align:center;cursor:pointer"><div style="font-size:24px">🎡</div><div style="font-weight:700;margin-top:6px;font-size:13px">Spin Win</div><div style="font-size:11px;color:#6b7280">+50 PTS</div></div></div>`;
-  }
-  if(t=='refer'){
-    const link=`${location.origin}${location.pathname}?ref=${user.referralCode||user.userId}`;
-    c.innerHTML=`<h2 style="font-size:18px;font-weight:800">Refer VIP</h2><p style="font-size:12px;color:#6b7280;margin-bottom:12px">1 Refer = 500 PTS = 5 PKR • Lifetime</p>
-    <div class="card vip" style="padding:16px;margin-bottom:12px"><div style="font-size:11px;font-weight:800;letter-spacing:.5px">YOUR REFERRAL LINK</div><div id="rlink" style="font-size:12px;font-weight:700;margin-top:8px;word-break:break-all;background:rgba(0,0,0,.08);padding:8px;border-radius:8px">${link}</div><div style="display:flex;gap:8px;margin-top:10px"><button onclick="copyL()" class="btn btn-dark" style="padding:10px;font-size:12px">Copy Link</button><button onclick="shareL()" class="btn btn-light" style="padding:10px;font-size:12px">WhatsApp</button></div></div>
-    <div class="grid3" style="margin-bottom:12px"><div class="card" style="padding:12px;text-align:center"><div style="font-size:10px;color:#6b7280">REFERRALS</div><div style="font-weight:800;font-size:16px;margin-top:4px">${user.referralCount||0}</div></div><div class="card" style="padding:12px;text-align:center"><div style="font-size:10px;color:#6b7280">EARNED</div><div style="font-weight:800;font-size:16px;margin-top:4px">${user.referralEarnings||0}</div></div><div class="card" style="padding:12px;text-align:center"><div style="font-size:10px;color:#6b7280">PKR</div><div style="font-weight:800;font-size:16px;margin-top:4px">${((user.referralEarnings||0)/100).toFixed(0)}</div></div></div>
-    <div class="card" style="padding:14px"><div style="font-size:12px;font-weight:700">VIP Progress</div><div style="font-size:11px;color:#6b7280;margin-top:2px">Bronze 0 • Silver 10 • Gold 50 • Diamond 100+</div><div style="height:8px;background:#eef0f2;border-radius:20px;margin-top:10px;overflow:hidden"><div style="height:100%;background:#eab308;width:${Math.min(100,(user.referralCount||0))}%;border-radius:20px"></div></div></div>`;
-  }
-  if(t=='wallet'){
-    c.innerHTML=`<h2 style="font-size:18px;font-weight:800;margin-bottom:12px">Wallet</h2>
-    <div class="card" style="padding:18px;background:#0a7a2a;color:#fff;margin-bottom:12px"><div style="font-size:11px;opacity:.8">TOTAL BALANCE</div><div style="font-size:32px;font-weight:800;margin-top:4px">${user.points} <span style="font-size:14px;font-weight:400">PTS</span></div><div style="font-size:13px;opacity:.9;margin-top:2px">= ${(user.points/100).toFixed(2)} PKR • Rate: 10000 = 100 PKR</div></div>
-    <div class="card" style="padding:16px"><div style="font-size:13px;font-weight:700;margin-bottom:10px">Withdraw to Easypaisa</div><input id="wp" type="number" class="input" placeholder="Points (min 10000)" style="margin-bottom:10px"><input id="wn" class="input" placeholder="Easypaisa Number 03XXXXXXXXX" style="margin-bottom:12px"><button onclick="doWithdraw()" class="btn btn-green">Request Withdraw</button><div id="wmsg" style="font-size:12px;text-align:center;margin-top:10px;color:#0a7a2a"></div><div style="font-size:10px;color:#6b7280;margin-top:10px">Withdraws are manual, approved in 24h by admin.</div></div>`;
-  }
-  if(t=='profile'){
-    c.innerHTML=`<h2 style="font-size:18px;font-weight:800;margin-bottom:12px">My Profile</h2><div class="card" style="padding:16px"><div style="display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;background:#eef7ee;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#0a7a2a">${(user.name||'U').charAt(0)}</div><div><div style="font-weight:700">${user.name}</div><div style="font-size:12px;color:#6b7280">${user.phone} • ${user.userId}</div></div></div><div style="margin-top:14px;display:flex;flex-direction:column;gap:8px;font-size:13px"><div style="display:flex;justify-content:space-between"><span style="color:#6b7280">Referral Code</span><b>${user.referralCode||user.userId}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#6b7280">Referred By</span><b>${user.referredBy||'-'}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#6b7280">Total Earned</span><b>${user.totalEarned||user.points} PTS</b></div></div></div>`;
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active')); document.getElementById('n-'+t)?.classList.add('active');
+  const p=document.getElementById('page');
+  if(t==='earn') p.innerHTML=`
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="font-family:'Syne';font-size:18px;font-weight:800">Watch Ads Earn</h2><span style="font-size:10px;background:#0F1A0F;border:1px solid var(--line);padding:6px 10px;border-radius:100px;color:var(--muted);font-weight:800">10000 = 100 PKR</span></div>
+  <div onclick="showRewarded(10,'${ADMOB_IDS.rewarded}')" class="task" style="margin-bottom:10px;border-left:4px solid #22C55E"><div class="task-left"><div class="icon" style="background:rgba(34,197,94,.15);color:#22C55E">▶</div><div><b>Watch Ad • 10 PTS</b><div style="font-size:11px;color:var(--muted)">Rewarded • 5s • ${ADMOB_IDS.rewarded}</div></div></div><div style="background:#0F1A0F;border:1px solid var(--line);padding:8px 12px;border-radius:10px;font-weight:800;font-size:12px">WATCH</div></div>
+  <div onclick="showRewarded(30,'${ADMOB_IDS.rewardedInterstitial}')" class="task" style="margin-bottom:10px;border-left:4px solid #FACC15"><div class="task-left"><div class="icon" style="background:rgba(250,204,21,.15);color:#FACC15">🎬</div><div><b>Video Ad • 30 PTS</b><div style="font-size:11px;color:var(--muted)">Rewarded Interstitial • 15s • ${ADMOB_IDS.rewardedInterstitial}</div></div></div><div style="background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.25);color:#FACC15;padding:8px 12px;border-radius:10px;font-weight:800;font-size:12px">+30</div></div>
+  <div onclick="showRewarded(50,'${ADMOB_IDS.interstitial}')" class="task" style="margin-bottom:12px;border-left:4px solid #22C55E"><div class="task-left"><div class="icon" style="background:linear-gradient(135deg,rgba(34,197,94,.2),rgba(250,204,21,.2));color:#22C55E">🏆</div><div><b>Premium Ad • 50 PTS</b><div style="font-size:11px;color:var(--muted)">Interstitial + Reward • Best • ${ADMOB_IDS.interstitial}</div></div></div><div style="background:linear-gradient(135deg,#22C55E,#FACC15);color:#0A1A0A;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px">+50</div></div>
+  <div class="card" style="background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(250,204,21,.1));border-color:rgba(34,197,94,.2)"><div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#22C55E">💡 EARN WITH REFERRAL</div><div style="font-size:13px;font-weight:700;margin-top:6px;line-height:1.4">Watch Ads = 10-50 PTS<br>Refer Friend = 500 PTS = 5 PKR<br>Withdraw = Easypaisa • 10000 PTS = 100 PKR</div></div>`;
+  if(t==='play') p.innerHTML=`<h2 style="font-family:'Syne';font-size:18px;font-weight:800;margin-bottom:12px">Play & Win 50 PTS</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div onclick="showRewarded(50,'${ADMOB_IDS.rewarded}')" class="card" style="text-align:center;cursor:pointer;padding:18px"><div style="font-size:28px">🎯</div><div style="font-weight:800;margin-top:6px">Color Tap</div><div style="font-size:10px;color:var(--muted)">Watch Ad +50</div></div><div onclick="showRewarded(50,'${ADMOB_IDS.rewarded}')" class="card" style="text-align:center;cursor:pointer;padding:18px"><div style="font-size:28px">🔢</div><div style="font-weight:800;margin-top:6px">Number</div><div style="font-size:10px;color:var(--muted)">Watch Ad +50</div></div></div>`;
+  if(t==='refer'){const link=`${location.origin}${location.pathname}?ref=${user.referralCode||user.userId}`; p.innerHTML=`<h2 style="font-family:'Syne';font-size:18px;font-weight:800">Earn With Referral</h2><p style="font-size:12px;color:var(--muted);margin:6px 0 12px">1 Refer = 500 PTS = 5 PKR • No limit • Lifetime</p><div class="card" style="background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(250,204,21,.08));border-color:rgba(250,204,21,.25)"><div style="font-size:10px;font-weight:800;letter-spacing:1.2px;color:#FACC15">YOUR GREEN YELLOW VIP LINK</div><div id="rl" style="font-size:12px;font-weight:700;margin-top:10px;background:rgba(0,0,0,.4);padding:12px;border-radius:12px;word-break:break-all;border:1px solid rgba(250,204,21,.2)">${link}</div><div style="display:flex;gap:8px;margin-top:12px"><button onclick="copyR()" style="flex:1;background:#fff;color:#111;border:none;padding:13px;border-radius:12px;font-weight:800">Copy</button><button onclick="shareR()" style="flex:1;background:linear-gradient(135deg,#22C55E,#FACC15);color:#0A1A0A;border:none;padding:13px;border-radius:12px;font-weight:800">WhatsApp</button></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px"><div class="card" style="text-align:center;padding:14px"><div style="font-size:10px;color:var(--muted)">REFS</div><div style="font-size:20px;font-weight:800">${user.referralCount||0}</div></div><div class="card" style="text-align:center;padding:14px"><div style="font-size:10px;color:var(--muted)">EARNED</div><div style="font-size:20px;font-weight:800">${user.referralEarnings||0}</div></div><div class="card" style="text-align:center;padding:14px"><div style="font-size:10px;color:var(--muted)">PKR</div><div style="font-size:20px;font-weight:800">${((user.referralEarnings||0)/100).toFixed(0)}</div></div></div>`}
+  if(t==='wallet') p.innerHTML=`<h2 style="font-family:'Syne';font-size:18px;font-weight:800;margin-bottom:12px">Withdrawal Easypaisa</h2><div class="card" style="background:linear-gradient(135deg,#22C55E,#FACC15);color:#0A1A0A;border:none;padding:22px"><div style="font-size:10px;letter-spacing:1px;font-weight:800;opacity:.8">TOTAL BALANCE</div><div style="font-family:'Syne';font-size:34px;font-weight:800;margin-top:6px">${user.points.toLocaleString()} PTS</div><div style="font-size:12px;font-weight:700;margin-top:4px">= ${(user.points/100).toFixed(2)} PKR • Rate 10000 = 100 PKR</div></div><div class="card" style="margin-top:12px;padding:18px"><div style="font-size:13px;font-weight:800;margin-bottom:12px">Withdraw to Easypaisa • JazzCash</div><input id="wp" type="number" class="input" placeholder="Points — min 10000" style="margin-bottom:10px"><input id="wn" class="input" placeholder="Easypaisa Number 03XXXXXXXXX" style="margin-bottom:14px"><button onclick="doW()" class="btn btn-main">Request Withdrawal • Easypaisa</button><div id="wm" style="font-size:12px;text-align:center;margin-top:10px;font-weight:700"></div><div style="font-size:10px;color:var(--muted);margin-top:10px;text-align:center">Withdrawals approved in 24h • Admin: Sky Point Club</div></div>`;
+  if(t==='me') p.innerHTML=`<h2 style="font-family:'Syne';font-size:18px;font-weight:800;margin-bottom:12px">Profile VIP</h2><div class="card" style="padding:20px"><div style="display:flex;gap:14px;align-items:center"><div style="width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#22C55E,#FACC15);display:flex;align-items:center;justify-content:center;font-weight:800;color:#0A1A0A;font-size:18px">${(user.name||'U').charAt(0)}</div><div><div style="font-weight:800;font-size:16px">${user.name}</div><div style="font-size:12px;color:var(--muted)">${user.phone} • ${user.userId}</div></div></div><div style="margin-top:18px;display:flex;flex-direction:column;gap:12px;font-size:13px"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)"><span style="color:var(--muted)">Referral Code</span><b style="color:var(--yellow)">${user.referralCode||user.userId}</b></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)"><span style="color:var(--muted)">Referred By</span><b>${user.referredBy||'-'}</b></div><div style="display:flex;justify-content:space-between;padding:10px 0"><span style="color:var(--muted)">Total Earned</span><b>${user.totalEarned||user.points} PTS</b></div></div></div>`;
+}
+
+window.showRewarded=async(pts,adUnit)=>{
+  // Show AdMob rewarded simulation + real AdMob will auto trigger in Android WebView
+  const ov=document.createElement('div'); ov.style.cssText='position:fixed;inset:0;background:#0A0F0A;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  ov.innerHTML=`<div class="card" style="width:100%;max-width:360px;text-align:center;padding:24px;background:#111A11"><div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted)">AD • ${adUnit}</div><div style="font-size:48px;margin-top:16px">📺</div><div style="font-family:'Syne';font-weight:800;margin-top:12px;font-size:18px">Watch Ads Earn Points</div><div style="font-size:12px;color:var(--muted);margin-top:6px">Rewarded Ad • +${pts} PTS • ${adUnit}</div><div style="height:6px;background:#0F1A0F;border-radius:100px;margin-top:18px;overflow:hidden;border:1px solid var(--line)"><div id="bar" style="height:100%;width:0%;background:linear-gradient(90deg,#22C55E,#FACC15);transition:width .1s"></div></div><div id="sec" style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:700">5s remaining</div><button id="col" style="margin-top:18px;width:100%;background:linear-gradient(135deg,#22C55E,#FACC15);color:#0A1A0A;border:none;padding:14px;border-radius:12px;font-weight:800;display:none">Collect +${pts} PTS • AdMob</button><div style="font-size:9px;color:var(--muted);margin-top:10px">Ad Unit: ${adUnit}<br>App ID: ca-app-pub-1723730011184925~4524533479</div></div>`;
+  document.body.appendChild(ov);
+  let s=5; const bar=document.getElementById('bar'); const sec=document.getElementById('sec'); const btn=document.getElementById('col');
+  const it=setInterval(()=>{s-=0.08; bar.style.width=((5-s)/5*100)+'%'; sec.textContent=Math.ceil(s)+'s remaining'; if(s<=0){clearInterval(it); bar.style.width='100%'; sec.textContent='✅ Ad Completed!'; btn.style.display='block'}},80);
+  btn.onclick=async()=>{
+    ov.remove();
+    try{
+      await updateDoc(doc(db,'users',user.userId),{points:increment(pts),totalEarned:increment(pts)});
+      user.points+=pts; localStorage.setItem('sky_world',JSON.stringify(user)); home();
+      const t=document.createElement('div'); t.textContent=`+${pts} PTS • Watch Ads Earned!`; t.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22C55E,#FACC15);color:#0A1A0A;padding:12px 20px;border-radius:100px;font-size:12px;font-weight:800;z-index:10000;box-shadow:0 12px 32px rgba(34,197,94,.4)'; document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
+    }catch(e){alert('Error: '+e.message)}
   }
 }
 
-window.addPts=async(pts)=>{
-  const btn=event?.currentTarget; if(btn)btn.style.opacity='.6';
-  try{
-    await updateDoc(doc(db,'users',user.userId),{points:increment(pts),totalEarned:increment(pts)});
-    user.points+=pts;localStorage.setItem('sky_u',JSON.stringify(user));
-    go(document.querySelector('.nav button.active')?.id?.replace('n-','')||'earn');
-    // lightweight toast
-    const t=document.createElement('div');t.textContent=`+${pts} PTS added!`;t.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:700;z-index:999';document.body.appendChild(t);setTimeout(()=>t.remove(),1500);
-  }catch(e){alert('Check internet')}
-  if(btn)btn.style.opacity='1';
+window.copyR=()=>{navigator.clipboard.writeText(document.getElementById('rl').textContent).then(()=>alert('✅ Link Copied!'))}
+window.shareR=()=>{const v=document.getElementById('rl').textContent; window.open('https://wa.me/?text='+encodeURIComponent('🌟 Join Sky Points Club Green Yellow VIP! Watch Ads Earn Points! My link: '+v),'_blank')}
+window.doW=async()=>{
+  const pts=parseInt(document.getElementById('wp').value); const num=document.getElementById('wn').value.trim(); const m=document.getElementById('wm');
+  if(isNaN(pts)||pts<10000){m.textContent='❌ Min 10000 PTS'; m.style.color='#FF5252'; return}
+  if(pts>user.points){m.textContent='❌ Not enough balance'; m.style.color='#FF5252'; return}
+  if(num.length<11){m.textContent='❌ Enter valid Easypaisa number'; m.style.color='#FF5252'; return}
+  m.textContent='⏳ Sending...'; m.style.color='#7A9A7A';
+  try{await addDoc(collection(db,'withdrawals'),{userId:user.userId,phone:user.phone,points:pts,pkr:pts/100,easypaisa:num,status:'pending',createdAt:new Date().toISOString()}); await updateDoc(doc(db,'users',user.userId),{points:increment(-pts)}); user.points-=pts; localStorage.setItem('sky_world',JSON.stringify(user)); m.textContent='✅ Sent! Easypaisa 24h approval'; m.style.color='#22C55E'; setTimeout(()=>go('wallet'),1000);}catch(e){m.textContent='❌ '+e.message; m.style.color='#FF5252'}
 }
-window.copyL=()=>{const v=document.getElementById('rlink').textContent;navigator.clipboard.writeText(v).then(()=>alert('Link copied!'))}
-window.shareL=()=>{const v=document.getElementById('rlink').textContent;window.open('https://wa.me/?text='+encodeURIComponent('Join Sky Points Club VIP - Earn money! My link: '+v),'_blank')}
-window.doWithdraw=async()=>{
-  const pts=parseInt(document.getElementById('wp').value);const num=document.getElementById('wn').value.trim();const m=document.getElementById('wmsg');
-  if(isNaN(pts)||pts<10000){m.textContent='Minimum 10000 PTS';m.style.color='#dc2626';return}
-  if(pts>user.points){m.textContent='Not enough balance';m.style.color='#dc2626';return}
-  if(num.length<11){m.textContent='Enter valid Easypaisa number';m.style.color='#dc2626';return}
-  m.textContent='Sending...';m.style.color='#6b7280';
-  try{
-    await addDoc(collection(db,'withdrawals'),{userId:user.userId,phone:user.phone,points:pts,pkr:pts/100,easypaisa:num,status:'pending',createdAt:new Date().toISOString()});
-    await updateDoc(doc(db,'users',user.userId),{points:increment(-pts)});
-    user.points-=pts;localStorage.setItem('sky_u',JSON.stringify(user));
-    m.textContent='Request sent! Admin will approve in 24h';m.style.color='#0a7a2a';setTimeout(()=>go('wallet'),1000);
-  }catch(e){m.textContent='Error, try again';m.style.color='#dc2626'}
-}
-window.logout=()=>{localStorage.removeItem('sky_u');location.reload()}
+window.logout=()=>{localStorage.clear(); location.reload()}
 
-const saved=localStorage.getItem('sky_u');
-if(saved){try{user=JSON.parse(saved);main()}catch{loginPage(false)}}else{loginPage(false)}
+const saved=localStorage.getItem('sky_world')||localStorage.getItem('sky_final')||localStorage.getItem('sky_u');
+if(saved){try{user=JSON.parse(saved); home()}catch{authUI()}}else{authUI()}
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
