@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sky Points Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#FFFBF5;--card:#fff;--line:#F3E8D6;--dark:#2B2117;--orange:#FF8A1E;--muted:#9A8B7A;--green:#1A5D4E;--purple:#8B5CF6;--red:#ef4444;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;max-width:480px;margin:0 auto;overflow-x:hidden;}
+
+/* LOADING */
+#loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;max-width:480px;margin:0 auto;}
+.ls-logo{font-size:64px;animation:bounce 1s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.ls-title{font-size:24px;font-weight:700;margin-top:16px;}
+.ls-sub{font-size:14px;color:var(--muted);margin-top:8px;}
+
+/* LOGIN */
+#login-page{display:none;min-height:100vh;padding:32px 20px;flex-direction:column;align-items:center;justify-content:center;}
+.login-fox{font-size:64px;margin-bottom:12px;}
+.login-title{font-size:26px;font-weight:700;margin-bottom:6px;}
+.login-sub{font-size:14px;color:var(--muted);margin-bottom:28px;text-align:center;}
+.tab-row{display:flex;width:100%;border:2px solid var(--orange);border-radius:12px;overflow:hidden;margin-bottom:18px;}
+.tab-btn{flex:1;padding:11px;font-size:14px;font-weight:600;border:none;background:transparent;cursor:pointer;color:var(--muted);font-family:'Inter',sans-serif;transition:all 0.2s;}
+.tab-btn.active{background:var(--orange);color:#fff;}
+.inp{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;font-family:'Inter',sans-serif;outline:none;margin-bottom:12px;background:#fff;color:var(--dark);}
+.inp:focus{border-color:var(--orange);}
+.err-msg{color:var(--red);font-size:13px;margin-bottom:10px;display:none;padding:10px;background:#fef2f2;border-radius:8px;}
+.btn-orange{width:100%;padding:14px;background:var(--orange);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* HEADER */
+#header{display:none;position:sticky;top:0;z-index:100;background:#fff;border-bottom:1.5px solid var(--line);padding:10px 14px;align-items:center;gap:8px;}
+.h-logo{width:42px;height:42px;border-radius:50%;background:#FFE4C2;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;flex-shrink:0;}
+.h-pills{display:flex;gap:6px;margin-left:auto;align-items:center;}
+.h-pill{background:#F3E8D6;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:500;border:none;color:var(--dark);cursor:pointer;}
+.coin-pill{background:#FFF7ED;border:1.5px solid #FFD79E;border-radius:20px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--dark);display:flex;align-items:center;gap:4px;}
+.h-avatar{width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+
+/* TOP ORANGE BAR */
+#top-bar{position:fixed;top:0;left:0;width:100%;max-width:480px;height:4px;background:var(--orange);z-index:9998;transform:scaleX(0);transform-origin:left;transition:transform 0.3s linear;}
+
+/* DRAWER */
+#drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;}
+#drawer-overlay.open{display:block;}
+#drawer{position:fixed;top:0;left:-280px;width:265px;height:100vh;background:#fff;z-index:300;transition:left 0.28s ease;overflow-y:auto;padding:20px 14px;box-shadow:4px 0 20px rgba(0,0,0,0.1);}
+#drawer.open{left:0;}
+.d-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+.d-fox{width:42px;height:42px;border-radius:50%;background:#FFE4C2;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.d-app-name{font-size:16px;font-weight:700;}
+.d-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;cursor:pointer;margin-bottom:4px;font-size:14px;font-weight:500;border:none;background:none;width:100%;text-align:left;color:var(--dark);font-family:'Inter',sans-serif;}
+.d-item:hover{background:#FFF7ED;color:var(--orange);}
+.d-item.d-active{background:#FFF7ED;color:var(--orange);}
+.d-item.d-booster{background:#E8F0EC;border:2px solid var(--green);color:var(--green);font-weight:700;}
+.d-item.d-challenge{background:#FFF7ED;border:1.5px solid #FFD79E;color:var(--orange);}
+.d-time{font-size:12px;color:var(--muted);margin-top:16px;padding:10px 14px;display:flex;align-items:center;gap:6px;}
+.d-logout{margin-top:12px;padding:10px 14px;font-size:13px;color:var(--red);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;width:100%;text-align:left;}
+
+/* BOTTOM NAV */
+#bottom-nav{display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1.5px solid var(--line);z-index:100;}
+.bn-wrap{display:flex;}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 14px;gap:3px;cursor:pointer;font-size:11px;font-weight:500;color:var(--muted);border:none;background:none;font-family:'Inter',sans-serif;}
+.bn-item.active{color:var(--orange);}
+.bn-icon{font-size:20px;}
+
+/* APP */
+#app{display:none;}
+.page{display:none;padding:14px 14px 90px;}
+.page.active{display:block;}
+
+/* CARDS */
+.card{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;}
+.sec-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;margin:16px 0 10px;}
+
+/* DASHBOARD */
+.greet-card{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;}
+.greet-emoji{font-size:36px;}
+.greet-name{font-size:15px;font-weight:600;}
+.greet-name span{color:var(--orange);}
+.dash-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+.dash-row:last-child{border:none;}
+.dash-label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-bottom:4px;}
+.dash-val{font-size:22px;font-weight:700;}
+.dash-btn{padding:7px 14px;background:#FFF7ED;border:1.5px solid #FFD79E;border-radius:8px;font-size:12px;font-weight:600;color:var(--orange);cursor:pointer;border-style:solid;}
+.lvl-card{background:linear-gradient(135deg,#FFF7ED,#FFE4C2);border:1.5px solid #FFD79E;border-radius:16px;padding:20px 20px 16px;}
+.lvl-big{font-size:52px;font-weight:700;color:rgba(255,138,30,0.2);line-height:1;}
+.lvl-sub{font-size:13px;color:var(--muted);margin-top:4px;}
+.prog-bar{width:100%;height:8px;background:#F3E8D6;border-radius:99px;margin-top:12px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--orange);border-radius:99px;transition:width 0.6s;}
+
+/* ADS PAGE */
+.disclaimer{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:10px;}
+.disc-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.disc-text{font-size:13px;line-height:1.5;flex:1;}
+.disc-x{cursor:pointer;color:var(--muted);font-size:18px;flex-shrink:0;}
+.ads-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.meta-chip{background:#F3E8D6;border-radius:8px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--dark);}
+.toggle-wrap{display:flex;align-items:center;gap:6px;margin-left:auto;font-size:12px;color:var(--muted);}
+.toggle{position:relative;width:40px;height:22px;}
+.toggle input{opacity:0;width:0;height:0;}
+.tog-slider{position:absolute;inset:0;background:#ccc;border-radius:99px;cursor:pointer;transition:0.3s;}
+.tog-slider::before{content:'';position:absolute;width:18px;height:18px;left:2px;top:2px;background:#fff;border-radius:50%;transition:0.3s;}
+.toggle input:checked+.tog-slider{background:var(--orange);}
+.toggle input:checked+.tog-slider::before{transform:translateX(18px);}
+
+/* AD CARD */
+.ad-card{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:10px;cursor:pointer;transition:border-color 0.2s,border-width 0.1s;}
+.ad-card.ad-active{border-color:var(--purple);border-width:2px;}
+.ad-card.ad-done{opacity:0.55;}
+.ad-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.ad-icon-wrap{width:40px;height:40px;border-radius:50%;background:#FFE4C2;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ad-title{font-size:15px;font-weight:700;line-height:1.35;}
+.ad-foot{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--muted);}
+.ad-pts{color:var(--orange);font-weight:700;display:flex;align-items:center;gap:3px;}
+.ad-info{margin-left:auto;width:24px;height:24px;border-radius:50%;background:#F3E8D6;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);}
+
+/* TIMER BAR */
+.timer-wrap{background:#4B5563;border-radius:12px;padding:14px 16px;margin-top:10px;}
+.timer-row{display:flex;align-items:baseline;gap:4px;}
+.timer-num{font-size:30px;font-weight:700;color:var(--orange);}
+.timer-txt{font-size:14px;color:#fff;}
+.claim-btn{width:100%;margin-top:10px;padding:12px;background:var(--orange);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+.done-msg{color:var(--green);font-size:13px;padding:8px 0;font-weight:600;}
+
+/* BOOSTERS */
+.boost-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.boost-card{background:#fff;border:2px solid var(--green);border-radius:16px;padding:16px;cursor:pointer;text-align:center;transition:transform 0.15s;}
+.boost-card:hover{transform:scale(1.02);}
+.boost-icon{font-size:30px;margin-bottom:8px;}
+.boost-title{font-size:13px;font-weight:700;color:var(--green);}
+.boost-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* BOOSTER FULLSCREEN */
+#bs-page{display:none;position:fixed;inset:0;background:#0F0F0F;z-index:500;flex-direction:column;max-width:480px;margin:0 auto;}
+#bs-page.open{display:flex;}
+#bs-hdr{background:#1a1a1a;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+#bs-hdr h2{color:#fff;font-size:15px;font-weight:700;}
+#bs-close-btn{background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1;}
+#bs-bar-row{background:#111;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#bs-time-txt{color:#FFD700;font-size:14px;font-weight:700;flex-shrink:0;min-width:50px;}
+#bs-progress{flex:1;height:8px;background:#333;border-radius:99px;overflow:hidden;}
+#bs-prog-fill{height:100%;background:#FFD700;width:0%;transition:width 0.1s linear;}
+#bs-count{color:var(--orange);font-size:13px;font-weight:700;flex-shrink:0;}
+#bs-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px;flex:1;overflow-y:auto;align-content:start;}
+@media(min-width:380px){#bs-grid{grid-template-columns:1fr 1fr 1fr;}}
+.bs-cell{background:#fff;border:1px solid #F3E8D6;border-radius:8px;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;position:relative;}
+.bs-cell-num{position:absolute;top:2px;left:4px;font-size:6px;font-weight:700;color:#888;}
+.bs-cell-txt{font-size:10px;color:var(--muted);margin-top:2px;}
+#bs-footer{background:#1a1a1a;padding:12px 14px;flex-shrink:0;}
+#bs-status-txt{color:#4ade80;font-size:12px;margin-bottom:8px;min-height:18px;}
+#bs-btn{width:100%;padding:13px;background:#444;color:#888;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:not-allowed;font-family:'Inter',sans-serif;transition:all 0.3s;}
+#bs-btn.ready{background:var(--orange);color:#fff;cursor:pointer;}
+
+/* AFFILIATE */
+.ref-box{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.ref-box input{flex:1;padding:12px 14px;border:none;font-size:13px;background:#fff;outline:none;color:var(--dark);font-family:'Inter',sans-serif;}
+.ref-box button{padding:12px 14px;background:#FFF7ED;border:none;cursor:pointer;font-size:18px;border-left:1px solid var(--line);}
+.share-row{display:flex;gap:8px;margin-bottom:12px;}
+.sh-btn{flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:none;}
+.sh-copy{background:var(--orange);color:#fff;}
+.sh-tg{background:#0088cc;color:#fff;}
+.sh-fb{background:#1877F2;color:#fff;}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+.stat-row:last-child{border:none;}
+.stat-val{font-size:14px;font-weight:700;color:var(--orange);}
+.ref-table{width:100%;border-collapse:collapse;}
+.ref-table th{font-size:12px;color:var(--muted);font-weight:600;padding:6px 0;text-align:left;border-bottom:1px solid var(--line);}
+.ref-table td{font-size:13px;padding:8px 0;border-bottom:1px solid var(--line);}
+.badge{padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;}
+.badge.hold{background:#FFF7ED;color:var(--orange);}
+.badge.verified{background:#E8F0EC;color:var(--green);}
+
+/* CHALLENGE */
+.ch-tabs{display:flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;}
+.ch-tab{flex:1;padding:10px;font-size:13px;font-weight:600;border:none;background:transparent;cursor:pointer;color:var(--muted);font-family:'Inter',sans-serif;}
+.ch-tab.active{background:var(--orange);color:#fff;}
+.prize-card{background:linear-gradient(135deg,#FFF0E6,#FFE4C2);border:1.5px solid #FFD79E;border-radius:16px;padding:20px;text-align:center;margin-bottom:12px;}
+.prize-lbl{font-size:13px;color:var(--muted);}
+.prize-amt{font-size:44px;font-weight:700;color:var(--orange);}
+.podium-wrap{display:flex;align-items:flex-end;justify-content:center;gap:14px;padding:10px 0;}
+.pod-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.pod-crown{font-size:22px;}
+.pod-av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;border:3px solid transparent;}
+.pod-av.p1{width:70px;height:70px;background:linear-gradient(135deg,#FFD700,#FFA500);border-color:#FFD700;}
+.pod-av.p2{width:58px;height:58px;background:#9CA3AF;border-color:#9CA3AF;}
+.pod-av.p3{width:58px;height:58px;background:#CD7F32;border-color:#CD7F32;}
+.pod-name{font-size:12px;font-weight:600;text-align:center;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pod-pts{font-size:13px;color:var(--orange);font-weight:700;}
+.rank-card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;}
+.rank-top{display:flex;justify-content:space-between;}
+.rank-label{font-size:12px;color:var(--muted);margin-bottom:4px;}
+.rank-big{font-size:30px;font-weight:700;}
+.rank-pts{font-size:30px;font-weight:700;color:var(--orange);}
+.rank-hint{font-size:12px;color:var(--muted);margin-top:10px;}
+
+/* WALLET */
+.w-bal-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+.w-bal-row:last-child{border:none;}
+.w-label{font-size:12px;color:var(--muted);margin-bottom:3px;}
+.w-val{font-size:22px;font-weight:700;}
+.hist-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--line);}
+.hist-label{font-size:13px;font-weight:600;}
+.hist-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.hist-pts{font-size:14px;font-weight:700;color:var(--orange);}
+.status-chip{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;margin-top:3px;}
+.status-chip.pending{background:#FFF7ED;color:var(--orange);}
+.status-chip.approved{background:#E8F0EC;color:var(--green);}
+
+/* TOAST */
+#toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(10px);background:#2B2117;color:#fff;padding:11px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;max-width:90%;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="ls-logo">🦊</div>
+  <div class="ls-title">Sky Points Club</div>
+  <div class="ls-sub" id="ls-sub">Initializing...</div>
+</div>
+
+<!-- LOGIN -->
+<div id="login-page">
+  <div class="login-fox">🦊</div>
+  <div class="login-title">Sky Points Club</div>
+  <div class="login-sub">Earn real rewards watching ads</div>
+  <div class="tab-row">
+    <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Login</button>
+    <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+  </div>
+  <input class="inp" type="tel" id="a-phone" placeholder="03XXXXXXXXX" maxlength="11">
+  <input class="inp" type="password" id="a-pass" placeholder="Password">
+  <input class="inp" type="text" id="a-ref" placeholder="Referral Code (optional)" style="display:none;">
+  <div class="err-msg" id="a-err"></div>
+  <button class="btn-orange" onclick="doAuth()">Continue →</button>
+</div>
+
+<!-- TOP BAR -->
+<div id="top-bar"></div>
+
+<!-- DRAWER OVERLAY -->
+<div id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div id="drawer">
+  <div class="d-logo-row">
+    <div class="d-fox">🦊</div>
+    <div class="d-app-name">Sky Points Club</div>
+  </div>
+  <button class="d-item d-active" onclick="gotoPage('dashboard');closeDrawer();">◫ &nbsp;Dashboard</button>
+  <button class="d-item" onclick="gotoPage('ads');closeDrawer();">👆 &nbsp;Browsing Ads Only</button>
+  <button class="d-item d-booster" onclick="gotoPage('boosters');closeDrawer();">⚡ &nbsp;5 Boosters — 100 Banners</button>
+  <button class="d-item" onclick="gotoPage('affiliate');closeDrawer();">👥 &nbsp;Affiliate</button>
+  <button class="d-item d-challenge" onclick="gotoPage('challenge');closeDrawer();">🏆 &nbsp;Challenge</button>
+  <button class="d-item" onclick="gotoPage('wallet');closeDrawer();">💳 &nbsp;Wallet</button>
+  <div class="d-time">🕐 <span id="d-clock">2026.09.15 00:00:00</span></div>
+  <button class="d-logout" onclick="doLogout()">🚪 Logout</button>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <div class="h-logo" onclick="openDrawer()">🦊</div>
+  <div class="h-pills">
+    <button class="h-pill">🇺🇸 en ▾</button>
+    <button class="h-pill">$↔€ ▾</button>
+    <div class="coin-pill">🪙 <span id="h-coins">0.000</span></div>
+    <div class="h-avatar" id="h-avatar">M</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- DASHBOARD -->
+  <div id="page-dashboard" class="page active">
+    <div class="greet-card">
+      <div class="greet-emoji">🌙</div>
+      <div><div class="greet-name">Good evening, <span id="g-name">User Lv.0</span></div></div>
+    </div>
+    <div class="sec-title">⭐ Performance</div>
+    <div class="card">
+      <div class="dash-row">
+        <div><div class="dash-label">🪙 Main Balance</div><div class="dash-val" id="d-bal">0</div></div>
+        <button class="dash-btn" onclick="gotoPage('wallet')">⬆ Cashout</button>
+      </div>
+      <div class="dash-row">
+        <div><div class="dash-label">🪙 Purchase Balance</div><div class="dash-val">0</div></div>
+        <button class="dash-btn">⬇ Deposit</button>
+      </div>
+      <div class="dash-row">
+        <div><div class="dash-label">👤 Referrals</div><div class="dash-val" id="d-refs">0</div></div>
+        <button class="dash-btn" onclick="gotoPage('affiliate')">📊 Statistics</button>
+      </div>
+    </div>
+    <div class="sec-title">🏅 Level Up</div>
+    <div class="lvl-card">
+      <div class="lvl-big" id="d-lv">Lv.0</div>
+      <div class="lvl-sub" id="d-lv-sub">1000 coins to level up</div>
+      <div class="prog-bar"><div class="prog-fill" id="d-prog" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- ADS -->
+  <div id="page-ads" class="page">
+    <div class="disclaimer" id="disc">
+      <div class="disc-icon">ℹ️</div>
+      <div class="disc-text">Any link served through advertisements is not an endorsement or recommendation by Sky Points Club. Please exercise your due diligence before use.</div>
+      <div class="disc-x" onclick="document.getElementById('disc').style.display='none'">✕</div>
+    </div>
+    <div class="ads-bar">
+      <div class="meta-chip">60 Ads</div>
+      <div class="meta-chip" id="ads-pts-chip">1200 pts total</div>
+      <div class="toggle-wrap">
+        <label class="toggle"><input type="checkbox" id="unview-tog" onchange="filterAds()"><span class="tog-slider"></span></label>
+        Unviewed only
+      </div>
+    </div>
+    <div id="ads-list"></div>
+  </div>
+
+  <!-- BOOSTERS -->
+  <div id="page-boosters" class="page">
+    <div class="card">
+      <div class="sec-title" style="margin-top:0;">⚡ Impression Boosters</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">100 banner ads ek screen pe — 20 seconds ruko aur 20 PTS kamao!</p>
+      <div class="boost-grid" id="boost-grid"></div>
+    </div>
+  </div>
+
+  <!-- AFFILIATE -->
+  <div id="page-affiliate" class="page">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:15px;font-weight:600;">Your referral link</div>
+        <div style="display:flex;gap:10px;font-size:18px;">
+          <span style="cursor:pointer;" onclick="shareRef('twitter')">𝕏</span>
+          <span style="cursor:pointer;" onclick="shareRef('telegram')">✈️</span>
+          <span style="cursor:pointer;" onclick="shareRef('facebook')">👍</span>
+        </div>
+      </div>
+      <div class="ref-box"><input type="text" id="ref-inp" readonly><button onclick="copyRef()">📋</button></div>
+      <div class="share-row">
+        <button class="sh-btn sh-copy" onclick="copyRef()">📋 Copy</button>
+        <button class="sh-btn sh-tg" onclick="shareRef('telegram')">Telegram</button>
+        <button class="sh-btn sh-fb" onclick="shareRef('facebook')">Facebook</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="stat-row"><span>Earning Commission Rate ❓</span><span class="stat-val">8%</span></div>
+      <div class="stat-row"><span>Spending Commission Rate</span><span class="stat-val">5%</span></div>
+    </div>
+    <div class="card">
+      <div class="stat-row"><span>Total Referrals</span><span class="stat-val" id="aff-refs">0</span></div>
+      <div class="stat-row"><span>Affiliate Commission</span><span class="stat-val">🪙 <span id="aff-comm">0</span></span></div>
+    </div>
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;margin-bottom:12px;">Your Referrals</div>
+      <table class="ref-table">
+        <thead><tr><th>Username</th><th>Total Earned</th><th>Status</th></tr></thead>
+        <tbody id="ref-tbody"><tr><td colspan="3" style="color:var(--muted);padding:12px 0;font-size:13px;">No referrals yet</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CHALLENGE -->
+  <div id="page-challenge" class="page">
+    <div style="display:flex;gap:10px;margin-bottom:12px;">
+      <div class="card" style="flex:1;padding:12px;margin:0;"><div style="font-size:12px;color:var(--muted);">🏅 Awards: <strong id="ch-awards">0</strong></div></div>
+      <div class="card" style="flex:1;padding:12px;margin:0;"><div style="font-size:12px;color:var(--muted);">💰 Prizes: <strong id="ch-prizes">$0.000</strong></div></div>
+    </div>
+    <div class="ch-tabs">
+      <button class="ch-tab active" onclick="switchChall(this,'daily')">Daily</button>
+      <button class="ch-tab" onclick="switchChall(this,'weekly')">Weekly</button>
+      <button class="ch-tab" onclick="switchChall(this,'monthly')">Monthly</button>
+    </div>
+    <div id="ch-content"></div>
+  </div>
+
+  <!-- WALLET -->
+  <div id="page-wallet" class="page">
+    <div class="card">
+      <div class="w-bal-row"><div><div class="w-label">Points Balance</div><div class="w-val" id="w-pts">0</div></div><div><div class="w-label">PKR Value</div><div class="w-val" id="w-pkr">0</div></div></div>
+      <div style="font-size:12px;color:var(--muted);padding-top:8px;">Min 10,000 PTS = 100 PKR to withdraw</div>
+    </div>
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;margin-bottom:14px;">💸 Withdraw — Easypaisa</div>
+      <input class="inp" type="tel" id="w-phone" placeholder="03XXXXXXXXX (Easypaisa)" maxlength="11">
+      <input class="inp" type="number" id="w-amt" placeholder="Points amount (min 10000)">
+      <button class="btn-orange" onclick="doWithdraw()">Withdraw Now</button>
+    </div>
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;margin-bottom:12px;">Withdrawal History</div>
+      <div id="w-hist"><div style="color:var(--muted);font-size:13px;padding:16px 0;text-align:center;">No withdrawals yet</div></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- BOOSTER FULLSCREEN -->
+<div id="bs-page">
+  <div id="bs-hdr">
+    <h2 id="bs-title">⚡ Booster 1</h2>
+    <button id="bs-close-btn" onclick="closeBooster()">✕</button>
+  </div>
+  <div id="bs-bar-row">
+    <div id="bs-time-txt">⏱ 20.0s</div>
+    <div id="bs-progress"><div id="bs-prog-fill"></div></div>
+    <div id="bs-count">0/100</div>
+  </div>
+  <div id="bs-grid"></div>
+  <div id="bs-footer">
+    <div id="bs-status-txt"></div>
+    <button id="bs-btn" onclick="claimBooster()">Claim 20 PTS</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div id="bottom-nav">
+  <div class="bn-wrap">
+    <button class="bn-item active" onclick="gotoPage('ads')"><div class="bn-icon">📺</div>Ads</button>
+    <button class="bn-item" onclick="gotoPage('challenge')"><div class="bn-icon">🏆</div>Leader</button>
+    <button class="bn-item" onclick="gotoPage('affiliate')"><div class="bn-icon">👥</div>Refer</button>
+    <button class="bn-item" onclick="gotoPage('wallet')"><div class="bn-icon">💳</div>Wallet</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, addDoc, query, where, orderBy, limit, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// ── FIREBASE INIT ──
+const firebaseConfig = {
+  apiKey: "AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M",
+  authDomain: "aviator-781d9.firebaseapp.com",
+  projectId: "aviator-781d9",
+  storageBucket: "aviator-781d9.firebasestorage.app",
+  messagingSenderId: "151636540667",
+  appId: "1:151636540667:web:a16b6ed543fbf04368c45e"
+};
+const fb  = initializeApp(firebaseConfig);
+const auth = getAuth(fb);
+const db   = getFirestore(fb);
+
+// ── EXPOSE GLOBALS ──
+let CU = null; // currentUser
+let UD = {};   // userData
+let adState = {}; // per-ad timer state
+let bsInterval = null;
+let bsBoosterNum = 0;
+let bsClaimed = false;
+
+// ── AD DATA ──
+const AD_LINKS = ["https://www.profitableratecpmnetwork.com/hztvkhad?key=db27882df4f3d057625af7869e14baf3","https://www.profitableratecpmnetwork.com/trurdyng6?key=801cdeb75163a4ef7dd4cfe0c5776d24","https://www.profitableratecpmnetwork.com/a0umzms0?key=33970b2f5aa104770aab780a8e059ca9","https://www.profitableratecpmnetwork.com/n8vqd1vhc?key=7af40856e5711047a999dffe1901e4e3","https://www.profitableratecpmnetwork.com/kzzaebmug?key=f416c8de8b4970d3664e35408f1e0f84","https://www.profitableratecpmnetwork.com/waczuv2ne2?key=536fb4bcb7034fb9aae81392febe1713","https://www.profitableratecpmnetwork.com/ikxc5k8kf?key=5389f10d281fd0797dbfd8bcfb083045","https://www.profitableratecpmnetwork.com/s018iwz9?key=425b9723b0bf34e477a6cc0163733702","https://www.profitableratecpmnetwork.com/zjd3842mt?key=5ccacaed92589fef3b1c5def587ca659","https://www.profitableratecpmnetwork.com/tj3m9i4c?key=331be3536f63d53575a1d53fbafc2af9","https://www.profitableratecpmnetwork.com/hy8fyxhh?key=ef53332bb01fd9fa8d8265f6c487e788","https://www.profitableratecpmnetwork.com/aj2sswqw?key=4ef463d4cb4485ff54e8da145546180f","https://www.profitableratecpmnetwork.com/vyuc24cr3b?key=eec14e4c47795ff49067b2142a81bc18","https://www.profitableratecpmnetwork.com/pt01yc33?key=4bdfbfdf73fe868003bd3d52633e9f30","https://www.profitableratecpmnetwork.com/afac5q1ws5?key=e3b918fc75f394cfa91070bebf9e649f","https://www.profitableratecpmnetwork.com/m3fafxt0?key=a71771172e62df499bfc99c3d46a45c1","https://www.profitableratecpmnetwork.com/izye4bfnj5?key=00789676bb8e728fb6b1b610e976b61a","https://www.profitableratecpmnetwork.com/e5kinwfkb?key=81278340c49df964a0c301e53117d2cd","https://www.profitableratecpmnetwork.com/uuafetdrs?key=672c608beb25356f77c5d42deaeff7f2","https://www.profitableratecpmnetwork.com/tgj0uf7h?key=0ed1cda21405919848da822f24d2ab41","https://www.profitableratecpmnetwork.com/iwvfvjr8?key=ec6d4ad1ec87fbc2ebd01bffbfab0ebc","https://www.profitableratecpmnetwork.com/x2zhjhjct?key=cd60cec7190d531a2971d73ff720b84e","https://www.profitableratecpmnetwork.com/jdkr60rkw?key=ba8ace9ece9d587a1d3aa318362e09bd","https://www.profitableratecpmnetwork.com/dk6552ka?key=0fab01e2de4c56db3596d9cda05904d3","https://www.profitableratecpmnetwork.com/p46txhjase?key=b769aa89415b5d468cd09f03369d03cf","https://www.profitableratecpmnetwork.com/q4njn64x?key=d9c9c3c1f161f5539ad0bbd91d31d871","https://www.profitableratecpmnetwork.com/au5bg461?key=da257fcc9ece644ac211f81190b9e052","https://www.profitableratecpmnetwork.com/pyhqky4k?key=34fc5abe051f92563e6061648b7cf7e4","https://www.profitableratecpmnetwork.com/jdsx93kin7?key=d84a0f562dfbd071d5957d7e5601ee8b","https://www.profitableratecpmnetwork.com/xpehxvan?key=922699cdcd383cff98454cdb676009ad","https://www.profitableratecpmnetwork.com/tgu9kbiar?key=0fb37c9996507d46b9625ea3a4537567","https://www.profitableratecpmnetwork.com/m2pfupppp?key=97ce86825293f56f50ec5cda5438d3e7","https://www.profitableratecpmnetwork.com/dpnjmn29q?key=751e21dfe6d1b0fba6b89a8ad39f6bf4","https://www.profitableratecpmnetwork.com/q2da9hae?key=ebf48dbef6e708a359f437467fa7c468","https://www.profitableratecpmnetwork.com/gbwget9m2?key=06634009bd67ff3b73d6934ea8bd19ae","https://www.profitableratecpmnetwork.com/s4pmuvjdw?key=96ac2d709910ae65f7f10f4de2e79d00","https://www.profitableratecpmnetwork.com/y74d0k88dg?key=b9be954895c6fe464818cf2112b2dccf","https://www.profitableratecpmnetwork.com/cexm8m2q?key=b41d1e7ea4fe8260701acf70d85be41f","https://www.profitableratecpmnetwork.com/bnz0qd8j5?key=0c28dd9c7ce9806f0446090727f290cd","https://www.profitableratecpmnetwork.com/xm6j4u8dz2?key=9f94551da2e493ac80a4a65b4e57c10b","https://www.profitableratecpmnetwork.com/ic55tgs8?key=46fbf894b321b047fc974262bb848109","https://www.profitableratecpmnetwork.com/h1er0cvcq?key=6d502f1fb13ada1fb6787bb7659ac50a","https://www.profitableratecpmnetwork.com/av9f62md?key=7a05ce47721959e233bf3d3b9a704050","https://www.profitableratecpmnetwork.com/j55m7usmtq?key=4a2fc8f6d671344de6e14a15cab49d18","https://www.profitableratecpmnetwork.com/bs5mnpansr?key=b9d5ca351e26e36eee3873ae5d6a8961","https://www.profitableratecpmnetwork.com/jqt76yxy?key=7e2656b1a1b1f014056a69e197a96927","https://www.profitableratecpmnetwork.com/f6stpisd?key=d0fabfa3cd23afc9dbb7402ae917ad41","https://www.profitableratecpmnetwork.com/yn59qz8vk?key=30ebead7e2ddedf8f1d3382f3e3a29fb","https://www.profitableratecpmnetwork.com/k2kpvizh9i?key=9587b6a0557e31052d121aa58160c1b9","https://www.profitableratecpmnetwork.com/qvq1bh94j?key=21a986112705402add763af4d4073fa2","https://www.profitableratecpmnetwork.com/gnm9ephhuq?key=e84308245e960fd09fa9cd594b33f3ab","https://www.profitableratecpmnetwork.com/zse9msuf?key=12b56458a52e63561b53225c9cefbf45","https://www.profitableratecpmnetwork.com/f03m595z?key=02070cb3576e558606f5047f90b51b8e","https://www.profitableratecpmnetwork.com/wg17tkk53?key=58dad9ca1baac5f8c5915bb8935add69","https://www.profitableratecpmnetwork.com/i2duqdev?key=a08d08921aef517c767b330bab3caf39","https://www.profitableratecpmnetwork.com/ecze9e65?key=2f5328e4579915daa9e57dfbd412f857","https://www.profitableratecpmnetwork.com/ip1wq0zx?key=5c3fff57ee25aa4ac5e0fdc296ad0879","https://www.profitableratecpmnetwork.com/y07vab8x1?key=1b5e46e09a78e76f231bff26ce0081b2","https://www.profitableratecpmnetwork.com/c42ph2bk?key=b8bcd8c84be096746368b9d3d5b7441d","https://www.profitableratecpmnetwork.com/mc74z03rhf?key=2ec61d4ad8f49e778f60e5abcf235751"];
+
+const AD_TITLES = ["EARN $780 PER DAY - NO INVESTMENT","King of the Faucets","VIP Passive Income Every Second!","Winvest.com — Earn 3% Daily Profit","Free Bitcoin Every Hour","Crypto Faucet — Earn ETH Daily","Make $500/Day Working From Home","Best Crypto Investment Platform 2026","Earn Passive Income with Staking","Free Dogecoin Faucet — Every 5 Min","Turn $10 Into $1000 With This Method","Earn Rewards Just For Browsing","Top Earning App 2026 — Get Paid","Bitcoin Mining Cloud — Start Free","Earn $50 Daily With Simple Tasks","Free Crypto Airdrop — Limited Time","Get Paid To Watch Videos Online","Referral Program — 30% Commission","Daily Cashback Rewards Platform","NFT Marketplace — Earn While Trading","Stake USDT — 8% APY Monthly","Free Gift Cards Instantly","Play Games & Earn Real Cash","Easy Online Tasks — $30/Hr","Cashback Shopping App — 20% Back","Earn With Affiliate Marketing","Mobile App Rewards Program","Data Entry Jobs — $30/Hr Remote","Crypto Trading Bot — Auto Profits","Free Premium Membership — Limited","Earn Bitcoin Watching Ads","Online Tutoring Platform — $25/Hr","Freelance Jobs Board — Top Skills","Digital Products — 90% Profit","AI Trading Platform — 15% Monthly","Earn Crypto Playing Mobile Games","Get Paid For Social Media Posts","Passive Income — Real Estate Tokens","Micro Tasks — Get Paid Instantly","Email Marketing Platform — High ROI","Drop Shipping — Zero Inventory","Online Courses — Sell Your Skills","Virtual Assistant Jobs — $20/Hr","Crypto Exchange — 0% Trading Fees","Earn Interest On Savings — 12% APY","Print On Demand — No Upfront Cost","Blogging Income — $1000/Month Guide","YouTube Automation — Earn Passively","Social Media Management Jobs","Earn $200/Day With Phone Tasks","Top Freelance Platform For Devs","Digital Marketing Agency Tools","Crypto Wallet With Staking Rewards","Online Poker — Win Real Cash Daily","Sports Betting Tips — Win Big","Forex Trading Course — Free Trial","Stock Market Investment App 2026","Real Estate Investment — $100 Start","Earn From Surveys — $10 Per Survey","High Paying CPA Offers — Daily Pay"];
+const AD_ICONS = ['₿','🌐','💰','📱','🎯','⭐','💎','🚀','🔥','💸','🎪','💡'];
+
+// ── LIMITS ──
+const LKEY  = 'sky_cp_fix_limits';
+const BKEY  = 'sky_booster_limits';
+const WKEY  = 'sky_world';
+
+function getLim(){ try{return JSON.parse(localStorage.getItem(LKEY)||'{}')}catch{return{}}}
+function saveLim(l){ localStorage.setItem(LKEY,JSON.stringify(l)) }
+
+function canClaim(i){
+  const l=getLim(), k='ad_'+i, e=l[k];
+  if(!e) return true;
+  if(Date.now()-e.reset > 8*3600000) return true;
+  return e.c < 20;
+}
+function doClaim(i){
+  const l=getLim(), k='ad_'+i, now=Date.now();
+  if(!l[k]||now-l[k].reset>8*3600000) l[k]={c:1,reset:now};
+  else l[k].c++;
+  saveLim(l);
+}
+function timeLeft(i){
+  const l=getLim(), k='ad_'+i, e=l[k];
+  if(!e) return null;
+  const diff=8*3600000-(Date.now()-e.reset);
+  if(diff<=0) return null;
+  const h=Math.floor(diff/3600000), m=Math.floor((diff%3600000)/60000);
+  return h+'h '+m+'m';
+}
+
+function calcLevel(te){ return Math.floor((te||0)/10000); }
+function nextNeed(te){ const lv=calcLevel(te); return (lv+1)*10000-(te||0); }
+
+// ── CLOCK ──
+setInterval(()=>{
+  const el=document.getElementById('d-clock');
+  if(!el) return;
+  const n=new Date(), p=x=>String(x).padStart(2,'0');
+  el.textContent=`${n.getFullYear()}.${p(n.getMonth()+1)}.${p(n.getDate())} ${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
+},1000);
+
+// ── AUTH ──
+window.switchTab = t => {
+  document.getElementById('tab-login').className='tab-btn'+(t==='login'?' active':'');
+  document.getElementById('tab-signup').className='tab-btn'+(t==='signup'?' active':'');
+  document.getElementById('a-ref').style.display = t==='signup'?'block':'none';
+};
+
+window.doAuth = async () => {
+  const phone = document.getElementById('a-phone').value.trim();
+  const pass  = document.getElementById('a-pass').value.trim();
+  const ref   = document.getElementById('a-ref').value.trim();
+  const isLogin = document.getElementById('tab-login').classList.contains('active');
+  const errEl = document.getElementById('a-err');
+  errEl.style.display='none';
+  if(!phone||!pass){ showErr('Phone aur password dono fill karo'); return; }
+  const email = phone.replace(/\s/g,'')+'@skypointsclub.app';
+  const btn = document.querySelector('#login-page .btn-orange');
+  btn.textContent='Please wait...'; btn.disabled=true;
+  try {
+    if(isLogin){
+      await signInWithEmailAndPassword(auth, email, pass);
+    } else {
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      const uid = cred.user.uid;
+      const userId = 'SKY-'+Math.random().toString(36).substr(2,4).toUpperCase();
+      await setDoc(doc(db,'users',uid),{
+        userId, phone, name:phone, points:0, totalEarned:0,
+        level:0, referralEarnings:0, referralCount:0,
+        referralCode:userId, referredBy:ref||null,
+        createdAt:serverTimestamp()
+      });
+      if(ref){
+        const q=query(collection(db,'users'),where('referralCode','==',ref),limit(1));
+        const snap=await getDocs(q);
+        if(!snap.empty){
+          await updateDoc(doc(db,'users',snap.docs[0].id),{referralCount:increment(1)});
+          await addDoc(collection(db,'referrals'),{referrerId:snap.docs[0].id,referredId:uid,status:'hold',createdAt:serverTimestamp()});
+        }
+      }
+    }
+  } catch(e){
+    showErr(e.message.replace('Firebase:','').replace(/\(auth\/[^)]+\)/,'').trim());
+    btn.textContent='Continue →'; btn.disabled=false;
+  }
+};
+
+function showErr(msg){
+  const el=document.getElementById('a-err');
+  el.textContent=msg; el.style.display='block';
+}
+
+window.doLogout = async () => {
+  await signOut(auth);
+  location.reload();
+};
+
+// ── AUTH STATE ──
+// Show login after 6s if Firebase hasn't responded
+const fallbackTimer = setTimeout(()=>{
+  if(document.getElementById('loading-screen').style.display!=='none'){
+    showLogin();
+  }
+},6000);
+
+onAuthStateChanged(auth, async user => {
+  clearTimeout(fallbackTimer);
+  if(user){
+    CU = user;
+    document.getElementById('ls-sub').textContent = 'Loading your data...';
+    try {
+      const snap = await getDoc(doc(db,'users',CU.uid));
+      if(snap.exists()) UD = snap.data();
+    } catch(e){ console.warn('Firestore load failed',e); }
+    showApp();
+  } else {
+    showLogin();
+  }
+});
+
+// ── SHOW/HIDE ──
+function showLogin(){
+  document.getElementById('loading-screen').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  // check ref in URL
+  const ref = new URLSearchParams(location.search).get('ref');
+  if(ref){ document.getElementById('a-ref').value=ref; switchTab('signup'); }
+}
+
+function showApp(){
+  document.getElementById('loading-screen').style.display='none';
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('header').style.display='flex';
+  document.getElementById('bottom-nav').style.display='flex';
+  document.getElementById('app').style.display='block';
+  updateUI();
+  buildAds();
+  buildBoosters();
+  loadReferrals();
+  loadChallenge('daily');
+  loadWalletHist();
+  gotoPage('ads');
+}
+
+// ── UI UPDATE ──
+function updateUI(){
+  const pts = UD.points||0;
+  const te  = UD.totalEarned||0;
+  const lv  = calcLevel(te);
+  const nn  = nextNeed(te);
+  const pct = Math.min(100, ((lv*10000-nn)/(lv*10000||10000))*100);
+
+  document.getElementById('h-coins').textContent = (pts/100).toFixed(3);
+  const name = UD.name||UD.phone||'User';
+  document.getElementById('h-avatar').textContent = name[0].toUpperCase();
+  document.getElementById('g-name').textContent = name+' Lv.'+lv;
+  document.getElementById('d-bal').textContent = pts.toLocaleString();
+  document.getElementById('d-refs').textContent = UD.referralCount||0;
+  document.getElementById('d-lv').textContent = 'Lv.'+lv;
+  document.getElementById('d-lv-sub').textContent = nn.toLocaleString()+' coins to level up';
+  document.getElementById('d-prog').style.width = pct+'%';
+  document.getElementById('w-pts').textContent = pts.toLocaleString();
+  document.getElementById('w-pkr').textContent = Math.floor(pts/100);
+  document.getElementById('aff-refs').textContent = UD.referralCount||0;
+  document.getElementById('aff-comm').textContent = UD.referralEarnings||0;
+  const refLink = location.origin+location.pathname+'?ref='+(UD.referralCode||'');
+  const ri = document.getElementById('ref-inp');
+  if(ri) ri.value = refLink;
+
+  // Level up bonus check
+  const oldLv = UD.level||0;
+  if(lv > oldLv && CU){
+    updateDoc(doc(db,'users',CU.uid),{level:lv,points:increment(1000),totalEarned:increment(1000)});
+    UD.level=lv; UD.points=(UD.points||0)+1000; UD.totalEarned=te+1000;
+    toast('🎉 Level Up! Lv.'+lv+' — Bonus +1000 PTS!');
+  }
+}
+
+// ── NAVIGATION ──
+window.gotoPage = pg => {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('page-'+pg);
+  if(el) el.classList.add('active');
+  const map={ads:0,challenge:1,affiliate:2,wallet:3};
+  if(map[pg]!==undefined) document.querySelectorAll('.bn-item')[map[pg]].classList.add('active');
+};
+
+window.openDrawer = () => {
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer-overlay').classList.add('open');
+};
+window.closeDrawer = () => {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+};
+
+// ── BUILD ADS ──
+function buildAds(){
+  const list = document.getElementById('ads-list');
+  list.innerHTML='';
+  AD_LINKS.forEach((link,i)=>{
+    const d=document.createElement('div');
+    d.className='ad-card'; d.id='ac-'+i;
+    d.innerHTML=`
+      <div class="ad-head">
+        <div class="ad-icon-wrap">${AD_ICONS[i%AD_ICONS.length]}</div>
+        <div class="ad-title">${AD_TITLES[i]||'High Paying Advertisement'}</div>
+      </div>
+      <div class="ad-foot">
+        <div class="ad-pts">🪙 20</div>
+        <div>🕒 10s</div>
+        <div>↗ Frameless</div>
+        <div class="ad-info">!</div>
+      </div>
+      <div id="at-${i}"></div>
+      <div id="ac2-${i}"></div>`;
+    d.addEventListener('click', ()=>clickAd(i,link));
+    list.appendChild(d);
+  });
+}
+
+window.filterAds = () => {
+  const only = document.getElementById('unview-tog').checked;
+  AD_LINKS.forEach((_,i)=>{
+    const c=document.getElementById('ac-'+i);
+    if(!c) return;
+    if(only && !canClaim(i)) c.style.display='none';
+    else c.style.display='block';
+  });
+};
+
+function clickAd(i, link){
+  if(!canClaim(i)){ toast('⏳ Limit reached — '+timeLeft(i)); return; }
+  if(adState[i]?.running) return;
+
+  const card = document.getElementById('ac-'+i);
+  card.classList.add('ad-active');
+  adState[i] = { elapsed:0, running:false, interval:null };
+
+  // Show timer bar
+  const atEl = document.getElementById('at-'+i);
+  atEl.innerHTML=`<div class="timer-wrap"><div class="timer-row"><div class="timer-num" id="tn-${i}">10</div><div class="timer-txt">seconds left. Please return to the Ad page to continue.</div></div></div>`;
+
+  // Open ad in new tab
+  window.open(link,'_blank');
+
+  // Visibility logic
+  const onVis = ()=>{
+    if(document.hidden){
+      // User went to ad tab → start/resume timer
+      if(!adState[i].interval){
+        adState[i].interval = setInterval(()=>tickAd(i), 500);
+      }
+      adState[i].running=true;
+    } else {
+      // User came back → pause
+      adState[i].running=false;
+    }
+  };
+  document.addEventListener('visibilitychange', onVis);
+  adState[i].visHandler = onVis;
+}
+
+function tickAd(i){
+  const s = adState[i];
+  if(!s||!s.running) return;
+  s.elapsed += 0.5;
+  const left = Math.max(0, 10-Math.floor(s.elapsed));
+  const tnEl = document.getElementById('tn-'+i);
+  if(tnEl) tnEl.textContent = left;
+
+  // Top bar progress
+  const tb=document.getElementById('top-bar');
+  tb.style.transform='scaleX('+(s.elapsed/10)+')';
+
+  if(s.elapsed>=10){
+    clearInterval(s.interval);
+    s.interval=null;
+    document.removeEventListener('visibilitychange',s.visHandler);
+    tb.style.transform='scaleX(1)';
+    setTimeout(()=>{ tb.style.transform='scaleX(0)'; },600);
+
+    document.getElementById('at-'+i).innerHTML='';
+    document.getElementById('ac2-'+i).innerHTML=`<button class="claim-btn" onclick="claimAd(${i})">🪙 Claim 20 PTS</button>`;
+    toast('✅ Timer complete! Claim your reward.');
+  }
+}
+
+window.claimAd = async i => {
+  if(!canClaim(i)){ toast('Already claimed!'); return; }
+  doClaim(i);
+  try {
+    await updateDoc(doc(db,'users',CU.uid),{points:increment(20),totalEarned:increment(20)});
+    UD.points=(UD.points||0)+20; UD.totalEarned=(UD.totalEarned||0)+20;
+    updateUI();
+    const card=document.getElementById('ac-'+i);
+    card.classList.remove('ad-active'); card.classList.add('ad-done');
+    document.getElementById('ac2-'+i).innerHTML='<div class="done-msg">✅ Claimed! +20 PTS</div>';
+    toast('🎉 +20 Points Earned!');
+    checkRefVerify();
+  } catch(e){ toast('Error: '+e.message); }
+};
+
+async function checkRefVerify(){
+  if(!UD.referredBy) return;
+  if(calcLevel(UD.totalEarned||0)<2) return;
+  try {
+    const q=query(collection(db,'referrals'),where('referredId','==',CU.uid),where('status','==','hold'),limit(1));
+    const snap=await getDocs(q);
+    if(!snap.empty){
+      const rd=snap.docs[0];
+      await updateDoc(doc(db,'referrals',rd.id),{status:'verified'});
+      await updateDoc(doc(db,'users',rd.data().referrerId),{points:increment(2000),totalEarned:increment(2000),referralEarnings:increment(2000)});
+    }
+  } catch(e){}
+}
+
+// ── BOOSTERS ──
+function buildBoosters(){
+  const g=document.getElementById('boost-grid');
+  g.innerHTML='';
+  for(let i=1;i<=5;i++){
+    const d=document.createElement('div');
+    d.className='boost-card';
+    d.innerHTML=`<div class="boost-icon">⚡</div><div class="boost-title">Booster ${i}</div><div class="boost-sub">100 Banners • 20 PTS</div>`;
+    d.onclick=()=>openBooster(i);
+    g.appendChild(d);
+  }
+}
+
+window.openBooster = n => {
+  bsBoosterNum=n; bsClaimed=false;
+  clearInterval(bsInterval);
+  document.getElementById('bs-page').classList.add('open');
+  document.getElementById('bs-title').textContent='⚡ Booster '+n+' — 100 Banners';
+  document.getElementById('bs-prog-fill').style.width='0%';
+  document.getElementById('bs-count').textContent='0/100';
+  document.getElementById('bs-status-txt').textContent='';
+  document.getElementById('bs-time-txt').textContent='⏱ 20.0s';
+  const btn=document.getElementById('bs-btn');
+  btn.className=''; btn.style.cssText='width:100%;padding:13px;background:#444;color:#888;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:not-allowed;font-family:Inter,sans-serif;';
+  btn.textContent='Claim 20 PTS';
+
+  // Build 100 cells
+  const grid=document.getElementById('bs-grid');
+  grid.innerHTML='';
+  const types=['🖼️','🔔','💥'];
+  const tNames=['Banner 468x60','Social Bar','Popunder'];
+  for(let c=1;c<=100;c++){
+    const cell=document.createElement('div');
+    cell.className='bs-cell';
+    const t=(c-1)%3;
+    cell.innerHTML=`<div class="bs-cell-num">#${c}</div>${types[t]}<div class="bs-cell-txt">${tNames[t]}</div>`;
+    grid.appendChild(cell);
+  }
+
+  // Inject Adstera scripts
+  ['https://pl31331865.profitableratecpmnetwork.com/06/1e/75/061e7517a0ca82bea7e4b2a3b8bb5982.js',
+   'https://pl31331868.profitableratecpmnetwork.com/5a/9c/4c/5a9c4c1e7a6f0c75c64f82a687b6481d.js'].forEach(src=>{
+    const s=document.createElement('script');
+    s.src=src; s.async=true; document.body.appendChild(s);
+  });
+
+  let elapsed=0;
+  bsInterval=setInterval(()=>{
+    elapsed+=0.1;
+    const left=Math.max(0,20-elapsed);
+    document.getElementById('bs-time-txt').textContent='⏱ '+left.toFixed(1)+'s';
+    document.getElementById('bs-prog-fill').style.width=(elapsed/20*100)+'%';
+    document.getElementById('bs-count').textContent=Math.min(100,Math.floor(elapsed/20*110))+'/100';
+    if(elapsed>=10) document.getElementById('bs-status-txt').textContent='✓ 100 Banners kathy nazar aaye • 100+ impressions';
+    if(elapsed>=20){
+      clearInterval(bsInterval);
+      document.getElementById('bs-count').textContent='100/100';
+      const b=document.getElementById('bs-btn');
+      b.className='ready'; b.style.cssText='width:100%;padding:13px;background:#FF8A1E;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;';
+      b.textContent='🎉 Claim 20 PTS';
+    }
+  },100);
+};
+
+window.claimBooster = async () => {
+  if(bsClaimed) return;
+  const bLim=JSON.parse(localStorage.getItem(BKEY)||'{}');
+  const k='b'+bsBoosterNum;
+  if(bLim[k] && Date.now()-bLim[k]<8*3600000){ toast('⏳ Booster cooldown active'); return; }
+  bsClaimed=true;
+  bLim[k]=Date.now();
+  localStorage.setItem(BKEY,JSON.stringify(bLim));
+  try {
+    await updateDoc(doc(db,'users',CU.uid),{points:increment(20),totalEarned:increment(20)});
+    UD.points=(UD.points||0)+20; UD.totalEarned=(UD.totalEarned||0)+20;
+    updateUI(); toast('🎉 +20 PTS from Booster '+bsBoosterNum+'!');
+    closeBooster();
+  } catch(e){ toast('Error: '+e.message); }
+};
+
+window.closeBooster = () => {
+  clearInterval(bsInterval);
+  document.getElementById('bs-page').classList.remove('open');
+};
+
+// ── AFFILIATE ──
+window.copyRef = () => {
+  const v=document.getElementById('ref-inp').value;
+  navigator.clipboard?.writeText(v).then(()=>toast('✅ Link copied!')).catch(()=>{
+    const i=document.createElement('input');i.value=v;document.body.appendChild(i);
+    i.select();document.execCommand('copy');document.body.removeChild(i);
+    toast('✅ Copied!');
+  });
+};
+window.shareRef = p => {
+  const l=document.getElementById('ref-inp').value;
+  const t='Join Sky Points Club — Earn rewards! ';
+  const u={twitter:`https://twitter.com/intent/tweet?text=${encodeURIComponent(t+l)}`,telegram:`https://t.me/share/url?url=${encodeURIComponent(l)}&text=${encodeURIComponent(t)}`,facebook:`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(l)}`};
+  window.open(u[p],'_blank');
+};
+
+async function loadReferrals(){
+  if(!CU) return;
+  try {
+    const q=query(collection(db,'referrals'),where('referrerId','==',CU.uid),limit(20));
+    const snap=await getDocs(q);
+    const tbody=document.getElementById('ref-tbody');
+    if(snap.empty){ tbody.innerHTML='<tr><td colspan="3" style="color:var(--muted);padding:12px 0;font-size:13px;">No referrals yet</td></tr>'; return; }
+    tbody.innerHTML='';
+    for(const rdoc of snap.docs){
+      const rd=rdoc.data();
+      let ru={};
+      try{ const us=await getDoc(doc(db,'users',rd.referredId)); if(us.exists())ru=us.data(); }catch{}
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${(ru.name||ru.phone||'User').substring(0,12)}</td><td>L${calcLevel(ru.totalEarned||0)} • ${ru.totalEarned||0}</td><td><span class="badge ${rd.status}">${rd.status.toUpperCase()}</span></td>`;
+      tbody.appendChild(tr);
+    }
+  }catch(e){}
+}
+
+// ── CHALLENGE ──
+let challPeriod='daily';
+window.switchChall = (el,p) => {
+  challPeriod=p;
+  document.querySelectorAll('.ch-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  loadChallenge(p);
+};
+
+async function loadChallenge(period){
+  const prizes={daily:'$100',weekly:'$500',monthly:'$1500'};
+  const cc=document.getElementById('ch-content');
+  cc.innerHTML=`<div class="prize-card"><div class="prize-lbl">Prize</div><div class="prize-amt">${prizes[period]}</div></div>
+  <div class="card"><div id="podium-wrap" class="podium-wrap"><div style="color:var(--muted);font-size:13px;">Loading...</div></div></div>
+  <div class="rank-card">
+    <div class="rank-top">
+      <div><div class="rank-label">Your Rank</div><div class="rank-big">#<span id="my-rank">—</span></div></div>
+      <div><div class="rank-label">Current Earnings</div><div class="rank-pts" id="my-score">${UD.totalEarned||0}</div></div>
+    </div>
+    <div class="prog-bar" style="margin-top:12px;"><div class="prog-fill" style="width:3%;"></div></div>
+    <div class="rank-hint" id="rank-hint">Loading rank data...</div>
+  </div>
+  <button class="btn-orange" style="margin-top:4px;">Join ${period.charAt(0).toUpperCase()+period.slice(1)} Race</button>`;
+
+  try {
+    const q=query(collection(db,'users'),orderBy('totalEarned','desc'),limit(100));
+    const snap=await getDocs(q);
+    const users=snap.docs.map(d=>({id:d.id,...d.data()}));
+    let myRank=users.findIndex(u=>u.id===CU?.uid)+1;
+    if(myRank===0) myRank=snap.size+1;
+    document.getElementById('my-rank').textContent=myRank;
+
+    const top3=users.slice(0,3);
+    const crowns=['👑','🥈','🥉'];
+    const cls=['p1','p2','p3'];
+    const order=top3.length>=3?[1,0,2]:[0,1,2];
+    let pod='';
+    order.forEach(oi=>{
+      if(!top3[oi]) return;
+      const isFirst=oi===0;
+      pod+=`<div class="pod-item">
+        <div class="pod-crown">${crowns[oi]}</div>
+        <div class="pod-av ${cls[oi]}">${(top3[oi].name||top3[oi].phone||'U')[0].toUpperCase()}</div>
+        <div class="pod-name">${(top3[oi].name||top3[oi].phone||'User').substring(0,10)}</div>
+        <div class="pod-pts">⭐ ${(top3[oi].totalEarned||0).toLocaleString()}</div>
+      </div>`;
+    });
+    document.getElementById('podium-wrap').innerHTML=pod||'<div style="color:var(--muted);font-size:13px;">Be the first!</div>';
+
+    const myTe=UD.totalEarned||0;
+    if(myRank>1&&users[myRank-2]){
+      const gap=(users[myRank-2].totalEarned||0)-myTe;
+      document.getElementById('rank-hint').textContent=`Only ${gap.toLocaleString()} more to reach rank #${myRank-1}`;
+    } else {
+      document.getElementById('rank-hint').textContent='Keep earning to climb the leaderboard!';
+    }
+  }catch(e){ console.warn(e); }
+}
+
+// ── WALLET ──
+window.doWithdraw = async () => {
+  const phone=document.getElementById('w-phone').value.trim();
+  const amt=parseInt(document.getElementById('w-amt').value);
+  const pts=UD.points||0;
+  if(!phone||phone.length<11){ toast('Valid Easypaisa number enter karo'); return; }
+  if(!amt||amt<10000){ toast('Minimum 10,000 PTS required'); return; }
+  if(amt>pts){ toast('Insufficient points'); return; }
+  const wd=JSON.parse(localStorage.getItem(WKEY)||'{}');
+  if(wd.lastW && Date.now()-wd.lastW<86400000){ toast('⏳ 1 withdrawal per 24 hours'); return; }
+  try {
+    await updateDoc(doc(db,'users',CU.uid),{points:increment(-amt)});
+    await addDoc(collection(db,'withdrawals'),{userId:CU.uid,phone,amount:amt,pkr:Math.floor(amt/100),status:'pending',createdAt:serverTimestamp()});
+    wd.lastW=Date.now(); localStorage.setItem(WKEY,JSON.stringify(wd));
+    UD.points=pts-amt; updateUI();
+    toast('✅ Withdrawal request submitted!');
+    document.getElementById('w-phone').value='';
+    document.getElementById('w-amt').value='';
+    loadWalletHist();
+  }catch(e){ toast('Error: '+e.message); }
+};
+
+async function loadWalletHist(){
+  if(!CU) return;
+  try {
+    const q=query(collection(db,'withdrawals'),where('userId','==',CU.uid),orderBy('createdAt','desc'),limit(10));
+    const snap=await getDocs(q);
+    const hist=document.getElementById('w-hist');
+    if(snap.empty){ hist.innerHTML='<div style="color:var(--muted);font-size:13px;padding:16px 0;text-align:center;">No withdrawals yet</div>'; return; }
+    hist.innerHTML='';
+    snap.docs.forEach(d=>{
+      const w=d.data();
+      const div=document.createElement('div');
+      div.className='hist-row';
+      const dt=w.createdAt?.toDate?.()?.toLocaleDateString()||'Pending';
+      div.innerHTML=`<div><div class="hist-label">📱 ${w.phone}</div><div class="hist-sub">${dt}</div><span class="status-chip ${w.status||'pending'}">${(w.status||'PENDING').toUpperCase()}</span></div><div style="text-align:right;"><div class="hist-pts">-${w.amount} PTS</div><div style="font-size:12px;color:var(--muted);">${w.pkr||0} PKR</div></div>`;
+      hist.appendChild(div);
+    });
+  }catch(e){}
+}
+
+// ── TOAST ──
+window.toast = msg => {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._to);
+  t._to=setTimeout(()=>t.classList.remove('show'),3000);
+};
+
+// Inject Adstera pop/social globally
+['https://pl31331865.profitableratecpmnetwork.com/06/1e/75/061e7517a0ca82bea7e4b2a3b8bb5982.js',
+ 'https://pl31331868.profitableratecpmnetwork.com/5a/9c/4c/5a9c4c1e7a6f0c75c64f82a687b6481d.js'].forEach(src=>{
+  const s=document.createElement('script');
+  s.src=src;s.async=true;document.head.appendChild(s);
+});
+
+</script>
+</body>
+</html>
