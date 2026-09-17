@@ -1,4 +1,4 @@
-cat > /mnt/user-data/outputs/earnpak.html << 'HTMLEOF'
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -253,7 +253,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div style="font-size:12px;color:var(--mu);font-weight:600">To Earn</div>
         </div>
         <div onclick="nav('mylinks')" style="cursor:pointer;padding:8px">
-          <div style="font-size:28px;margin-bottom:6px">↩</div>
+          <div style="font-size:28px;margin-bottom:6px">↩️</div>
           <div style="font-size:13px;font-weight:700" id="d-ret-cnt">0</div>
           <div style="font-size:12px;color:var(--mu);font-weight:600">Returned</div>
         </div>
@@ -385,7 +385,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div class="card">
       <div class="ct">Tracking System</div>
       <div class="stat-row">
-        <div class="stat-icon" style="background:#FFF5EE">🖱</div>
+        <div class="stat-icon" style="background:#FFF5EE">🖱️</div>
         <div class="stat-info"><div class="stat-t">Link Clicks</div><div class="stat-s">Jab koi aapka link click kare</div></div>
       </div>
       <div class="stat-row">
@@ -397,7 +397,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
         <div class="stat-info"><div class="stat-t">Completed</div><div class="stat-s">Delivered + 2 day return khatam</div></div>
       </div>
       <div class="stat-row">
-        <div class="stat-icon" style="background:#FFF0F0">↩</div>
+        <div class="stat-icon" style="background:#FFF0F0">↩️</div>
         <div class="stat-info"><div class="stat-t">Returned</div><div class="stat-s">Customer ne wapas kiya</div></div>
       </div>
     </div>
@@ -782,7 +782,7 @@ function renderLinks(){
           <div style="font-size:12px;font-weight:700;color:#444;margin-bottom:4px">📊 Click Tracking Link:</div>
           <div class="link-box"><div class="link-txt">${trackUrl}</div><button class="cp-btn" onclick="cp('${trackUrl}')">Copy</button></div>
           <div style="display:flex;gap:8px;margin-top:10px">
-            <button onclick="testClick('${p.id}')" style="flex:1;padding:10px;background:var(--bl);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🖱 Test Click +1</button>
+            <button onclick="testClick('${p.id}')" style="flex:1;padding:10px;background:var(--bl);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🖱️ Test Click +1</button>
             <button onclick="testOrder('${p.id}',${p.workerComm||50})" style="flex:1;padding:10px;background:var(--ye);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">📦 Test Order</button>
           </div>
         </div>`;
@@ -806,7 +806,7 @@ function renderLinks(){
         <div style="font-size:12px;color:var(--mu);font-weight:600">Total earned from link</div>
         <div style="font-size:14px;font-weight:800;color:var(--gr)">Rs. ${(p.totalEarned||0).toFixed(2)}</div>
       </div>
-      ${orders.length?`<div style="margin-top:10px">${orders.slice(0,3).map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)"><div><div style="font-size:12px;font-weight:700">${sds(o.date)}</div><div style="font-size:11px;color:var(--mu)">${o.id}</div></div><div style="text-align:right"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}">${o.status==="completed"?"✅ Completed":o.status==="pending"?"⏳ Pending":"↩ Returned"}</span><div style="font-size:13px;font-weight:800;color:var(--gr)">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
+      ${orders.length?`<div style="margin-top:10px">${orders.slice(0,3).map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)"><div><div style="font-size:12px;font-weight:700">${sds(o.date)}</div><div style="font-size:11px;color:var(--mu)">${o.id}</div></div><div style="text-align:right"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}">${o.status==="completed"?"✅ Completed":o.status==="pending"?"⏳ Pending":"↩️ Returned"}</span><div style="font-size:13px;font-weight:800;color:var(--gr)">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
       ${extra}`;
     el.appendChild(d);
   });
@@ -980,7 +980,7 @@ function renderAdminPendingOrders(){
       <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:10px">⏱ 2 day return policy ke baad approve karo</div>
       <div style="display:flex;gap:8px">
         <button onclick="approveOrder('${o.prodId}','${o.id}','${o.workerId}',${o.workerEarn||0},${o.adminEarn||0})" class="bog bog-gr bog-sm" style="flex:1">✅ Mark Complete</button>
-        <button onclick="returnOrder('${o.prodId}','${o.id}')" class="bog bog-re bog-sm" style="flex:1">↩ Return</button>
+        <button onclick="returnOrder('${o.prodId}','${o.id}')" class="bog bog-re bog-sm" style="flex:1">↩️ Return</button>
       </div>`;
     el.appendChild(d);
   });
@@ -1011,7 +1011,7 @@ window.returnOrder=async function(prodId,ordId){
     const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
     const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"returned"}:o);
     await updateDoc(doc(db,"products",prodId),{orders});
-    toast("↩ Order returned");await refreshAdmin();
+    toast("↩️ Order returned");await refreshAdmin();
   }catch(e){toast("❌ "+e.message);}
 };
 
@@ -1063,7 +1063,7 @@ function renderAdminWorkers(){
     uProds.forEach(p=>{clicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")comp++;else if(o.status==="pending")pend++;});});
     const d=document.createElement("div");d.className="wk-item";
     d.onclick=()=>openWorkerDetail(u.userId);
-    d.innerHTML=`<div class="wk-av">${(u.name||"U")[0].toUpperCase()}</div><div class="wk-info"><div class="wk-nm">${u.name}</div><div class="wk-sub">${u.userId} • ${u.phone}</div><div class="wk-sub">📅 ${sds(u.joinedAt)} • 🔗 ${uProds.length} links • 🖱 ${clicks} clicks</div></div><div style="text-align:right"><div class="wk-earn">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu);font-weight:600">Pending</div><div style="font-size:10px;color:var(--or);font-weight:700;margin-top:4px">Tap to view →</div></div>`;
+    d.innerHTML=`<div class="wk-av">${(u.name||"U")[0].toUpperCase()}</div><div class="wk-info"><div class="wk-nm">${u.name}</div><div class="wk-sub">${u.userId} • ${u.phone}</div><div class="wk-sub">📅 ${sds(u.joinedAt)} • 🔗 ${uProds.length} links • 🖱️ ${clicks} clicks</div></div><div style="text-align:right"><div class="wk-earn">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu);font-weight:600">Pending</div><div style="font-size:10px;color:var(--or);font-weight:700;margin-top:4px">Tap to view →</div></div>`;
     el.appendChild(d);
   });
 }
@@ -1136,5 +1136,3 @@ window.openMod=openMod;
 </script>
 </body>
 </html>
-HTMLEOF
-echo "DONE: $(wc -c < /mnt/user-data/outputs/earnpak.html) bytes"
