@@ -1,173 +1,179 @@
+cat > /mnt/user-data/outputs/earnpak.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#FF6B2B">
-<title>EarnPak — Daraz Affiliate Network</title>
+<meta name="theme-color" content="#F57224">
+<title>EarnPak — Daraz Affiliate</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F8FAFC;--card:#fff;--line:#E2E8F0;--dark:#0F172A;--or:#FF6B2B;--o2:#E85520;--gr:#10B981;--re:#EF4444;--bl:#3B82F6;--pu:#8B5CF6;--mu:#64748B;--lt:#F1F5F9;--ye:#F59E0B}
+:root{--bg:#F5F5F5;--card:#fff;--line:#E8E8E8;--dark:#1A1A1A;--or:#F57224;--o2:#E85520;--gr:#00A650;--re:#E02020;--bl:#0F78F4;--mu:#888;--lt:#F8F8F8;--ye:#F5A623}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;max-width:480px;margin:0 auto;overflow-x:hidden}
 
 /* SPLASH */
-#splash{position:fixed;inset:0;background:linear-gradient(135deg,#FF6B2B,#E85520);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
-#splash.hide{opacity:0;pointer-events:none}
-.sp-logo{width:90px;height:90px;background:rgba(255,255,255,.2);border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:46px;margin-bottom:16px;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-.sp-t{font-size:30px;font-weight:800;color:#fff}
-.sp-s{font-size:13px;color:rgba(255,255,255,.8);font-weight:600;margin-top:6px}
-.sp-v{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;margin-top:4px}
-.sp-bar{width:160px;height:4px;background:rgba(255,255,255,.3);border-radius:99px;margin-top:22px;overflow:hidden}
-.sp-fill{height:100%;background:#fff;border-radius:99px;animation:ld 1.3s ease forwards}
+#splash{position:fixed;inset:0;background:#F57224;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#splash.hide{display:none}
+.sp-logo{width:100px;height:100px;background:rgba(255,255,255,.2);border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:52px;margin-bottom:20px}
+.sp-t{font-size:32px;font-weight:800;color:#fff}
+.sp-s{font-size:14px;color:rgba(255,255,255,.8);font-weight:600;margin-top:8px}
+.sp-bar{width:200px;height:4px;background:rgba(255,255,255,.3);border-radius:99px;margin-top:28px;overflow:hidden}
+.sp-f{height:100%;background:#fff;border-radius:99px;animation:ld 1.2s ease forwards}
 @keyframes ld{from{width:0}to{width:100%}}
 
 /* AUTH */
-#apg{display:none;min-height:100vh;background:linear-gradient(160deg,#FFF7F3,#fff 50%,#FFF3EE);flex-direction:column;align-items:center;justify-content:center;padding:24px 20px}
-.a-logo{width:72px;height:72px;background:linear-gradient(135deg,#FF6B2B,#E85520);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:14px;box-shadow:0 12px 32px rgba(255,107,43,.3)}
-.a-t{font-size:24px;font-weight:800}
-.a-s{font-size:13px;color:var(--mu);font-weight:600;margin-bottom:24px;text-align:center}
-.a-box{width:100%;max-width:380px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 8px 40px rgba(15,23,42,.08)}
-.tabs{display:flex;gap:4px;background:var(--lt);padding:4px;border-radius:14px;margin-bottom:20px}
-.tb{flex:1;padding:10px;border-radius:11px;border:none;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;transition:.2s;color:var(--mu);background:transparent}
-.tb.on{background:linear-gradient(135deg,#FF6B2B,#E85520);color:#fff;box-shadow:0 6px 16px rgba(255,107,43,.3)}
-.inp{width:100%;padding:14px;border:1.5px solid var(--line);border-radius:14px;font-size:14px;font-family:inherit;outline:none;background:#fff;margin-bottom:12px;transition:.2s;color:var(--dark)}
-.inp:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,43,.1)}
-select.inp{cursor:pointer}
-.bog{width:100%;padding:15px;background:linear-gradient(135deg,#FF6B2B,#E85520);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(255,107,43,.3);transition:.2s}
-.bog:hover{transform:translateY(-1px)}
-.bog:disabled{background:#ccc;box-shadow:none;transform:none;cursor:not-allowed}
-.bog-gr{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 8px 24px rgba(16,185,129,.3)}
-.bog-bl{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 8px 24px rgba(59,130,246,.3)}
-.bog-re{background:linear-gradient(135deg,#EF4444,#DC2626);box-shadow:0 6px 16px rgba(239,68,68,.3)}
-.bog-sm{padding:10px 16px;font-size:12px;width:auto}
-.err{color:var(--re);font-size:12px;font-weight:800;padding:10px;background:#FEF2F2;border-radius:10px;margin-bottom:10px;display:none}
+#apg{display:none;min-height:100vh;background:#fff;flex-direction:column}
+.auth-top{background:linear-gradient(160deg,#F57224,#E85520);padding:48px 24px 32px;color:#fff}
+.auth-logo{width:64px;height:64px;background:rgba(255,255,255,.25);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px}
+.auth-t{font-size:28px;font-weight:800}
+.auth-s{font-size:14px;opacity:.85;font-weight:600;margin-top:6px}
+.auth-body{flex:1;padding:28px 24px}
+.tabs{display:flex;border-bottom:2px solid var(--line);margin-bottom:24px}
+.tb{flex:1;padding:12px;font-size:15px;font-weight:700;border:none;background:transparent;cursor:pointer;font-family:inherit;color:var(--mu);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s}
+.tb.on{color:var(--or);border-bottom-color:var(--or)}
+.inp{width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;font-family:inherit;outline:none;background:#fff;margin-bottom:14px;transition:.2s;color:var(--dark)}
+.inp:focus{border-color:var(--or)}
+.bog{width:100%;padding:15px;background:var(--or);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.bog:hover{background:var(--o2)}
+.bog:disabled{background:#ccc;cursor:not-allowed}
+.bog-gr{background:var(--gr)}
+.bog-gr:hover{background:#008040}
+.bog-re{background:var(--re)}
+.bog-sm{padding:9px 16px;font-size:13px;width:auto;border-radius:8px}
+.err{color:var(--re);font-size:13px;font-weight:600;padding:10px;background:#FFF0F0;border-radius:10px;margin-bottom:12px;display:none}
 
-/* HEADER */
-#hdr{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 12px rgba(15,23,42,.06)}
-.h-logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#FF6B2B,#E85520);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
-.h-t{font-size:16px;font-weight:800;flex:1}
-.h-role{padding:4px 12px;border-radius:99px;font-size:11px;font-weight:800;background:rgba(255,107,43,.12);color:var(--or)}
-.h-av{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#7C3AED,#6366F1);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(124,58,237,.28)}
+/* HEADER — Daraz style */
+#hdr{position:sticky;top:0;z-index:100;background:var(--or);padding:0 16px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(245,114,36,.3)}
+.h-logo{font-size:22px;font-weight:800;color:#fff;flex:1;padding:14px 0}
+.h-av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.h-notif{position:relative;cursor:pointer}
+.h-notif-ic{font-size:22px;color:#fff}
+.h-nb{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--re);color:#fff;border-radius:50%;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--or)}
 
-/* DRAWER */
-#dov{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(4px);z-index:200}
-#dov.on{display:block}
-#drw{position:fixed;top:0;right:-300px;width:280px;height:100vh;background:#fff;z-index:300;transition:right .3s cubic-bezier(.16,1,.3,1);overflow-y:auto;padding:20px 16px;border-left:1px solid var(--line)}
-#drw.on{right:0}
-.drw-u{background:linear-gradient(135deg,#FF6B2B,#E85520);border-radius:16px;padding:16px;margin-bottom:16px;color:#fff}
-.drw-nm{font-size:16px;font-weight:800}
-.drw-bl{font-size:28px;font-weight:800;margin-top:6px}
-.drw-bl-l{font-size:11px;opacity:.8;font-weight:600}
-.di{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;cursor:pointer;margin-bottom:3px;font-size:14px;font-weight:700;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;color:var(--dark);transition:.15s}
-.di:hover{background:var(--lt)}
-.di.act{background:rgba(255,107,43,.1);color:var(--or)}
-.di-out{margin-top:8px;padding:12px 14px;font-size:13px;color:var(--re);cursor:pointer;border:none;background:#FEF2F2;border-radius:12px;width:100%;text-align:left;font-weight:800;font-family:inherit}
-
-/* BOTTOM NAV */
-#bnav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:440px;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:20px;display:none;justify-content:space-around;padding:8px 4px;z-index:100;box-shadow:0 8px 32px rgba(15,23,42,.12)}
-.bn{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 0 6px;gap:3px;cursor:pointer;font-size:10px;font-weight:800;color:var(--mu);border:none;background:transparent;border-radius:16px;font-family:inherit;transition:all .2s}
-.bn.on{background:linear-gradient(135deg,#FF6B2B,#E85520);color:#fff;box-shadow:0 6px 16px rgba(255,107,43,.3);transform:translateY(-2px)}
-.bni{font-size:20px}
+/* BOTTOM NAV — Daraz style */
+#bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--line);display:none;z-index:100}
+.bn-wrap{display:flex}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;cursor:pointer;font-size:11px;font-weight:600;color:var(--mu);border:none;background:transparent;font-family:inherit}
+.bn.on{color:var(--or)}
+.bn.on .bni{color:var(--or)}
+.bni{font-size:22px;color:var(--mu)}
 
 /* APP */
 #app{display:none}
-.pg{display:none;padding:16px 16px 100px;animation:fu .22s ease}
+.pg{display:none;padding:14px 16px 90px}
 .pg.on{display:block}
-@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* COMMON */
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(15,23,42,.04)}
-.ct{font-size:15px;font-weight:800;margin-bottom:14px}
-.sec{font-size:16px;font-weight:800;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
-.chip{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:800}
-.chip-or{background:rgba(255,107,43,.12);color:var(--or)}
-.chip-gr{background:rgba(16,185,129,.12);color:var(--gr)}
-.chip-bl{background:rgba(59,130,246,.12);color:var(--bl)}
-.chip-pu{background:rgba(124,58,237,.12);color:var(--pu)}
-.chip-ye{background:rgba(245,158,11,.12);color:var(--ye)}
-.chip-re{background:rgba(239,68,68,.12);color:var(--re)}
-.chip-mu{background:var(--lt);color:var(--mu)}
-.sr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.sr:last-child{border:none}
-.sl{font-size:13px;font-weight:700}
-.sv{font-size:14px;font-weight:800}
-.sv-or{color:var(--or)}
-.sv-gr{color:var(--gr)}
+/* DARAZ STYLE CARDS */
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.ct{font-size:15px;font-weight:700;margin-bottom:14px;color:var(--dark)}
+.sec{font-size:15px;font-weight:700;margin:16px 0 10px;color:var(--dark)}
+.divider{height:8px;background:var(--bg);margin:0 -16px}
 
-/* SYNC BANNER */
-.sync-banner{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1.5px solid #93C5FD;border-radius:14px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.sync-t{font-size:12px;font-weight:800;color:#1D4ED8;flex:1}
-.sync-btn{padding:7px 14px;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0}
+/* DARAZ ORANGE HEADER BOX */
+.or-box{background:linear-gradient(135deg,#F57224,#E85520);border-radius:12px;padding:20px;margin-bottom:12px;color:#fff}
+.or-box-t{font-size:12px;opacity:.85;font-weight:600}
+.or-box-v{font-size:36px;font-weight:800;margin-top:4px}
+.or-box-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.or-box-item{background:rgba(255,255,255,.2);border-radius:10px;padding:12px;text-align:center}
+.or-box-iv{font-size:20px;font-weight:800}
+.or-box-il{font-size:10px;opacity:.85;font-weight:600;margin-top:2px}
 
-/* STATS GRID */
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.sb{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(15,23,42,.04)}
-.sbl{font-size:11px;color:var(--mu);font-weight:700;margin-bottom:6px}
-.sbv{font-size:24px;font-weight:800}
+/* STATS ROW — exactly like Daraz */
+.stat-row{display:flex;border-bottom:1px solid var(--line);padding:14px 0}
+.stat-row:last-child{border:none}
+.stat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;margin-right:12px}
+.stat-info{flex:1}
+.stat-t{font-size:14px;font-weight:700;color:var(--dark)}
+.stat-s{font-size:12px;color:var(--mu);font-weight:600;margin-top:2px}
+.stat-v{font-size:20px;font-weight:800;margin-left:auto;align-self:center}
 
-/* WORKER HEADER */
-.wk-hdr{background:linear-gradient(135deg,#FF6B2B,#E85520);border-radius:20px;padding:20px;margin-bottom:14px;color:#fff}
-.wk-nm{font-size:18px;font-weight:800}
-.wk-id{font-size:12px;opacity:.8;font-weight:600;margin-top:2px}
-.wk-bal{font-size:38px;font-weight:800;margin-top:12px;line-height:1}
-.wk-bl{font-size:11px;opacity:.8;font-weight:600;margin-top:2px}
-.wk-st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
-.wks{background:rgba(255,255,255,.2);border-radius:12px;padding:10px;text-align:center}
-.wksv{font-size:18px;font-weight:800}
-.wksl{font-size:10px;opacity:.8;font-weight:600;margin-top:2px}
+/* CONVERSION REPORT — exactly Daraz style */
+.conv-tabs{display:flex;gap:8px;margin-bottom:16px}
+.ct-btn{flex:1;padding:9px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;background:#fff;color:var(--mu);transition:.2s}
+.ct-btn.on{border-color:var(--or);color:var(--or);background:#FFF5EE}
+.conv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.conv-item-t{font-size:13px;color:var(--mu);font-weight:600;margin-bottom:4px}
+.conv-item-v{font-size:22px;font-weight:800}
 
-/* LINK CARD */
-.lc{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(15,23,42,.04)}
-.lc-h{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
-.lc-ic{width:46px;height:46px;border-radius:14px;background:var(--lt);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.lc-nm{font-size:14px;font-weight:800;line-height:1.3}
-.lc-s{font-size:11px;color:var(--mu);font-weight:600;margin-top:3px}
-.lc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
-.ls{background:var(--lt);border-radius:8px;padding:8px 4px;text-align:center}
-.lsv{font-size:14px;font-weight:800}
-.lsl{font-size:9px;color:var(--mu);font-weight:700;margin-top:2px}
-.link-box{display:flex;align-items:center;background:var(--lt);border-radius:10px;padding:8px 12px;margin-bottom:8px;gap:8px}
-.link-txt{font-size:11px;color:var(--mu);font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cp-btn{padding:6px 12px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0}
+/* STATUS CHIPS */
+.chip{display:inline-block;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700}
+.chip-or{background:#FFF5EE;color:var(--or)}
+.chip-gr{background:#F0FFF5;color:var(--gr)}
+.chip-re{background:#FFF0F0;color:var(--re)}
+.chip-ye{background:#FFFBEE;color:var(--ye)}
+.chip-bl{background:#F0F7FF;color:var(--bl)}
+.chip-mu{background:#F5F5F5;color:var(--mu)}
 
-/* CAPTION BOX */
-.caption-box{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:1.5px solid #6EE7B7;border-radius:14px;padding:14px;margin-bottom:10px}
-.caption-t{font-size:12px;font-weight:800;color:#065F46;margin-bottom:8px}
-.caption-body{font-size:13px;font-weight:600;color:#064E3B;line-height:1.7;white-space:pre-line}
+/* PRODUCT CARD */
+.prod-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer;transition:.15s}
+.prod-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.prod-card-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.prod-ic{width:48px;height:48px;border-radius:10px;background:#FFF5EE;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.prod-nm{font-size:14px;font-weight:700;line-height:1.3}
+.prod-s{font-size:12px;color:var(--mu);font-weight:600;margin-top:3px}
+.prod-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ps{background:#F8F8F8;border-radius:8px;padding:8px 4px;text-align:center}
+.psv{font-size:15px;font-weight:800}
+.psl{font-size:10px;color:var(--mu);font-weight:600;margin-top:2px}
 
-/* NOTIFICATION BADGE */
-.notif-badge{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:var(--re);color:#fff;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+/* LINK BOX */
+.link-box{display:flex;align-items:center;background:#F8F8F8;border-radius:8px;padding:10px 12px;margin:8px 0;gap:8px}
+.link-txt{font-size:11px;color:var(--mu);font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace}
+.cp-btn{padding:6px 14px;background:var(--or);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
+
+/* PENDING CARD — admin */
+.p-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:4px solid var(--or)}
+.p-card-gr{border-left-color:var(--gr)}
+.p-card-re{border-left-color:var(--re)}
+.p-card-bl{border-left-color:var(--bl)}
+
+/* WORKER LIST ITEM */
+.wk-item{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer;transition:.15s}
+.wk-item:hover{box-shadow:0 2px 10px rgba(245,114,36,.15)}
+.wk-av{width:46px;height:46px;border-radius:50%;background:var(--or);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wk-info{flex:1}
+.wk-nm{font-size:15px;font-weight:700}
+.wk-sub{font-size:12px;color:var(--mu);font-weight:600;margin-top:2px}
+.wk-earn{font-size:15px;font-weight:800;color:var(--or)}
 
 /* MODAL */
-#mod-ov{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(8px);z-index:600;align-items:flex-end;justify-content:center;padding:0}
+#mod-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;align-items:flex-end;justify-content:center}
 #mod-ov.on{display:flex}
-#mod-box{background:#fff;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.mod-t{font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.mod-x{width:32px;height:32px;border-radius:10px;background:var(--lt);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+#mod-box{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto}
+.mod-hdr{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:2}
+.mod-t{font-size:17px;font-weight:800}
+.mod-x{width:32px;height:32px;border-radius:50%;background:#F5F5F5;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.mod-body{padding:16px 20px 32px}
 
-/* ADMIN */
-.adm-wk{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;box-shadow:0 2px 12px rgba(15,23,42,.04)}
-.adm-wk:hover{border-color:var(--or);transform:translateY(-1px)}
-.adm-wk-h{display:flex;align-items:center;gap:10px}
-.adm-av{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#7C3AED,#6366F1);color:#fff;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.adm-nm{font-size:14px;font-weight:800}
-.adm-sb{font-size:11px;color:var(--mu);font-weight:600;margin-top:2px}
-.adm-4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
-.a4{background:var(--lt);border-radius:8px;padding:8px 4px;text-align:center}
-.a4v{font-size:14px;font-weight:800}
-.a4l{font-size:9px;color:var(--mu);font-weight:700;margin-top:2px}
-.pend-prod{background:#fff;border:2px solid var(--ye);border-radius:16px;padding:14px;margin-bottom:10px}
-.pend-ord{background:#fff;border:2px solid var(--or);border-radius:16px;padding:14px;margin-bottom:10px}
-.pend-wd{background:#fff;border:2px solid var(--gr);border-radius:16px;padding:14px;margin-bottom:10px}
+/* NOTIFICATION */
+.notif-item{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.notif-dot{width:10px;height:10px;border-radius:50%;background:var(--or);flex-shrink:0;margin-top:4px}
+.notif-t{font-size:14px;font-weight:700;margin-bottom:3px}
+.notif-s{font-size:12px;color:var(--mu);font-weight:600}
+.notif-time{font-size:11px;color:var(--mu);margin-top:4px}
 
 /* TOAST */
-#tst{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-4px);background:linear-gradient(135deg,#0F172A,#1E293B);color:#fff;padding:12px 22px;border-radius:16px;font-size:13px;font-weight:800;z-index:10000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90%;box-shadow:0 12px 32px rgba(0,0,0,.3)}
-#tst.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#tst{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;z-index:10000;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:90%}
+#tst.on{opacity:1}
 
-/* NOTIF DOT */
-.nb{display:inline-flex;align-items:center;justify-content:center;background:var(--re);color:#fff;border-radius:99px;font-size:10px;font-weight:800;padding:2px 7px;margin-left:6px}
+/* EMPTY STATE */
+.empty{text-align:center;padding:40px 20px}
+.empty-ic{font-size:48px;margin-bottom:12px}
+.empty-t{font-size:16px;font-weight:700;margin-bottom:6px}
+.empty-s{font-size:13px;color:var(--mu);font-weight:600}
+
+/* QUICK STATS 2x2 */
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.q-box{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.q-label{font-size:12px;color:var(--mu);font-weight:600;margin-bottom:6px}
+.q-val{font-size:26px;font-weight:800}
+
+/* FORM LABEL */
+.fl{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px;display:block}
+
+/* BACK BUTTON */
+.back-btn{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--or);cursor:pointer;margin-bottom:16px;border:none;background:none;font-family:inherit;padding:0}
 </style>
 </head>
 <body>
@@ -176,231 +182,259 @@ select.inp{cursor:pointer}
 <div id="splash">
   <div class="sp-logo">🛒</div>
   <div class="sp-t">EarnPak</div>
-  <div class="sp-s">Daraz Affiliate Network • Pakistan</div>
-  <div class="sp-v">Fixed V5 — Firebase Powered</div>
-  <div class="sp-bar"><div class="sp-fill"></div></div>
+  <div class="sp-s">Daraz Affiliate Network</div>
+  <div class="sp-bar"><div class="sp-f"></div></div>
 </div>
 
 <!-- AUTH -->
 <div id="apg">
-  <div class="a-logo">🛒</div>
-  <div class="a-t">EarnPak</div>
-  <div class="a-s">Daraz products share karo — 80% commission kamao</div>
-  <div class="a-box">
+  <div class="auth-top">
+    <div class="auth-logo">🛒</div>
+    <div class="auth-t">EarnPak</div>
+    <div class="auth-s">Daraz products share karo — Real commission kamao</div>
+  </div>
+  <div class="auth-body">
     <div class="tabs">
       <button class="tb on" id="tbl" onclick="swTab('login')">Login</button>
       <button class="tb" id="tbs" onclick="swTab('signup')">Sign Up</button>
     </div>
     <input class="inp" id="a-nm" placeholder="Full Name" style="display:none">
     <input class="inp" id="a-ph" placeholder="Phone 03XXXXXXXXX" type="tel" maxlength="11">
-    <input class="inp" id="a-ps" type="password" placeholder="Password (min 3 chars)">
+    <input class="inp" id="a-ps" type="password" placeholder="Password">
     <div class="err" id="a-err"></div>
-    <button class="bog" id="a-btn" onclick="doAuth()">Continue →</button>
-    <div style="text-align:center;font-size:11px;color:var(--mu);font-weight:700;margin-top:12px">Firebase Powered • Real-time Sync</div>
+    <button class="bog" id="a-btn" onclick="doAuth()">Continue</button>
   </div>
 </div>
 
 <!-- HEADER -->
 <div id="hdr" style="display:none">
-  <div class="h-logo" onclick="oDrw()">🛒</div>
-  <div class="h-t">EarnPak</div>
-  <div class="h-role" id="h-role">Worker</div>
-  <div style="position:relative">
-    <div class="h-av" id="h-av" onclick="oDrw()">U</div>
-    <div id="notif-dot" style="display:none;position:absolute;top:-4px;right:-4px;width:12px;height:12px;background:var(--re);border-radius:50%;border:2px solid #fff"></div>
+  <div class="h-logo">EarnPak</div>
+  <div class="h-notif" onclick="openNotifs()">
+    <div class="h-notif-ic">🔔</div>
+    <div class="h-nb" id="notif-cnt" style="display:none">0</div>
   </div>
-</div>
-
-<!-- DRAWER -->
-<div id="dov" onclick="cDrw()"></div>
-<div id="drw">
-  <div class="drw-u">
-    <div class="drw-nm" id="drw-nm">User</div>
-    <div class="drw-bl-l">Pending Earnings</div>
-    <div class="drw-bl">Rs <span id="drw-bl">0</span></div>
-    <div style="font-size:11px;opacity:.7;margin-top:4px" id="drw-id">ID: —</div>
-  </div>
-  <button class="di act" onclick="nav('dash');cDrw()">📊 Dashboard</button>
-  <button class="di" onclick="nav('submit');cDrw()">➕ Submit Product</button>
-  <button class="di" onclick="nav('mylinks');cDrw()">🔗 My Links & Tracking</button>
-  <button class="di" onclick="nav('earnings');cDrw()">💰 Earnings & Withdraw</button>
-  <button class="di" onclick="nav('howto');cDrw()">📖 How To Earn</button>
-  <div style="height:1px;background:var(--line);margin:12px 0"></div>
-  <button class="di-out" onclick="doOut()">🚪 Logout</button>
-  <div style="text-align:center;font-size:10px;color:var(--mu);font-weight:700;margin-top:16px">EarnPak V5 • ⚡ Mahar G</div>
+  <div class="h-av" id="h-av" onclick="openProfile()">U</div>
 </div>
 
 <!-- APP -->
 <div id="app">
 
-  <!-- DASHBOARD -->
+  <!-- DASHBOARD (Daraz My Account style) -->
   <div id="pg-dash" class="pg on">
-    <div class="sync-banner">
-      <div>
-        <div class="sync-t">🔄 Firebase Live Sync</div>
-        <div style="font-size:11px;color:#3B82F6;font-weight:600" id="last-sync">Last sync: Never</div>
+    <!-- Balance header -->
+    <div class="or-box" style="border-radius:0 0 16px 16px;margin:0 -16px 12px;padding:20px 20px 24px">
+      <div class="or-box-t">My Account</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+        <div>
+          <div style="font-size:13px;opacity:.85;font-weight:600">Pending Earnings</div>
+          <div style="font-size:32px;font-weight:800">Rs. <span id="d-bal">0.00</span></div>
+        </div>
+        <div style="font-size:48px;opacity:.3">🛒</div>
       </div>
-      <button class="sync-btn" onclick="syncFromFirebase(true)">Sync Now</button>
-    </div>
-    <div class="wk-hdr">
-      <div class="wk-nm" id="wk-nm">Welcome!</div>
-      <div class="wk-id" id="wk-id">Worker ID: —</div>
-      <div class="wk-bl">Pending Earnings</div>
-      <div class="wk-bal">Rs <span id="wk-bal">0.00</span></div>
-      <div class="wk-st">
-        <div class="wks"><div class="wksv" id="wk-clicks">0</div><div class="wksl">Clicks</div></div>
-        <div class="wks"><div class="wksv" id="wk-orders">0</div><div class="wksl">Orders</div></div>
-        <div class="wks"><div class="wksv" id="wk-links">0</div><div class="wksl">Links</div></div>
+      <div class="or-box-grid">
+        <div class="or-box-item"><div class="or-box-iv" id="d-clicks">0</div><div class="or-box-il">Clicks</div></div>
+        <div class="or-box-item"><div class="or-box-iv" id="d-orders">0</div><div class="or-box-il">Orders</div></div>
+        <div class="or-box-item"><div class="or-box-iv" id="d-links">0</div><div class="or-box-il">Links</div></div>
       </div>
     </div>
-    <div class="sg">
-      <div class="sb"><div class="sbl">✅ Completed</div><div class="sbv" style="color:var(--gr)" id="d-comp">0</div></div>
-      <div class="sb"><div class="sbl">⏳ Pending Orders</div><div class="sbv" style="color:var(--ye)" id="d-pend">0</div></div>
-      <div class="sb"><div class="sbl">❌ Returned</div><div class="sbv" style="color:var(--re)" id="d-ret">0</div></div>
-      <div class="sb"><div class="sbl">💰 Total Earned</div><div class="sbv sv-or" id="d-earn">0</div></div>
+
+    <!-- Generated Orders (exactly Daraz style) -->
+    <div class="card">
+      <div class="ct">Generated Orders</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center">
+        <div onclick="nav('mylinks')" style="cursor:pointer;padding:8px">
+          <div style="font-size:28px;margin-bottom:6px">📋</div>
+          <div style="font-size:13px;font-weight:700" id="d-pend-cnt">0</div>
+          <div style="font-size:12px;color:var(--mu);font-weight:600">Pending</div>
+        </div>
+        <div onclick="nav('mylinks')" style="cursor:pointer;padding:8px;border-left:1px solid var(--line);border-right:1px solid var(--line)">
+          <div style="font-size:28px;margin-bottom:6px">💰</div>
+          <div style="font-size:13px;font-weight:700" id="d-earn-cnt">0</div>
+          <div style="font-size:12px;color:var(--mu);font-weight:600">To Earn</div>
+        </div>
+        <div onclick="nav('mylinks')" style="cursor:pointer;padding:8px">
+          <div style="font-size:28px;margin-bottom:6px">↩</div>
+          <div style="font-size:13px;font-weight:700" id="d-ret-cnt">0</div>
+          <div style="font-size:12px;color:var(--mu);font-weight:600">Returned</div>
+        </div>
+      </div>
     </div>
-    <div class="sec">⚡ Recent Activity</div>
-    <div id="d-activity"></div>
+
+    <!-- Conversion Report (Daraz style) -->
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div class="ct" style="margin:0">Conversion Report</div>
+        <div style="font-size:11px;color:var(--mu);font-weight:600" id="conv-updated">Updated: —</div>
+      </div>
+      <div class="conv-tabs">
+        <button class="ct-btn on" onclick="setConv('yesterday',this)">Yesterday</button>
+        <button class="ct-btn" onclick="setConv('7days',this)">Past 7 days</button>
+        <button class="ct-btn" onclick="setConv('15days',this)">Past 15 days</button>
+      </div>
+      <div class="conv-grid">
+        <div><div class="conv-item-t">Sales ⓘ</div><div class="conv-item-v sv-or" id="cv-sales">Rs. 0.00</div></div>
+        <div><div class="conv-item-t">Est.Rev ⓘ</div><div class="conv-item-v sv-or" id="cv-rev">Rs. 0.00</div></div>
+        <div style="margin-top:14px"><div class="conv-item-t">Click ⓘ</div><div class="conv-item-v" id="cv-click">0</div></div>
+        <div style="margin-top:14px"><div class="conv-item-t">Orders ⓘ</div><div class="conv-item-v" id="cv-orders">0</div></div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="card">
+      <div class="ct">Tools & Services</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center">
+        <div onclick="nav('submit')" style="cursor:pointer;padding:8px">
+          <div style="font-size:28px;margin-bottom:6px">➕</div>
+          <div style="font-size:12px;font-weight:700">Submit Link</div>
+        </div>
+        <div onclick="nav('earnings')" style="cursor:pointer;padding:8px;border-left:1px solid var(--line);border-right:1px solid var(--line)">
+          <div style="font-size:28px;margin-bottom:6px">💸</div>
+          <div style="font-size:12px;font-weight:700">Withdraw</div>
+        </div>
+        <div onclick="nav('howto')" style="cursor:pointer;padding:8px">
+          <div style="font-size:28px;margin-bottom:6px">📖</div>
+          <div style="font-size:12px;font-weight:700">How To</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- SUBMIT -->
   <div id="pg-submit" class="pg">
-    <div class="sec" style="margin-top:0">➕ Submit Daraz Product</div>
-    <div style="background:linear-gradient(135deg,#FFF7ED,#FFE4C2);border:1.5px solid #FFD79E;border-radius:14px;padding:14px;margin-bottom:16px">
-      <div style="font-size:13px;font-weight:800;color:#92400E;margin-bottom:8px">📱 Daraz se link kaise lein?</div>
-      <div style="font-size:12px;font-weight:600;color:#78350F;line-height:1.7">1. Daraz app kholo<br>2. Koi bhi product open karo<br>3. Share button dabao<br>4. "Copy Link" karo<br>5. Yahan paste karo ⬇️</div>
-    </div>
     <div class="card">
-      <div class="ct">Product Details</div>
-      <input class="inp" id="p-link" placeholder="Daraz product link (daraz.pk/...)">
-      <input class="inp" id="p-name" placeholder="Product name (e.g. Lifebuoy Shampoo 650ml)">
+      <div class="ct">➕ Submit Daraz Product</div>
+      <div style="background:#FFF5EE;border-radius:10px;padding:12px;margin-bottom:16px;font-size:13px;font-weight:600;color:#7A3000;line-height:1.7">
+        📱 Daraz app → Product open → Share button → Copy Link → Yahan paste karo
+      </div>
+      <label class="fl">Daraz Product Link *</label>
+      <input class="inp" id="p-link" placeholder="https://www.daraz.pk/...">
+      <label class="fl">Product Name *</label>
+      <input class="inp" id="p-name" placeholder="Product name likho">
+      <label class="fl">Category *</label>
       <select class="inp" id="p-cat">
-        <option value="">Category select karo</option>
+        <option value="">Select category</option>
         <option value="beauty">💄 Beauty & Personal Care</option>
-        <option value="fashion">👗 Fashion & Clothing</option>
+        <option value="fashion">👗 Fashion</option>
         <option value="electronics">📱 Electronics</option>
         <option value="home">🏠 Home & Kitchen</option>
-        <option value="health">💊 Health & Wellness</option>
+        <option value="health">💊 Health</option>
         <option value="baby">👶 Baby & Kids</option>
-        <option value="sports">⚽ Sports & Outdoors</option>
-        <option value="food">🍕 Food & Grocery</option>
+        <option value="sports">⚽ Sports</option>
+        <option value="food">🍕 Food</option>
         <option value="other">📦 Other</option>
       </select>
-      <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:12px;margin-bottom:16px">
-        <div style="font-size:12px;font-weight:800;color:#1D4ED8;margin-bottom:4px">ℹ️ Commission kaise milti hai?</div>
-        <div style="font-size:12px;font-weight:600;color:#3B82F6;line-height:1.6">Aap link submit karo → Admin affiliate link approve kare → Commission per sale admin set kare → Aapko 80% milega automatically</div>
-      </div>
-      <button class="bog" onclick="submitProd()">📤 Submit to Admin</button>
+      <button class="bog" onclick="submitProd()">Submit to Admin →</button>
     </div>
   </div>
 
-  <!-- MY LINKS -->
+  <!-- MY LINKS (Daraz Product tab style) -->
   <div id="pg-mylinks" class="pg">
-    <div class="sync-banner">
-      <div><div class="sync-t">🔄 Real-time tracking</div><div style="font-size:11px;color:#3B82F6;font-weight:600">Firebase se live data</div></div>
-      <button class="sync-btn" onclick="syncFromFirebase(true)">Sync</button>
-    </div>
-    <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none">
-      <button class="chip chip-or" style="flex-shrink:0;cursor:pointer;padding:8px 16px;border:none;font-family:inherit;font-size:12px" id="lf-all" onclick="setLF('all',this)">All</button>
-      <button class="chip chip-mu" style="flex-shrink:0;cursor:pointer;padding:8px 16px;border:none;font-family:inherit;font-size:12px" onclick="setLF('pending_admin',this)">⏳ Pending Admin</button>
-      <button class="chip chip-mu" style="flex-shrink:0;cursor:pointer;padding:8px 16px;border:none;font-family:inherit;font-size:12px" onclick="setLF('ready',this)">✅ Ready</button>
-      <button class="chip chip-mu" style="flex-shrink:0;cursor:pointer;padding:8px 16px;border:none;font-family:inherit;font-size:12px" onclick="setLF('active',this)">🔥 Active</button>
+    <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:4px;scrollbar-width:none">
+      <button class="ct-btn on" style="white-space:nowrap;flex-shrink:0" id="lf-all" onclick="setLF('all',this)">All</button>
+      <button class="ct-btn" style="white-space:nowrap;flex-shrink:0" onclick="setLF('pending_admin',this)">Pending Admin</button>
+      <button class="ct-btn" style="white-space:nowrap;flex-shrink:0" onclick="setLF('ready',this)">Ready</button>
+      <button class="ct-btn" style="white-space:nowrap;flex-shrink:0" onclick="setLF('active',this)">Active</button>
     </div>
     <div id="links-list"></div>
   </div>
 
   <!-- EARNINGS -->
   <div id="pg-earnings" class="pg">
-    <div style="background:linear-gradient(135deg,#FF6B2B,#E85520);border-radius:20px;padding:20px;margin-bottom:14px;color:#fff">
-      <div style="font-size:12px;opacity:.8;font-weight:600">Total Earned (All Time)</div>
-      <div style="font-size:42px;font-weight:800;margin-top:4px">Rs <span id="e-total">0</span></div>
+    <div class="or-box" style="border-radius:12px;margin-bottom:12px">
+      <div class="or-box-t">My Report</div>
+      <div style="font-size:11px;opacity:.7;font-weight:600" id="e-updated">Update Time: —</div>
+      <div style="font-size:36px;font-weight:800;margin-top:8px">Rs. <span id="e-total">0.00</span></div>
+      <div style="font-size:12px;opacity:.8;font-weight:600;margin-top:4px">Est. Income (Total)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px">
         <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800" id="e-paid">0</div><div style="font-size:10px;opacity:.8;font-weight:600">Paid</div></div>
         <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800" id="e-pend">0</div><div style="font-size:10px;opacity:.8;font-weight:600">Pending</div></div>
-        <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800" id="e-clicks">0</div><div style="font-size:10px;opacity:.8;font-weight:600">Clicks</div></div>
+        <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800" id="e-comp">0</div><div style="font-size:10px;opacity:.8;font-weight:600">Orders</div></div>
       </div>
     </div>
     <div class="card">
-      <div class="ct">💸 Withdraw Earnings</div>
-      <div style="background:#ECFDF5;border:1px solid #6EE7B7;border-radius:12px;padding:10px;margin-bottom:12px;font-size:12px;font-weight:700;color:#065F46">Min withdrawal: Rs 500 | Easypaisa / JazzCash</div>
-      <input class="inp" id="wd-amt" type="number" placeholder="Amount (min Rs 500)" min="500">
-      <select class="inp" id="wd-mth">
-        <option value="easypaisa">Easypaisa</option>
-        <option value="jazzcash">JazzCash</option>
-      </select>
+      <div class="ct">Withdraw Earnings</div>
+      <div style="background:#F0FFF5;border-radius:8px;padding:10px;margin-bottom:14px;font-size:13px;font-weight:600;color:#006630">Minimum withdrawal: Rs. 500 | Easypaisa / JazzCash</div>
+      <label class="fl">Amount (Rs)</label>
+      <input class="inp" id="wd-amt" type="number" placeholder="Min Rs. 500">
+      <label class="fl">Payment Method</label>
+      <select class="inp" id="wd-mth"><option value="easypaisa">Easypaisa</option><option value="jazzcash">JazzCash</option></select>
+      <label class="fl">Account Number</label>
       <input class="inp" id="wd-num" type="tel" placeholder="03XXXXXXXXX" maxlength="11">
-      <button class="bog" onclick="doWithdraw()">💸 Request Withdrawal</button>
+      <button class="bog" onclick="doWithdraw()">Request Withdrawal</button>
     </div>
-    <div class="sec">📋 Payment History</div>
-    <div id="pay-hist"><div style="text-align:center;padding:20px;color:var(--mu);font-weight:600">No payments yet</div></div>
+    <div class="card">
+      <div class="ct">Payment History</div>
+      <div id="pay-hist"><div class="empty"><div class="empty-ic">💰</div><div class="empty-t">No payments yet</div></div></div>
+    </div>
   </div>
 
   <!-- HOW TO -->
   <div id="pg-howto" class="pg">
-    <div class="sec" style="margin-top:0">📖 How To Earn — Fixed V5</div>
     <div class="card">
-      <div class="ct">🔄 Complete Workflow</div>
-      <div style="font-size:13px;font-weight:600;line-height:2;color:var(--mu)">
-        1️⃣ Daraz app → Product → Share → Copy Link<br>
-        2️⃣ EarnPak → Submit Product → Admin ko jata hai<br>
-        3️⃣ Admin affiliate link add kare + commission set kare<br>
-        4️⃣ Aapko notification — Final tracking link milega<br>
-        5️⃣ Link copy karo → WhatsApp / Facebook share karo<br>
-        6️⃣ Koi click kare → Daraz pe product khule<br>
-        7️⃣ Purchase ho → Admin verify kare → Pending order<br>
-        8️⃣ Return period khatam → Completed → Paisa!<br>
-        9️⃣ Rs 500+ hone pe withdrawal request karo<br>
-        🔟 Admin Easypaisa / JazzCash pe pay kare ✅
+      <div class="ct">How To Earn</div>
+      <div style="font-size:14px;font-weight:600;line-height:2.2;color:#444">
+        <span style="color:var(--or);font-weight:800">Step 1</span> — Daraz app pe product select karo, Share karo, Link copy karo<br>
+        <span style="color:var(--or);font-weight:800">Step 2</span> — EarnPak pe Submit karo — Admin ko jata hai<br>
+        <span style="color:var(--or);font-weight:800">Step 3</span> — Admin link approve kare — Aapko notification aye ga<br>
+        <span style="color:var(--or);font-weight:800">Step 4</span> — My Links → Final link copy karo → WhatsApp/Facebook share karo<br>
+        <span style="color:var(--or);font-weight:800">Step 5</span> — Koi click kare → Daraz pe jaye → Khareedey → Order Pending<br>
+        <span style="color:var(--or);font-weight:800">Step 6</span> — 2 day return policy khatam hone ke baad → Completed<br>
+        <span style="color:var(--or);font-weight:800">Step 7</span> — Rs. 500+ earnings pe withdraw karo → Easypaisa / JazzCash
       </div>
     </div>
     <div class="card">
-      <div class="ct">💰 Commission Structure</div>
-      <div class="sr"><div class="sl">Daraz pays (affiliate)</div><div class="sv sv-bl">3-10% per sale</div></div>
-      <div class="sr"><div class="sl">Your share</div><div class="sv sv-gr">80% of commission</div></div>
-      <div class="sr"><div class="sl">Admin share</div><div class="sv sv-or">20% of commission</div></div>
-    </div>
-    <div class="card">
-      <div class="ct">🎯 Pro Tips</div>
-      <div style="font-size:13px;font-weight:600;color:var(--mu);line-height:1.9">
-        ✅ High commission products choose karo (6-10%)<br>
-        ✅ Best selling (26k+ sold) products share karo<br>
-        ✅ Beauty, fashion, baby products fast bikti hain<br>
-        ✅ Discount wale products share karo (-13%, -21%)<br>
-        ✅ Rozana 5-10 products share karo consistency se<br>
-        ✅ Family WhatsApp groups, Facebook moms groups<br>
-        ✅ Girls groups pe beauty products best perform karti hain
+      <div class="ct">Tracking System</div>
+      <div class="stat-row">
+        <div class="stat-icon" style="background:#FFF5EE">🖱</div>
+        <div class="stat-info"><div class="stat-t">Link Clicks</div><div class="stat-s">Jab koi aapka link click kare</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon" style="background:#FFFBEE">📦</div>
+        <div class="stat-info"><div class="stat-t">Pending Order</div><div class="stat-s">Purchase hua — delivery pending</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon" style="background:#F0FFF5">✅</div>
+        <div class="stat-info"><div class="stat-t">Completed</div><div class="stat-s">Delivered + 2 day return khatam</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon" style="background:#FFF0F0">↩</div>
+        <div class="stat-info"><div class="stat-t">Returned</div><div class="stat-s">Customer ne wapas kiya</div></div>
       </div>
     </div>
   </div>
 
   <!-- ADMIN -->
   <div id="pg-admin" class="pg">
-    <div style="background:linear-gradient(135deg,#0F172A,#1E293B);border-radius:20px;padding:20px;margin-bottom:14px;color:#fff">
-      <div style="font-size:12px;opacity:.6;font-weight:600">Admin Control Panel</div>
-      <div style="font-size:20px;font-weight:800;margin-top:4px">EarnPak Dashboard</div>
-      <div style="font-size:11px;opacity:.5;margin-top:2px">Daraz Affiliate ID: 182242124</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px">
-        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800" id="adm-wc">0</div><div style="font-size:10px;opacity:.7;font-weight:600">Workers</div></div>
-        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800" id="adm-lc">0</div><div style="font-size:10px;opacity:.7;font-weight:600">Links</div></div>
-        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800" id="adm-oc">0</div><div style="font-size:10px;opacity:.7;font-weight:600">Orders</div></div>
+    <!-- Admin Stats -->
+    <div class="or-box" style="border-radius:0 0 16px 16px;margin:0 -16px 12px;padding:20px">
+      <div class="or-box-t">Admin Panel — EarnPak</div>
+      <div style="font-size:28px;font-weight:800;margin-top:8px">Rs. <span id="adm-tc">0</span></div>
+      <div style="font-size:12px;opacity:.8;font-weight:600;margin-top:2px">Total Commission Earned</div>
+      <div class="or-box-grid">
+        <div class="or-box-item"><div class="or-box-iv" id="adm-wc">0</div><div class="or-box-il">Workers</div></div>
+        <div class="or-box-item"><div class="or-box-iv" id="adm-lc">0</div><div class="or-box-il">Links</div></div>
+        <div class="or-box-item"><div class="or-box-iv" id="adm-oc">0</div><div class="or-box-il">Orders</div></div>
       </div>
     </div>
-    <div class="sg">
-      <div class="sb"><div class="sbl">💰 Total Commission</div><div class="sbv sv-or" id="adm-tc">Rs 0</div></div>
-      <div class="sb"><div class="sbl">🏦 My 20% Profit</div><div class="sbv sv-gr" id="adm-pr">Rs 0</div></div>
-      <div class="sb"><div class="sbl">⏳ Pending Pay</div><div class="sbv" style="color:var(--ye)" id="adm-pp">Rs 0</div></div>
-      <div class="sb"><div class="sbl">✅ Total Paid</div><div class="sbv sv-bl" id="adm-pd">Rs 0</div></div>
+
+    <div class="q-grid">
+      <div class="q-box"><div class="q-label">My Profit</div><div class="q-val" style="color:var(--gr);font-size:20px">Rs <span id="adm-pr">0</span></div></div>
+      <div class="q-box"><div class="q-label">Pending Pay</div><div class="q-val" style="color:var(--ye);font-size:20px">Rs <span id="adm-pp">0</span></div></div>
     </div>
 
-    <div class="sec">📦 Pending Product Submissions <span id="adm-pps-badge" class="nb">0</span></div>
+    <!-- Pending Submissions -->
+    <div class="sec">📦 Pending Submissions <span id="adm-ps-cnt" style="background:#FFF5EE;color:var(--or);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800">0</span></div>
     <div id="adm-pps"></div>
 
-    <div class="sec">📋 Pending Orders <span id="adm-po-badge" class="nb">0</span></div>
+    <!-- Pending Orders -->
+    <div class="sec">📋 Pending Orders <span id="adm-po-cnt" style="background:#FFFBEE;color:var(--ye);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800">0</span></div>
     <div id="adm-po"></div>
 
-    <div class="sec">💸 Withdrawal Requests <span id="adm-wr-badge" class="nb">0</span></div>
-    <div id="adm-wr"></div>
+    <!-- Withdrawals -->
+    <div class="sec">💸 Withdrawals <span id="adm-wd-cnt" style="background:#F0FFF5;color:var(--gr);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800">0</span></div>
+    <div id="adm-wds"></div>
 
+    <!-- Workers -->
     <div class="sec">👥 All Workers</div>
     <div id="adm-workers"></div>
   </div>
@@ -409,813 +443,698 @@ select.inp{cursor:pointer}
 
 <!-- MODAL -->
 <div id="mod-ov" onclick="if(event.target===this)closeMod()">
-  <div id="mod-box"></div>
+  <div id="mod-box">
+    <div class="mod-hdr">
+      <div class="mod-t" id="mod-t">Details</div>
+      <button class="mod-x" onclick="closeMod()">✕</button>
+    </div>
+    <div class="mod-body" id="mod-body"></div>
+  </div>
 </div>
 
 <!-- BOTTOM NAV -->
 <div id="bnav">
-  <button class="bn on" id="bn-dash" onclick="nav('dash')"><span class="bni">📊</span>Dashboard</button>
-  <button class="bn" id="bn-submit" onclick="nav('submit')"><span class="bni">➕</span>Submit</button>
-  <button class="bn" id="bn-mylinks" onclick="nav('mylinks')"><span class="bni">🔗</span>My Links</button>
-  <button class="bn" id="bn-earnings" onclick="nav('earnings')"><span class="bni">💰</span>Earnings</button>
+  <div class="bn-wrap">
+    <button class="bn on" id="bn-dash" onclick="nav('dash')"><span class="bni">🏠</span>Home</button>
+    <button class="bn" id="bn-submit" onclick="nav('submit')"><span class="bni">➕</span>Submit</button>
+    <button class="bn" id="bn-mylinks" onclick="nav('mylinks')"><span class="bni">🔗</span>My Links</button>
+    <button class="bn" id="bn-earnings" onclick="nav('earnings')"><span class="bni">💰</span>Earnings</button>
+  </div>
 </div>
 
 <div id="tst"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, collection, query, where, orderBy, limit, increment, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import{getFirestore,doc,setDoc,getDoc,getDocs,updateDoc,collection,query,where,orderBy,limit,increment,serverTimestamp,onSnapshot}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const fb = initializeApp({
-  apiKey:"AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M",
-  authDomain:"aviator-781d9.firebaseapp.com",
-  projectId:"aviator-781d9",
-  storageBucket:"aviator-781d9.firebasestorage.app",
-  messagingSenderId:"151636540667",
-  appId:"1:151636540667:web:a16b6ed543fbf04368c45e"
-});
-const db = getFirestore(fb);
+const fb=initializeApp({apiKey:"AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M",authDomain:"aviator-781d9.firebaseapp.com",projectId:"aviator-781d9",storageBucket:"aviator-781d9.firebasestorage.app",messagingSenderId:"151636540667",appId:"1:151636540667:web:a16b6ed543fbf04368c45e"});
+const db=getFirestore(fb);
 
-const DARAZ_AFF_ID = "182242124";
-const SK = "ep_v5_users", PK = "ep_v5_products", WDK = "ep_v5_withdrawals";
-let U = null, aMode = "login", lfFilter = "all", isAdmin = false;
+const DARAZ_ID="182242124";
+let U=null,aMode="login",lfFilter="all",isAdmin=false,convPeriod="yesterday";
+let allProds=[],allUsers=[],allWds=[];
 
-// ── SAFE DATE ──
-function safeDate(val){
-  try{
-    if(!val) return "—";
-    if(typeof val==="object" && val.toDate) return val.toDate().toLocaleDateString("en-PK");
-    if(typeof val==="object" && val.seconds) return new Date(val.seconds*1000).toLocaleDateString("en-PK");
-    const d = new Date(val);
-    if(isNaN(d.getTime())) return "—";
-    return d.toLocaleDateString("en-PK");
-  }catch{return "—";}
-}
-function safeDT(val){
-  try{
-    if(!val) return "—";
-    if(typeof val==="object" && val.toDate) return val.toDate().toLocaleString("en-PK");
-    if(typeof val==="object" && val.seconds) return new Date(val.seconds*1000).toLocaleString("en-PK");
-    const d = new Date(val);
-    if(isNaN(d.getTime())) return "—";
-    return d.toLocaleString("en-PK");
-  }catch{return "—";}
-}
+// SAFE DATE
+function sd(v){try{if(!v)return"—";if(v&&v.toDate)return v.toDate().toLocaleString("en-PK");if(v&&v.seconds)return new Date(v.seconds*1000).toLocaleString("en-PK");const d=new Date(v);if(isNaN(d))return"—";return d.toLocaleString("en-PK")}catch{return"—"}}
+function sds(v){try{if(!v)return"—";if(v&&v.toDate)return v.toDate().toLocaleDateString("en-PK");if(v&&v.seconds)return new Date(v.seconds*1000).toLocaleDateString("en-PK");const d=new Date(v);if(isNaN(d))return"—";return d.toLocaleDateString("en-PK")}catch{return"—"}}
 
-// ── LOCAL STORAGE ──
-function gLS(k){try{return JSON.parse(localStorage.getItem(k)||"[]")}catch{return[]}}
-function sLS(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
-function gObj(k){try{return JSON.parse(localStorage.getItem(k)||"{}")}catch{return{}}}
-function sObj(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+const catIcons={beauty:"💄",fashion:"👗",electronics:"📱",home:"🏠",health:"💊",baby:"👶",sports:"⚽",food:"🍕",other:"📦"};
 
-// ── HELPERS ──
-const catIcons = {beauty:"💄",fashion:"👗",electronics:"📱",home:"🏠",health:"💊",baby:"👶",sports:"⚽",food:"🍕",other:"📦"};
+function toast(msg,dur=3000){const t=document.getElementById("tst");t.textContent=msg;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),dur)}
 
-function toast(msg,dur=3000){
-  const t=document.getElementById("tst");
-  t.textContent=msg; t.classList.add("on");
-  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),dur);
-}
+// CHECK TRACKING REDIRECT
+const up=new URLSearchParams(location.search);
+isAdmin=up.get("admin")==="1";
+const trackId=up.get("track"),trackWk=up.get("wk");
 
-// ── SPLASH ──
-const urlParams = new URLSearchParams(location.search);
-isAdmin = urlParams.get("admin")==="1";
-const trackId = urlParams.get("track");
-const trackWk = urlParams.get("wk");
-
-// Handle tracking redirect
-if(trackId && trackWk){
-  handleTracking(trackId, trackWk);
-}
-
-setTimeout(async()=>{
-  const s=document.getElementById("splash");
-  s.classList.add("hide"); setTimeout(()=>{if(s.parentNode)s.remove();},600);
-  
-  if(isAdmin){
-    const pw=prompt("Admin Password:");
-    if(pw!=="ADMIN123"){alert("Wrong password!");isAdmin=false;showLogin();return;}
-    showAdminApp(); return;
-  }
-  
-  try{
-    const sid=sessionStorage.getItem("ep_sid");
-    if(sid){
-      const snap = await getDoc(doc(db,"users",sid));
-      if(snap.exists()){U={...snap.data(),userId:snap.id};showApp();return;}
+if(trackId&&trackWk){
+  (async()=>{
+    try{
+      await updateDoc(doc(db,"products",trackId),{clicks:increment(1)});
+      await updateDoc(doc(db,"users",trackWk),{totalClicks:increment(1)});
+      const s=await getDoc(doc(db,"products",trackId));
+      if(s.exists()){
+        const p=s.data();
+        document.body.innerHTML=`<div style="font-family:sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F57224;color:#fff;padding:24px;text-align:center"><div style="font-size:64px;margin-bottom:20px">🛒</div><div style="font-size:24px;font-weight:800;margin-bottom:8px">EarnPak</div><div style="font-size:15px;opacity:.85;margin-bottom:24px">Daraz pe redirect ho raha hai...</div><div style="width:200px;height:4px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden"><div style="height:100%;background:#fff;animation:ld 2s ease forwards;border-radius:99px"></div></div><style>@keyframes ld{from{width:0}to{width:100%}}</style></div>`;
+        setTimeout(()=>window.location.href=p.darazTrackLink||p.affiliateLink||p.link,2000);
+      }
+    }catch(e){console.error(e);}
+  })();
+}else{
+  // Normal app flow
+  setTimeout(async()=>{
+    const s=document.getElementById("splash");
+    s.classList.add("hide");
+    if(isAdmin){
+      const pw=prompt("Admin Password:");
+      if(pw!=="ADMIN123"){alert("Wrong password!");showLogin();return;}
+      showAdminApp();return;
     }
-  }catch(e){console.warn(e);}
-  showLogin();
-},1400);
-
-async function handleTracking(prodId, wkId){
-  try{
-    // Increment click in Firebase
-    await updateDoc(doc(db,"products",prodId),{clicks:increment(1)});
-    await updateDoc(doc(db,"users",wkId),{totalClicks:increment(1)});
-    // Get product and redirect
-    const snap = await getDoc(doc(db,"products",prodId));
-    if(snap.exists()){
-      const p = snap.data();
-      document.body.innerHTML=`<div style="font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#FFF7F3;padding:20px;text-align:center"><div style="font-size:48px;margin-bottom:16px">🛒</div><div style="font-size:20px;font-weight:800;margin-bottom:8px">EarnPak</div><div style="font-size:14px;color:#666;margin-bottom:20px">Tracking click... Redirecting to Daraz</div><div style="width:200px;height:4px;background:#eee;border-radius:99px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#FF6B2B,#E85520);animation:ld 2s ease forwards"></div></div><style>@keyframes ld{from{width:0}to{width:100%}}</style></div>`;
-      setTimeout(()=>{window.location.href=p.darazTrackLink||p.affiliateLink||p.link;},2000);
-    }
-  }catch(e){console.error(e);}
+    try{
+      const sid=sessionStorage.getItem("ep_sid");
+      if(sid){const snap=await getDoc(doc(db,"users",sid));if(snap.exists()){U={...snap.data(),userId:snap.id};showApp();return;}}
+    }catch(e){}
+    showLogin();
+  },1400);
 }
 
-// ── AUTH ──
-function swTab(t){
-  aMode=t;
-  document.getElementById("tbl").className="tb "+(t==="login"?"on":"");
-  document.getElementById("tbs").className="tb "+(t==="signup"?"on":"");
-  document.getElementById("a-nm").style.display=t==="signup"?"block":"none";
-  document.getElementById("a-err").style.display="none";
-}
-window.swTab=swTab;
+// AUTH
+window.swTab=t=>{aMode=t;document.getElementById("tbl").className="tb "+(t==="login"?"on":"");document.getElementById("tbs").className="tb "+(t==="signup"?"on":"");document.getElementById("a-nm").style.display=t==="signup"?"block":"none";document.getElementById("a-err").style.display="none"};
 
 function showLogin(){
   document.getElementById("apg").style.display="flex";
-  document.getElementById("hdr").style.display="none";
-  document.getElementById("bnav").style.display="none";
-  document.getElementById("app").style.display="none";
+  ["hdr","bnav","app"].forEach(id=>document.getElementById(id).style.display="none");
 }
 
 window.doAuth=async()=>{
   const ph=document.getElementById("a-ph").value.trim();
   const ps=document.getElementById("a-ps").value.trim();
-  const nm=document.getElementById("a-nm")?.value.trim();
-  const errEl=document.getElementById("a-err");
-  const btn=document.getElementById("a-btn");
-  errEl.style.display="none";
-  if(!ph||ph.length<11){errEl.textContent="Valid 03XXXXXXXXX enter karo";errEl.style.display="block";return;}
-  if(!ps||ps.length<2){errEl.textContent="Password min 3 chars";errEl.style.display="block";return;}
+  const nm=document.getElementById("a-nm").value.trim();
+  const e=document.getElementById("a-err"),btn=document.getElementById("a-btn");
+  e.style.display="none";
+  if(!ph||ph.length<11){e.textContent="Valid 03XXXXXXXXX enter karo";e.style.display="block";return}
+  if(!ps||ps.length<2){e.textContent="Password enter karo";e.style.display="block";return}
   btn.disabled=true;btn.textContent="Please wait...";
   try{
     if(aMode==="signup"){
-      if(!nm){errEl.textContent="Full name enter karo";errEl.style.display="block";btn.disabled=false;btn.textContent="Continue →";return;}
-      // Check phone exists
+      if(!nm){e.textContent="Full name enter karo";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
       const q=query(collection(db,"users"),where("phone","==",ph),limit(1));
-      const snap=await getDocs(q);
-      if(!snap.empty){errEl.textContent="Phone already registered — Login karo";errEl.style.display="block";btn.disabled=false;btn.textContent="Continue →";return;}
+      const sn=await getDocs(q);
+      if(!sn.empty){e.textContent="Phone already registered";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
       const uid="WK-"+Math.floor(10000+Math.random()*90000);
-      const nu={userId:uid,name:nm,phone:ph,password:ps,role:"worker",totalClicks:0,totalOrders:0,totalEarned:0,pendingEarnings:0,paidEarnings:0,payments:[],joinedAt:new Date().toISOString(),createdAt:serverTimestamp()};
+      const nu={userId:uid,name:nm,phone:ph,password:ps,role:"worker",totalClicks:0,totalOrders:0,totalEarned:0,pendingEarnings:0,paidEarnings:0,payments:[],notifications:[],joinedAt:new Date().toISOString(),createdAt:serverTimestamp()};
       await setDoc(doc(db,"users",uid),nu);
-      U={...nu}; sessionStorage.setItem("ep_sid",uid);
-      showApp();
-    } else {
+      U={...nu};sessionStorage.setItem("ep_sid",uid);showApp();
+    }else{
       const q=query(collection(db,"users"),where("phone","==",ph),limit(1));
-      const snap=await getDocs(q);
-      if(snap.empty){errEl.textContent="Account nahi mila — Sign Up karo";errEl.style.display="block";btn.disabled=false;btn.textContent="Continue →";return;}
-      const ud=snap.docs[0];
-      if(ud.data().password!==ps){errEl.textContent="Wrong password";errEl.style.display="block";btn.disabled=false;btn.textContent="Continue →";return;}
-      U={...ud.data(),userId:ud.id}; sessionStorage.setItem("ep_sid",ud.id);
-      showApp();
+      const sn=await getDocs(q);
+      if(sn.empty){e.textContent="Account nahi mila";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
+      const ud=sn.docs[0];
+      if(ud.data().password!==ps){e.textContent="Wrong password";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
+      U={...ud.data(),userId:ud.id};sessionStorage.setItem("ep_sid",ud.id);showApp();
     }
-  }catch(e){errEl.textContent="Error: "+e.message;errEl.style.display="block";}
-  btn.disabled=false;btn.textContent="Continue →";
+  }catch(err){e.textContent="Error: "+err.message;e.style.display="block";}
+  btn.disabled=false;btn.textContent="Continue";
 };
 
-window.doOut=()=>{sessionStorage.removeItem("ep_sid");U=null;location.href=location.pathname;};
+window.doOut=()=>{sessionStorage.removeItem("ep_sid");location.href=location.pathname};
 
-// ── SHOW APP ──
+// SHOW APP
 function showApp(){
   document.getElementById("apg").style.display="none";
   document.getElementById("hdr").style.display="flex";
-  document.getElementById("bnav").style.display="flex";
+  document.getElementById("bnav").style.display="block";
   document.getElementById("app").style.display="block";
   document.getElementById("h-av").textContent=(U.name||"U")[0].toUpperCase();
-  document.getElementById("h-role").textContent="Worker";
-  syncFromFirebase(false);
+  listenToProducts();
+  updUI();
   nav("dash");
 }
 
-// ── FIREBASE SYNC ──
-async function syncFromFirebase(showToast){
-  if(!U) return;
-  try{
-    // Sync user data
-    const userSnap=await getDoc(doc(db,"users",U.userId));
-    if(userSnap.exists()) U={...userSnap.data(),userId:U.userId};
-    // Sync products
-    const pq=query(collection(db,"products"),where("workerId","==",U.userId),orderBy("submittedAt","desc"));
-    const pSnap=await getDocs(pq);
+// REALTIME LISTENER
+function listenToProducts(){
+  if(!U)return;
+  const q=query(collection(db,"products"),where("workerId","==",U.userId),orderBy("submittedAt","desc"));
+  onSnapshot(q,snap=>{
     const prods=[];
-    pSnap.forEach(d=>prods.push({...d.data(),id:d.id,_fbId:d.id}));
-    sLS(PK+U.userId, prods);
-    // Update last sync
-    const now=new Date().toLocaleTimeString("en-PK");
-    const el=document.getElementById("last-sync");
-    if(el) el.textContent="Last sync: "+now;
-    updUI(); renderDashActivity(); renderLinks(); renderEarnings();
-    if(showToast) toast("✅ Synced from Firebase! "+prods.length+" links");
-  }catch(e){ console.error("Sync error:",e); if(showToast) toast("⚠️ Sync error: "+e.message); }
+    snap.forEach(d=>prods.push({...d.data(),id:d.id}));
+    // Update local
+    localStorage.setItem("ep_prods_"+U.userId,JSON.stringify(prods));
+    updUI();
+    renderLinks();
+    renderDash();
+    renderEarnings();
+    // Check for new notifications
+    checkNotifs(prods);
+  });
+  // Also listen to user doc for balance updates
+  onSnapshot(doc(db,"users",U.userId),snap=>{
+    if(snap.exists()){U={...snap.data(),userId:U.userId};updUI();}
+  });
 }
-window.syncFromFirebase=syncFromFirebase;
 
-// ── UI ──
+function getProds(){try{return JSON.parse(localStorage.getItem("ep_prods_"+U.userId)||"[]")}catch{return[]}}
+
+function checkNotifs(prods){
+  const readyProds=prods.filter(p=>p.status==="ready"&&!p._notifShown);
+  readyProds.forEach(async p=>{
+    // Mark shown
+    await updateDoc(doc(db,"products",p.id),{_notifShown:true}).catch(()=>{});
+    // Add notification
+    const notifs=U.notifications||[];
+    notifs.unshift({id:"N-"+Date.now(),type:"ready",msg:`"${p.name}" — Admin ne approve kar diya! Final link ready hai.`,time:new Date().toISOString(),read:false});
+    U.notifications=notifs.slice(0,20);
+    await updateDoc(doc(db,"users",U.userId),{notifications:U.notifications}).catch(()=>{});
+    // Show badge
+    const cnt=document.getElementById("notif-cnt");
+    const unread=(U.notifications||[]).filter(n=>!n.read).length;
+    cnt.textContent=unread;cnt.style.display=unread>0?"flex":"none";
+    toast("🔔 "+p.name+" — Admin ne approve kar diya!");
+  });
+}
+
+// UI UPDATE
 function updUI(){
-  if(!U) return;
-  const pts=U.pendingEarnings||0, te=U.totalEarned||0;
-  document.getElementById("drw-nm").textContent=U.name||"Worker";
-  document.getElementById("drw-id").textContent="ID: "+U.userId;
-  document.getElementById("drw-bl").textContent=pts.toFixed(2);
-  document.getElementById("wk-nm").textContent="Welcome, "+(U.name||"Worker")+"!";
-  document.getElementById("wk-id").textContent="Worker ID: "+U.userId;
-  document.getElementById("wk-bal").textContent=pts.toFixed(2);
-  document.getElementById("wk-clicks").textContent=U.totalClicks||0;
-  document.getElementById("wk-orders").textContent=U.totalOrders||0;
-  const prods=gLS(PK+U.userId);
-  document.getElementById("wk-links").textContent=prods.length;
-  let comp=0,pend=0,ret=0;
-  prods.forEach(p=>(p.orders||[]).forEach(o=>{
-    if(o.status==="completed") comp++;
-    else if(o.status==="pending") pend++;
-    else if(o.status==="returned") ret++;
-  }));
-  document.getElementById("d-comp").textContent=comp;
-  document.getElementById("d-pend").textContent=pend;
-  document.getElementById("d-ret").textContent=ret;
-  document.getElementById("d-earn").textContent=te.toFixed(0);
-  document.getElementById("e-total").textContent=te.toFixed(2);
+  if(!U)return;
+  const prods=getProds();
+  let totalClicks=0,pendOrders=0,toEarn=0,retOrders=0,compOrders=0;
+  prods.forEach(p=>{
+    totalClicks+=(p.clicks||0);
+    (p.orders||[]).forEach(o=>{
+      if(o.status==="pending")pendOrders++;
+      else if(o.status==="completed"){toEarn++;compOrders++;}
+      else if(o.status==="returned")retOrders++;
+    });
+  });
+  document.getElementById("d-bal").textContent=(U.pendingEarnings||0).toFixed(2);
+  document.getElementById("d-clicks").textContent=U.totalClicks||totalClicks||0;
+  document.getElementById("d-orders").textContent=U.totalOrders||0;
+  document.getElementById("d-links").textContent=prods.length;
+  document.getElementById("d-pend-cnt").textContent=pendOrders;
+  document.getElementById("d-earn-cnt").textContent=toEarn;
+  document.getElementById("d-ret-cnt").textContent=retOrders;
+  document.getElementById("e-total").textContent=(U.totalEarned||0).toFixed(2);
   document.getElementById("e-paid").textContent=(U.paidEarnings||0).toFixed(0);
-  document.getElementById("e-pend").textContent=pts.toFixed(0);
-  document.getElementById("e-clicks").textContent=U.totalClicks||0;
+  document.getElementById("e-pend").textContent=(U.pendingEarnings||0).toFixed(0);
+  document.getElementById("e-comp").textContent=compOrders;
+  // Update timestamp
+  const now=new Date().toLocaleString("en-PK");
+  const cu=document.getElementById("conv-updated");if(cu)cu.textContent="Updated: "+now;
+  const eu=document.getElementById("e-updated");if(eu)eu.textContent="Update Time: "+now;
+  // Notif badge
+  const unread=(U.notifications||[]).filter(n=>!n.read).length;
+  const cnt=document.getElementById("notif-cnt");
+  if(cnt){cnt.textContent=unread;cnt.style.display=unread>0?"flex":"none";}
+  // Conv report
+  updConv();
 }
 
-// ── NAV ──
+function updConv(){
+  if(!U)return;
+  const prods=getProds();
+  const now=Date.now();
+  let days=1;
+  if(convPeriod==="7days")days=7;
+  else if(convPeriod==="15days")days=15;
+  const cutoff=now-days*86400000;
+  let clicks=0,orders=0,sales=0,rev=0;
+  prods.forEach(p=>{
+    const recentOrders=(p.orders||[]).filter(o=>new Date(o.date||0).getTime()>=cutoff);
+    orders+=recentOrders.length;
+    recentOrders.forEach(o=>{if(o.status==="completed"){sales+=(o.totalComm||0);rev+=(o.workerEarn||0);}});
+  });
+  document.getElementById("cv-sales").textContent="Rs. "+sales.toFixed(2);
+  document.getElementById("cv-rev").textContent="Rs. "+rev.toFixed(2);
+  document.getElementById("cv-click").textContent=clicks;
+  document.getElementById("cv-orders").textContent=orders;
+}
+
+window.setConv=(p,el)=>{
+  convPeriod=p;
+  document.querySelectorAll(".conv-tabs .ct-btn").forEach(b=>b.classList.remove("on"));
+  el.classList.add("on");
+  updConv();
+};
+
+// NAV
 window.nav=function(pg){
   document.querySelectorAll(".pg").forEach(p=>p.classList.remove("on"));
   document.querySelectorAll(".bn").forEach(b=>b.classList.remove("on"));
   document.getElementById("pg-"+pg)?.classList.add("on");
   const mp={dash:"bn-dash",submit:"bn-submit",mylinks:"bn-mylinks",earnings:"bn-earnings"};
-  if(mp[pg]) document.getElementById(mp[pg])?.classList.add("on");
-  if(pg==="mylinks"){syncFromFirebase(false);renderLinks();}
-  if(pg==="dash"){updUI();renderDashActivity();}
-  if(pg==="earnings"){renderEarnings();}
+  if(mp[pg])document.getElementById(mp[pg])?.classList.add("on");
+  if(pg==="mylinks")renderLinks();
+  if(pg==="dash")renderDash();
+  if(pg==="earnings")renderEarnings();
+  if(pg==="admin")refreshAdmin();
 };
-window.oDrw=()=>{document.getElementById("drw").classList.add("on");document.getElementById("dov").classList.add("on");};
-window.cDrw=()=>{document.getElementById("drw").classList.remove("on");document.getElementById("dov").classList.remove("on");};
 
-// ── SUBMIT PRODUCT ──
+// NOTIFICATIONS
+window.openNotifs=function(){
+  const notifs=U?.notifications||[];
+  // Mark all read
+  if(U&&notifs.some(n=>!n.read)){
+    U.notifications=notifs.map(n=>({...n,read:true}));
+    updateDoc(doc(db,"users",U.userId),{notifications:U.notifications}).catch(()=>{});
+    document.getElementById("notif-cnt").style.display="none";
+  }
+  document.getElementById("mod-t").textContent="🔔 Notifications";
+  const body=document.getElementById("mod-body");
+  if(!notifs.length){body.innerHTML=`<div class="empty"><div class="empty-ic">🔔</div><div class="empty-t">No notifications</div></div>`;openMod();return;}
+  body.innerHTML=notifs.map(n=>`<div class="notif-item"><div class="notif-dot" style="background:${n.read?"#ccc":"var(--or)"}"></div><div><div class="notif-t">${n.msg}</div><div class="notif-time">${sds(n.time)}</div></div></div>`).join("");
+  openMod();
+};
+
+window.openProfile=function(){
+  if(!U)return;
+  document.getElementById("mod-t").textContent="My Account";
+  document.getElementById("mod-body").innerHTML=`
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--or);color:#fff;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">${(U.name||"U")[0].toUpperCase()}</div>
+      <div style="font-size:18px;font-weight:800">${U.name}</div>
+      <div style="font-size:13px;color:var(--mu);font-weight:600">${U.userId}</div>
+      <div style="font-size:13px;color:var(--mu);font-weight:600">${U.phone}</div>
+    </div>
+    <button onclick="doOut()" style="width:100%;padding:13px;background:#FFF0F0;color:var(--re);border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Logout</button>`;
+  openMod();
+};
+
+// SUBMIT
 window.submitProd=async()=>{
   const link=document.getElementById("p-link").value.trim();
   const name=document.getElementById("p-name").value.trim();
   const cat=document.getElementById("p-cat").value;
-  if(!link){toast("❌ Daraz link paste karo");return;}
-  if(!link.includes("daraz")&&!link.includes("s.click")){toast("❌ Sirf Daraz links allowed hain");return;}
-  if(!name){toast("❌ Product name likho");return;}
-  if(!cat){toast("❌ Category select karo");return;}
+  if(!link){toast("❌ Daraz link paste karo");return}
+  if(!link.includes("daraz")&&!link.includes("s.click")&&!link.includes("pk")){toast("❌ Valid Daraz link chahiye");return}
+  if(!name){toast("❌ Product name likho");return}
+  if(!cat){toast("❌ Category select karo");return}
   const prodId="PRD-"+Date.now();
-  const prod={
-    id:prodId, workerId:U.userId, workerName:U.name, workerPhone:U.phone,
-    name, link, category:cat,
-    status:"pending_admin",
-    clicks:0, orders:[], totalEarned:0,
-    affiliateLink:"", darazTrackLink:"", finalTrackingLink:"",
-    workerCommissionDisplay:0, commissionPercent:6,
-    submittedAt:new Date().toISOString(), createdAt:serverTimestamp()
-  };
+  const prod={id:prodId,workerId:U.userId,workerName:U.name,workerPhone:U.phone,name,link,category:cat,status:"pending_admin",clicks:0,orders:[],totalEarned:0,affiliateLink:"",darazTrackLink:"",finalTrackingLink:"",workerComm:0,submittedAt:new Date().toISOString(),createdAt:serverTimestamp()};
   try{
     await setDoc(doc(db,"products",prodId),prod);
     document.getElementById("p-link").value="";
     document.getElementById("p-name").value="";
     document.getElementById("p-cat").value="";
-    toast("✅ Product submitted to Admin! Firebase mein save hua.");
+    toast("✅ Submitted! Admin review karega aur link ready karega.");
     nav("mylinks");
-    await syncFromFirebase(false);
   }catch(e){toast("❌ Error: "+e.message);}
 };
 
-// ── DASHBOARD ACTIVITY ──
-function renderDashActivity(){
-  const prods=gLS(PK+U.userId);
-  const el=document.getElementById("d-activity");
-  if(!prods.length){el.innerHTML=`<div class="card" style="text-align:center;padding:24px"><div style="font-size:36px;margin-bottom:10px">🔗</div><div style="font-size:14px;font-weight:800;margin-bottom:4px">Koi link nahi</div><div style="font-size:12px;color:var(--mu);font-weight:600">Pehla product submit karo!</div></div>`;return;}
-  let html="";
-  prods.slice(0,5).forEach(p=>{
-    const orders=p.orders||[];
-    const statusMap={pending_admin:{t:"⏳ Pending Admin",c:"chip-ye"},ready:{t:"✅ Ready — Create Link",c:"chip-gr"},active:{t:"🔥 Active",c:"chip-or"}};
-    const st=statusMap[p.status]||{t:p.status,c:"chip-mu"};
-    html+=`<div class="card" style="margin-bottom:10px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="width:40px;height:40px;border-radius:12px;background:var(--lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${catIcons[p.category]||"📦"}</div>
-        <div style="flex:1"><div style="font-size:14px;font-weight:800">${p.name}</div><div style="font-size:11px;color:var(--mu);font-weight:600">${safeDate(p.submittedAt)}</div></div>
-        <span class="chip ${st.c}">${st.t}</span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
-        <div style="background:var(--lt);border-radius:8px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:800;color:var(--bl)">${p.clicks||0}</div><div style="font-size:9px;color:var(--mu);font-weight:700">Clicks</div></div>
-        <div style="background:var(--lt);border-radius:8px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:800;color:var(--ye)">${orders.filter(o=>o.status==="pending").length}</div><div style="font-size:9px;color:var(--mu);font-weight:700">Pending</div></div>
-        <div style="background:var(--lt);border-radius:8px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:800;color:var(--gr)">Rs ${(p.totalEarned||0).toFixed(0)}</div><div style="font-size:9px;color:var(--mu);font-weight:700">Earned</div></div>
-      </div>
-    </div>`;
-  });
-  el.innerHTML=html;
+// RENDER DASH
+function renderDash(){
+  // Dashboard auto updates via updUI
 }
 
-// ── MY LINKS ──
+// RENDER LINKS
 window.setLF=function(f,el){
   lfFilter=f;
-  document.querySelectorAll("#pg-mylinks button").forEach(b=>{b.className="chip chip-mu";b.style.cssText="flex-shrink:0;cursor:pointer;padding:8px 16px;border:none;font-family:inherit;font-size:12px";});
-  el.className="chip chip-or";el.style.cssText="flex-shrink:0;cursor:pointer;padding:8px 16px;border:none;font-family:inherit;font-size:12px";
+  document.querySelectorAll("#pg-mylinks button").forEach(b=>{b.classList.remove("on")});
+  el.classList.add("on");
   renderLinks();
 };
 
 function renderLinks(){
-  if(!U) return;
-  let prods=gLS(PK+U.userId);
-  if(lfFilter!=="all") prods=prods.filter(p=>p.status===lfFilter);
+  if(!U)return;
+  let prods=getProds();
+  if(lfFilter!=="all")prods=prods.filter(p=>p.status===lfFilter);
   const el=document.getElementById("links-list");
-  if(!prods.length){el.innerHTML=`<div style="text-align:center;padding:30px;color:var(--mu)"><div style="font-size:36px;margin-bottom:10px">🔗</div><div style="font-size:14px;font-weight:800">Koi link nahi</div></div>`;return;}
+  if(!prods.length){el.innerHTML=`<div class="empty"><div class="empty-ic">🔗</div><div class="empty-t">Koi link nahi</div><div class="empty-s">${lfFilter==="all"?"Pehla product submit karo!":"Is category mein koi link nahi"}</div></div>`;return}
   el.innerHTML="";
   prods.forEach(p=>{
     const orders=p.orders||[];
-    const comp=orders.filter(o=>o.status==="completed").length;
     const pend=orders.filter(o=>o.status==="pending").length;
+    const comp=orders.filter(o=>o.status==="completed").length;
     const ret=orders.filter(o=>o.status==="returned").length;
-    const trackUrl=window.location.origin+window.location.pathname+"?track="+p.id+"&wk="+U.userId;
-    
-    let statusBadge="", extraContent="";
+    const trackUrl=location.origin+location.pathname+"?track="+p.id+"&wk="+U.userId;
+    const statusMap={pending_admin:{t:"Pending Admin",c:"chip-ye"},ready:{t:"Ready — Link Available",c:"chip-gr"},active:{t:"Active",c:"chip-or"},rejected:{t:"Rejected",c:"chip-re"}};
+    const st=statusMap[p.status]||{t:p.status,c:"chip-mu"};
+    const d=document.createElement("div");d.className="prod-card";
+    let extra="";
     if(p.status==="pending_admin"){
-      statusBadge=`<span class="chip chip-ye">⏳ Pending Admin Approval</span>`;
-      extraContent=`<div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;font-weight:700;color:#92400E">⏳ Admin aapka product review kar raha hai. Affiliate link aur commission approve ho ne ke baad notification aye ga.</div>`;
-    } else if(p.status==="ready"){
-      statusBadge=`<span class="chip chip-gr">✅ Admin Approved — Create Final Link</span>`;
-      // Show caption
-      const caption=`🛍️ *${p.name}*\n\n💰 Commission: Rs ${p.workerCommissionDisplay||0} per sale (aapki earning)\n\n🔗 Link se khareedne ke liye:\n${p.darazTrackLink||p.affiliateLink}`;
-      extraContent=`
-        <div class="caption-box" style="margin-top:10px">
-          <div class="caption-t">📋 Full Caption (Copy & Share)</div>
-          <div class="caption-body">${caption}</div>
-          <button onclick="cpText(\`${caption.replace(/`/g,"'")}\`)" style="margin-top:10px;width:100%;padding:10px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">📋 Copy Full Caption</button>
-        </div>
-        <div style="margin-top:10px">
-          <div style="font-size:12px;font-weight:800;margin-bottom:6px;color:var(--dark)">🔗 Final Daraz Affiliate Link (Direct — No Block):</div>
-          <div class="link-box">
-            <div class="link-txt">${p.darazTrackLink||p.affiliateLink}</div>
-            <button class="cp-btn" onclick="cpText('${(p.darazTrackLink||p.affiliateLink).replace(/'/g,"\\'")}')">Copy</button>
-          </div>
-          <div style="font-size:11px;color:var(--gr);font-weight:700;margin-bottom:8px">✅ Direct Daraz link — No "navigation not allowed" error</div>
-          <div style="font-size:12px;font-weight:800;margin-bottom:6px;color:var(--dark)">📊 Click Tracking Link (Optional — counts clicks):</div>
-          <div class="link-box">
-            <div class="link-txt">${trackUrl}</div>
-            <button class="cp-btn" onclick="cpText('${trackUrl}')">Copy</button>
-          </div>
-          <button onclick="createFinalLink('${p.id}')" style="width:100%;padding:12px;background:linear-gradient(135deg,#FF6B2B,#E85520);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:8px">🚀 Activate Link → Start Sharing</button>
-        </div>`;
-    } else if(p.status==="active"){
-      statusBadge=`<span class="chip chip-or">🔥 Active — Sharing</span>`;
-      extraContent=`
-        <div style="margin-top:10px">
-          <div style="font-size:11px;font-weight:800;margin-bottom:4px;color:var(--dark)">🔗 Final Daraz Affiliate Link:</div>
-          <div class="link-box">
-            <div class="link-txt">${p.darazTrackLink||p.affiliateLink}</div>
-            <button class="cp-btn" onclick="cpText('${(p.darazTrackLink||p.affiliateLink).replace(/'/g,"\\'")}')">Copy</button>
-          </div>
-          <div style="font-size:11px;font-weight:800;margin-bottom:4px;color:var(--dark)">📊 Click Tracking Link:</div>
-          <div class="link-box">
-            <div class="link-txt">${trackUrl}</div>
-            <button class="cp-btn" onclick="cpText('${trackUrl}')">Copy</button>
-          </div>
-          <div style="font-size:11px;font-weight:700;color:var(--gr);margin-bottom:8px">📦 Commission per sale: Rs ${p.workerCommissionDisplay||0}</div>
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <button onclick="testClick('${p.id}')" style="flex:1;padding:10px;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">🖱️ Test Click +1</button>
-            <button onclick="testOrder('${p.id}','${p.workerCommissionDisplay||50}')" style="flex:1;padding:10px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">📦 Test Order</button>
+      extra=`<div style="background:#FFFBEE;border-radius:8px;padding:12px;margin-top:10px;font-size:13px;font-weight:600;color:#7A6000">⏳ Admin aapka product review kar raha hai. Approve hote hi notification aye ga.</div>`;
+    }else if(p.status==="ready"||p.status==="active"){
+      extra=`
+        <div style="background:#F0FFF5;border-radius:10px;padding:12px;margin-top:10px">
+          <div style="font-size:13px;font-weight:800;color:#006630;margin-bottom:8px">✅ Link Ready — Share karo aur kamao!</div>
+          <div style="font-size:12px;font-weight:700;color:#444;margin-bottom:4px">📌 Daraz Affiliate Link (Share this):</div>
+          <div class="link-box"><div class="link-txt">${p.darazTrackLink||p.affiliateLink||"—"}</div><button class="cp-btn" onclick="cp('${(p.darazTrackLink||p.affiliateLink||"").replace(/'/g,"\\'")}')">Copy</button></div>
+          <div style="font-size:12px;font-weight:700;color:#444;margin-bottom:4px">📊 Click Tracking Link:</div>
+          <div class="link-box"><div class="link-txt">${trackUrl}</div><button class="cp-btn" onclick="cp('${trackUrl}')">Copy</button></div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button onclick="testClick('${p.id}')" style="flex:1;padding:10px;background:var(--bl);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🖱 Test Click +1</button>
+            <button onclick="testOrder('${p.id}',${p.workerComm||50})" style="flex:1;padding:10px;background:var(--ye);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">📦 Test Order</button>
           </div>
         </div>`;
     }
-
-    const d=document.createElement("div");
-    d.className="lc";
     d.innerHTML=`
-      <div class="lc-h">
-        <div class="lc-ic">${catIcons[p.category]||"📦"}</div>
+      <div class="prod-card-h">
+        <div class="prod-ic">${catIcons[p.category]||"📦"}</div>
         <div style="flex:1">
-          <div class="lc-nm">${p.name}</div>
-          <div class="lc-s">${safeDate(p.submittedAt)} • ${p.category}</div>
-          <div style="margin-top:4px">${statusBadge}</div>
+          <div class="prod-nm">${p.name}</div>
+          <div class="prod-s">${sds(p.submittedAt)} • ${p.category}</div>
+          <span class="chip ${st.c}" style="margin-top:4px">${st.t}</span>
         </div>
       </div>
-      <div class="lc-stats">
-        <div class="ls"><div class="lsv" style="color:var(--bl)">${p.clicks||0}</div><div class="lsl">Clicks</div></div>
-        <div class="ls"><div class="lsv" style="color:var(--ye)">${pend}</div><div class="lsl">Pending</div></div>
-        <div class="ls"><div class="lsv" style="color:var(--gr)">${comp}</div><div class="lsl">Done</div></div>
-        <div class="ls"><div class="lsv" style="color:var(--re)">${ret}</div><div class="lsl">Return</div></div>
+      <div class="prod-stats">
+        <div class="ps"><div class="psv" style="color:var(--bl)">${p.clicks||0}</div><div class="psl">Clicks</div></div>
+        <div class="ps"><div class="psv" style="color:var(--ye)">${pend}</div><div class="psl">Pending</div></div>
+        <div class="ps"><div class="psv" style="color:var(--gr)">${comp}</div><div class="psl">Complete</div></div>
+        <div class="ps"><div class="psv" style="color:var(--re)">${ret}</div><div class="psl">Return</div></div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)">
-        <div style="font-size:12px;color:var(--mu);font-weight:700">Total earned from this link</div>
-        <div style="font-size:15px;font-weight:800;color:var(--gr)">Rs ${(p.totalEarned||0).toFixed(2)}</div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0 0;border-top:1px solid var(--line);margin-top:10px">
+        <div style="font-size:12px;color:var(--mu);font-weight:600">Total earned from link</div>
+        <div style="font-size:14px;font-weight:800;color:var(--gr)">Rs. ${(p.totalEarned||0).toFixed(2)}</div>
       </div>
-      ${extraContent}`;
+      ${orders.length?`<div style="margin-top:10px">${orders.slice(0,3).map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)"><div><div style="font-size:12px;font-weight:700">${sds(o.date)}</div><div style="font-size:11px;color:var(--mu)">${o.id}</div></div><div style="text-align:right"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}">${o.status==="completed"?"✅ Completed":o.status==="pending"?"⏳ Pending":"↩ Returned"}</span><div style="font-size:13px;font-weight:800;color:var(--gr)">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
+      ${extra}`;
     el.appendChild(d);
   });
 }
 
-window.cpText=function(text){
-  navigator.clipboard?.writeText(text).then(()=>toast("✅ Copied!")).catch(()=>{
-    const i=document.createElement("input");i.value=text;document.body.appendChild(i);i.select();document.execCommand("copy");i.remove();toast("✅ Copied!");
-  });
-};
-
-window.createFinalLink=async function(prodId){
-  try{
-    await updateDoc(doc(db,"products",prodId),{status:"active"});
-    toast("✅ Link activated! Sharing shuru karo.");
-    await syncFromFirebase(false);
-  }catch(e){toast("❌ Error: "+e.message);}
+window.cp=function(text){
+  navigator.clipboard?.writeText(text).then(()=>toast("✅ Copied!")).catch(()=>{const i=document.createElement("input");i.value=text;document.body.appendChild(i);i.select();document.execCommand("copy");i.remove();toast("✅ Copied!")});
 };
 
 window.testClick=async function(prodId){
-  if(!U) return;
+  if(!U)return;
   try{
     await updateDoc(doc(db,"products",prodId),{clicks:increment(1)});
     await updateDoc(doc(db,"users",U.userId),{totalClicks:increment(1)});
-    toast("✅ Test Click +1 counted! Firebase mein update hua.");
-    await syncFromFirebase(false);
-  }catch(e){toast("❌ Error: "+e.message);}
+    toast("✅ Test Click +1! Realtime update ho raha hai.");
+  }catch(e){toast("❌ "+e.message);}
 };
 
-window.testOrder=async function(prodId, commStr){
-  if(!U) return;
-  const comm=parseFloat(commStr)||50;
-  const workerEarn=comm*0.8, adminEarn=comm*0.2;
-  const order={id:"ORD-"+Date.now(),status:"pending",workerEarn,adminEarn,totalComm:comm,date:new Date().toISOString()};
+window.testOrder=async function(prodId,comm){
+  if(!U)return;
+  const c=parseFloat(comm)||50;
+  const we=c,ae=c*0.2; // worker gets full comm, admin gets his own separately
+  const order={id:"ORD-"+Date.now(),status:"pending",workerEarn:we,adminEarn:ae,totalComm:c+ae,date:new Date().toISOString()};
   try{
-    const pSnap=await getDoc(doc(db,"products",prodId));
-    if(!pSnap.exists()) return;
-    const orders=[...(pSnap.data().orders||[]),order];
+    const ps=await getDoc(doc(db,"products",prodId));
+    if(!ps.exists())return;
+    const orders=[...(ps.data().orders||[]),order];
     await updateDoc(doc(db,"products",prodId),{orders});
-    toast("✅ Test Order created! Rs "+workerEarn.toFixed(0)+" pending. Admin approval ke baad milega.");
-    await syncFromFirebase(false);
-  }catch(e){toast("❌ Error: "+e.message);}
+    toast("✅ Test Order created! Pending mein dikh raha hai. Admin approve karega.");
+  }catch(e){toast("❌ "+e.message);}
 };
 
-// ── EARNINGS ──
+// EARNINGS
 function renderEarnings(){
-  if(!U) return;
+  if(!U)return;
   const hist=document.getElementById("pay-hist");
-  const payments=U.payments||[];
-  if(!payments.length){hist.innerHTML=`<div style="text-align:center;padding:24px;color:var(--mu);font-weight:600">No payments yet<br><span style="font-size:12px">Orders complete ho jaye to admin pay kare ga</span></div>`;return;}
-  hist.innerHTML="";
-  payments.slice(0,20).forEach(p=>{
-    const d=document.createElement("div");d.className="sr";
-    d.innerHTML=`<div><div class="sl">💸 Rs ${(p.amount||0).toFixed(0)} — ${p.method||"Easypaisa"}</div><div style="font-size:11px;color:var(--mu);font-weight:600">${safeDate(p.createdAt)} • ${p.note||"Commission"}</div><span class="chip chip-gr" style="margin-top:4px">✅ Paid</span></div><div style="font-size:15px;font-weight:800;color:var(--gr)">+Rs ${(p.amount||0).toFixed(0)}</div>`;
-    hist.appendChild(d);
-  });
+  const pays=U.payments||[];
+  if(!pays.length){hist.innerHTML=`<div class="empty"><div class="empty-ic">💰</div><div class="empty-t">No payments yet</div><div class="empty-s">Orders complete ho jaye to admin pay kare ga</div></div>`;return}
+  hist.innerHTML=pays.slice(0,20).map(p=>`<div class="stat-row"><div class="stat-icon" style="background:#F0FFF5">💸</div><div class="stat-info"><div class="stat-t">Rs. ${(p.amount||0).toFixed(0)} — ${p.method||"Easypaisa"}</div><div class="stat-s">${sds(p.createdAt||p.date)} • ${p.note||"Commission"}</div></div><span class="chip chip-gr">Paid</span></div>`).join("");
 }
 
-// ── WITHDRAW ──
 window.doWithdraw=async()=>{
-  if(!U) return;
+  if(!U)return;
   const amt=parseFloat(document.getElementById("wd-amt").value)||0;
   const mth=document.getElementById("wd-mth").value;
   const num=document.getElementById("wd-num").value.trim();
-  if(amt<500){toast("❌ Minimum Rs 500 required");return;}
-  if((U.pendingEarnings||0)<amt){toast("❌ Insufficient balance");return;}
-  if(!num||num.length<11){toast("❌ Valid number enter karo");return;}
+  if(amt<500){toast("❌ Minimum Rs. 500");return}
+  if((U.pendingEarnings||0)<amt){toast("❌ Insufficient balance");return}
+  if(!num||num.length<11){toast("❌ Valid number enter karo");return}
   const wdId="WD-"+Date.now();
-  const wd={id:wdId,userId:U.userId,workerName:U.name,workerPhone:U.phone,amount:amt,method:mth,methodNumber:num,status:"pending",date:new Date().toISOString(),createdAt:serverTimestamp()};
   try{
-    await setDoc(doc(db,"withdrawals",wdId),wd);
-    toast("✅ Withdrawal request submitted! Admin process kare ga.");
-    document.getElementById("wd-amt").value="";
-    document.getElementById("wd-num").value="";
-  }catch(e){toast("❌ Error: "+e.message);}
+    await setDoc(doc(db,"withdrawals",wdId),{id:wdId,userId:U.userId,workerName:U.name,workerPhone:U.phone,amount:amt,method:mth,methodNumber:num,status:"pending",date:new Date().toISOString(),createdAt:serverTimestamp()});
+    toast("✅ Withdrawal request submitted! Admin process karega.");
+    document.getElementById("wd-amt").value="";document.getElementById("wd-num").value="";
+  }catch(e){toast("❌ "+e.message);}
 };
 
-// ══════════════════════════════════════
+// MODAL
+function openMod(){document.getElementById("mod-ov").classList.add("on")}
+window.closeMod=()=>document.getElementById("mod-ov").classList.remove("on");
+
+// ══════════════════════
 // ADMIN PANEL
-// ══════════════════════════════════════
+// ══════════════════════
 async function showAdminApp(){
   document.getElementById("apg").style.display="none";
   document.getElementById("hdr").style.display="flex";
+  document.getElementById("bnav").style.display="block";
   document.getElementById("app").style.display="block";
-  document.getElementById("h-role").textContent="Admin 👑";
-  document.getElementById("h-role").style.background="rgba(124,58,237,.12)";
-  document.getElementById("h-role").style.color="#7C3AED";
+  document.getElementById("h-logo").textContent="EarnPak Admin";
   document.getElementById("h-av").textContent="A";
-  document.getElementById("h-av").onclick=cDrw;
+  document.getElementById("h-av").onclick=()=>{if(confirm("Logout?"))location.href=location.pathname};
   // Admin bottom nav
-  document.getElementById("bnav").style.display="flex";
-  document.getElementById("bnav").innerHTML=`<button class="bn on" id="bn-admin" onclick="nav('admin')"><span class="bni">👑</span>Admin</button><button class="bn" onclick="refreshAdmin()"><span class="bni">🔄</span>Refresh</button>`;
+  document.getElementById("bnav").innerHTML=`<div class="bn-wrap"><button class="bn on" onclick="nav('admin')"><span class="bni">👑</span>Admin</button><button class="bn" onclick="refreshAdmin()"><span class="bni">🔄</span>Refresh</button></div>`;
   nav("admin");
-  await refreshAdmin();
 }
 
-async function refreshAdmin(){
+window.refreshAdmin=async function(){
   try{
-    // Load all data
-    const [usersSnap,prodsSnap,wdSnap]=await Promise.all([
+    const[uSnap,pSnap,wSnap]=await Promise.all([
       getDocs(query(collection(db,"users"),where("role","==","worker"))),
       getDocs(query(collection(db,"products"),orderBy("submittedAt","desc"))),
       getDocs(query(collection(db,"withdrawals"),orderBy("date","desc")))
     ]);
-    const users=[],prods=[],wds=[];
-    usersSnap.forEach(d=>users.push({...d.data(),userId:d.id,_id:d.id}));
-    prodsSnap.forEach(d=>prods.push({...d.data(),id:d.id,_id:d.id}));
-    wdSnap.forEach(d=>wds.push({...d.data(),id:d.id,_id:d.id}));
-    
-    renderAdminStats(users,prods,wds);
-    renderAdminPendingProds(prods);
-    renderAdminPendingOrders(prods,users);
-    renderAdminWithdrawals(wds);
-    renderAdminWorkers(users,prods,wds);
-    toast("✅ Admin data refreshed");
-  }catch(e){toast("❌ Error: "+e.message);}
-}
-window.refreshAdmin=refreshAdmin;
+    allUsers=[];allProds=[];allWds=[];
+    uSnap.forEach(d=>allUsers.push({...d.data(),userId:d.id}));
+    pSnap.forEach(d=>allProds.push({...d.data(),id:d.id}));
+    wSnap.forEach(d=>allWds.push({...d.data(),id:d.id}));
+    renderAdminStats();renderAdminPendingProds();renderAdminPendingOrders();renderAdminWds();renderAdminWorkers();
+    toast("✅ Refreshed — "+allUsers.length+" workers, "+allProds.length+" links");
+  }catch(e){toast("❌ "+e.message);}
+};
 
-function renderAdminStats(users,prods,wds){
-  document.getElementById("adm-wc").textContent=users.length;
-  document.getElementById("adm-lc").textContent=prods.length;
-  let totalOrders=0,totalComm=0,myProfit=0,pendPay=0,paidOut=0;
-  prods.forEach(p=>(p.orders||[]).forEach(o=>{if(o.status==="completed"){totalOrders++;totalComm+=(o.totalComm||0);myProfit+=(o.adminEarn||0);}else if(o.status==="pending")totalOrders++;}));
-  users.forEach(u=>{pendPay+=(u.pendingEarnings||0);paidOut+=(u.paidEarnings||0);});
+function renderAdminStats(){
+  document.getElementById("adm-wc").textContent=allUsers.length;
+  document.getElementById("adm-lc").textContent=allProds.length;
+  let totalOrders=0,totalComm=0,myProfit=0,pendPay=0;
+  allProds.forEach(p=>(p.orders||[]).forEach(o=>{totalOrders++;if(o.status==="completed"){totalComm+=(o.totalComm||0);myProfit+=(o.adminEarn||0);}}));
+  allUsers.forEach(u=>pendPay+=(u.pendingEarnings||0));
   document.getElementById("adm-oc").textContent=totalOrders;
-  document.getElementById("adm-tc").textContent="Rs "+(totalComm).toFixed(0);
-  document.getElementById("adm-pr").textContent="Rs "+(myProfit).toFixed(0);
-  document.getElementById("adm-pp").textContent="Rs "+(pendPay).toFixed(0);
-  document.getElementById("adm-pd").textContent="Rs "+(paidOut).toFixed(0);
+  document.getElementById("adm-tc").textContent=totalComm.toFixed(0);
+  document.getElementById("adm-pr").textContent=myProfit.toFixed(0);
+  document.getElementById("adm-pp").textContent=pendPay.toFixed(0);
 }
 
-function renderAdminPendingProds(prods){
-  const pending=prods.filter(p=>p.status==="pending_admin");
-  document.getElementById("adm-pps-badge").textContent=pending.length;
+function renderAdminPendingProds(){
+  const pend=allProds.filter(p=>p.status==="pending_admin");
+  document.getElementById("adm-ps-cnt").textContent=pend.length;
   const el=document.getElementById("adm-pps");
-  if(!pending.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600">No pending submissions</div>`;return;}
+  if(!pend.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600">No pending submissions</div>`;return}
   el.innerHTML="";
-  pending.forEach(p=>{
-    const d=document.createElement("div");d.className="pend-prod";
+  pend.forEach(p=>{
+    const d=document.createElement("div");d.className="p-card";
     d.innerHTML=`
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <div style="font-size:14px;font-weight:800;flex:1">${p.name}</div>
-        <span class="chip chip-ye">⏳ Pending</span>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="font-size:22px">${catIcons[p.category]||"📦"}</div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:700">${p.name}</div><div style="font-size:12px;color:var(--mu);font-weight:600">${p.workerName} • ${p.workerPhone}</div><div style="font-size:11px;color:var(--mu)">${sds(p.submittedAt)} • ${p.category}</div></div>
       </div>
-      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:4px">👤 ${p.workerName} • ${p.workerPhone}</div>
-      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:4px">📂 ${p.category} • 📅 ${safeDate(p.submittedAt)}</div>
-      <div style="font-size:11px;background:var(--lt);padding:8px;border-radius:8px;margin-bottom:10px;word-break:break-all">🔗 ${p.link}</div>
-      <div style="font-size:12px;font-weight:800;margin-bottom:6px;color:var(--dark)">✅ Approve karo — Affiliate link + Commission set karo:</div>
-      <input id="aff-${p.id}" placeholder="Daraz affiliate link (e.g. https://s.daraz.pk/s.XreCG?cc)" class="inp" value="${p.affiliateLink||""}">
-      <input id="comm-${p.id}" type="number" placeholder="Worker commission Rs per sale (e.g. 50)" class="inp" value="${p.workerCommissionDisplay||""}">
+      <div style="background:#F5F5F5;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:11px;font-weight:600;color:var(--mu);word-break:break-all">Original: ${p.link}</div>
+      <label class="fl">Daraz Affiliate Link (from your Daraz dashboard)</label>
+      <input class="inp" id="aff-${p.id}" placeholder="https://s.daraz.pk/s.XXXXX?cc" style="margin-bottom:10px" value="${p.affiliateLink||""}">
+      <label class="fl">Worker Commission Rs per sale</label>
+      <input class="inp" id="comm-${p.id}" type="number" placeholder="e.g. 50" style="margin-bottom:12px" value="${p.workerComm||""}">
       <div style="display:flex;gap:8px">
-        <button onclick="approveProduct('${p.id}','${p.workerId}')" style="flex:1;padding:11px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit">✅ Approve</button>
-        <button onclick="rejectProduct('${p.id}')" style="flex:1;padding:11px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit">❌ Reject</button>
+        <button onclick="approveProduct('${p.id}','${p.workerId}')" class="bog bog-gr bog-sm" style="flex:1">✅ Approve</button>
+        <button onclick="rejectProduct('${p.id}')" class="bog bog-re bog-sm" style="flex:1">❌ Reject</button>
       </div>`;
     el.appendChild(d);
   });
 }
 
 window.approveProduct=async function(prodId,workerId){
-  const affLink=document.getElementById("aff-"+prodId)?.value.trim();
+  const aff=document.getElementById("aff-"+prodId)?.value.trim();
   const comm=parseFloat(document.getElementById("comm-"+prodId)?.value)||0;
-  if(!affLink){toast("❌ Affiliate link enter karo");return;}
-  if(!comm){toast("❌ Commission amount enter karo");return;}
-  // Create tracking link with sub_id
-  const sub_id=workerId+"_"+prodId;
-  const sep=affLink.includes("?")?"&":"?";
-  const darazTrackLink=affLink+sep+"sub_id="+sub_id;
-  const finalTrackingLink=darazTrackLink;
+  if(!aff){toast("❌ Affiliate link enter karo");return}
+  if(!comm){toast("❌ Commission amount enter karo");return}
+  const sep=aff.includes("?")?"&":"?";
+  const darazTrackLink=aff+sep+"sub_id="+workerId+"_"+prodId;
   try{
-    await updateDoc(doc(db,"products",prodId),{
-      status:"ready", affiliateLink:affLink, darazTrackLink,
-      finalTrackingLink, workerCommissionDisplay:comm,
-      approvedAt:new Date().toISOString()
-    });
-    toast("✅ Product approved! Worker ko link mil gaya. sub_id="+sub_id);
+    await updateDoc(doc(db,"products",prodId),{status:"ready",affiliateLink:aff,darazTrackLink,finalTrackingLink:darazTrackLink,workerComm:comm,approvedAt:new Date().toISOString(),_notifShown:false});
+    toast("✅ Approved! Worker ko notification jayegi. sub_id: "+workerId+"_"+prodId);
     await refreshAdmin();
-  }catch(e){toast("❌ Error: "+e.message);}
+  }catch(e){toast("❌ "+e.message);}
 };
 
 window.rejectProduct=async function(prodId){
-  if(!confirm("Reject this product?")) return;
+  if(!confirm("Reject this product?"))return;
   try{
     await updateDoc(doc(db,"products",prodId),{status:"rejected"});
-    toast("❌ Product rejected");
+    toast("Product rejected");
     await refreshAdmin();
-  }catch(e){toast("❌ Error: "+e.message);}
+  }catch(e){toast("❌ "+e.message);}
 };
 
-function renderAdminPendingOrders(prods,users){
-  let pendOrders=[];
-  prods.forEach(p=>(p.orders||[]).filter(o=>o.status==="pending").forEach(o=>pendOrders.push({...o,prodId:p.id,prodName:p.name,workerId:p.workerId,workerName:p.workerName})));
-  document.getElementById("adm-po-badge").textContent=pendOrders.length;
+function renderAdminPendingOrders(){
+  let pendOrds=[];
+  allProds.forEach(p=>(p.orders||[]).filter(o=>o.status==="pending").forEach(o=>pendOrds.push({...o,prodId:p.id,prodName:p.name,workerId:p.workerId,workerName:p.workerName})));
+  document.getElementById("adm-po-cnt").textContent=pendOrds.length;
   const el=document.getElementById("adm-po");
-  if(!pendOrders.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600">No pending orders</div>`;return;}
+  if(!pendOrds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600">No pending orders</div>`;return}
   el.innerHTML="";
-  pendOrders.forEach(o=>{
-    const d=document.createElement("div");d.className="pend-ord";
+  pendOrds.forEach(o=>{
+    const d=document.createElement("div");d.className="p-card p-card-gr";
     d.innerHTML=`
-      <div style="font-size:13px;font-weight:800;margin-bottom:4px">${o.prodName}</div>
-      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:4px">👤 ${o.workerName} • 📅 ${safeDate(o.date)}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
-        <div style="background:var(--lt);border-radius:8px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:800;color:var(--gr)">Rs ${(o.workerEarn||0).toFixed(0)}</div><div style="font-size:9px;color:var(--mu);font-weight:700">Worker 80%</div></div>
-        <div style="background:var(--lt);border-radius:8px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:800;color:var(--or)">Rs ${(o.adminEarn||0).toFixed(0)}</div><div style="font-size:9px;color:var(--mu);font-weight:700">Admin 20%</div></div>
-        <div style="background:var(--lt);border-radius:8px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:800">Rs ${(o.totalComm||0).toFixed(0)}</div><div style="font-size:9px;color:var(--mu);font-weight:700">Total</div></div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px">${o.prodName}</div>
+      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:10px">👤 ${o.workerName} • 📅 ${sds(o.date)} • ${o.id}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="background:#F8F8F8;border-radius:8px;padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--gr)">Rs ${(o.workerEarn||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu)">Worker Pay</div></div>
+        <div style="background:#F8F8F8;border-radius:8px;padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--or)">Rs ${(o.adminEarn||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu)">My Profit</div></div>
       </div>
+      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:10px">⏱ 2 day return policy ke baad approve karo</div>
       <div style="display:flex;gap:8px">
-        <button onclick="approveOrder('${o.prodId}','${o.id}','${o.workerId}',${o.workerEarn||0},${o.adminEarn||0})" style="flex:1;padding:10px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">✅ Approve Complete</button>
-        <button onclick="returnOrder('${o.prodId}','${o.id}')" style="flex:1;padding:10px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">↩️ Return</button>
+        <button onclick="approveOrder('${o.prodId}','${o.id}','${o.workerId}',${o.workerEarn||0},${o.adminEarn||0})" class="bog bog-gr bog-sm" style="flex:1">✅ Mark Complete</button>
+        <button onclick="returnOrder('${o.prodId}','${o.id}')" class="bog bog-re bog-sm" style="flex:1">↩ Return</button>
       </div>`;
     el.appendChild(d);
   });
 }
 
-window.approveOrder=async function(prodId,orderId,workerId,workerEarn,adminEarn){
+window.approveOrder=async function(prodId,ordId,workerId,we,ae){
   try{
-    const pSnap=await getDoc(doc(db,"products",prodId));
-    if(!pSnap.exists()) return;
-    const orders=(pSnap.data().orders||[]).map(o=>o.id===orderId?{...o,status:"completed",completedAt:new Date().toISOString()}:o);
-    const totalEarned=(pSnap.data().totalEarned||0)+workerEarn;
+    const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
+    const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"completed",completedAt:new Date().toISOString()}:o);
+    const totalEarned=(ps.data().totalEarned||0)+we;
     await updateDoc(doc(db,"products",prodId),{orders,totalEarned});
-    await updateDoc(doc(db,"users",workerId),{
-      totalEarned:increment(workerEarn),pendingEarnings:increment(workerEarn),totalOrders:increment(1)
-    });
-    toast("✅ Order approved! Rs "+workerEarn.toFixed(0)+" worker ko add hua.");
+    await updateDoc(doc(db,"users",workerId),{totalEarned:increment(we),pendingEarnings:increment(we),totalOrders:increment(1)});
+    // Add notification to worker
+    const uSnap=await getDoc(doc(db,"users",workerId));
+    if(uSnap.exists()){
+      const u=uSnap.data();
+      const notifs=[...(u.notifications||[])];
+      notifs.unshift({id:"N-"+Date.now(),type:"payment",msg:`Order complete! Rs. ${we.toFixed(0)} aapke account mein add ho gaya.`,time:new Date().toISOString(),read:false});
+      await updateDoc(doc(db,"users",workerId),{notifications:notifs.slice(0,20)});
+    }
+    toast("✅ Order approved! Rs "+we.toFixed(0)+" worker ko add hua.");
     await refreshAdmin();
-  }catch(e){toast("❌ Error: "+e.message);}
+  }catch(e){toast("❌ "+e.message);}
 };
 
-window.returnOrder=async function(prodId,orderId){
+window.returnOrder=async function(prodId,ordId){
   try{
-    const pSnap=await getDoc(doc(db,"products",prodId));
-    const orders=(pSnap.data().orders||[]).map(o=>o.id===orderId?{...o,status:"returned"}:o);
+    const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
+    const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"returned"}:o);
     await updateDoc(doc(db,"products",prodId),{orders});
-    toast("↩️ Order marked returned");
-    await refreshAdmin();
-  }catch(e){toast("❌ Error: "+e.message);}
+    toast("↩ Order returned");await refreshAdmin();
+  }catch(e){toast("❌ "+e.message);}
 };
 
-function renderAdminWithdrawals(wds){
-  const pending=wds.filter(w=>w.status==="pending");
-  document.getElementById("adm-wr-badge").textContent=pending.length;
-  const el=document.getElementById("adm-wr");
-  if(!wds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600">No withdrawal requests</div>`;return;}
+function renderAdminWds(){
+  const pend=allWds.filter(w=>w.status==="pending");
+  document.getElementById("adm-wd-cnt").textContent=pend.length;
+  const el=document.getElementById("adm-wds");
+  if(!allWds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600">No withdrawals</div>`;return}
   el.innerHTML="";
-  wds.forEach(w=>{
-    const d=document.createElement("div");d.className="pend-wd";
+  allWds.forEach(w=>{
+    const d=document.createElement("div");d.className="p-card p-card-bl";
     d.innerHTML=`
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-        <div><div style="font-size:14px;font-weight:800">${w.workerName}</div><div style="font-size:12px;color:var(--mu);font-weight:600">${w.workerPhone} • ${safeDate(w.date)}</div></div>
-        <span class="chip ${w.status==="paid"?"chip-gr":"chip-ye"}">${w.status==="paid"?"✅ Paid":"⏳ Pending"}</span>
+        <div><div style="font-size:15px;font-weight:800">${w.workerName}</div><div style="font-size:12px;color:var(--mu);font-weight:600">${w.workerPhone} • ${sds(w.date)}</div></div>
+        <span class="chip ${w.status==="paid"?"chip-gr":"chip-ye"}">${w.status==="paid"?"Paid":"Pending"}</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-        <div style="background:var(--lt);border-radius:8px;padding:10px"><div style="font-size:18px;font-weight:800;color:var(--or)">Rs ${w.amount}</div><div style="font-size:10px;color:var(--mu);font-weight:700">Amount</div></div>
-        <div style="background:var(--lt);border-radius:8px;padding:10px"><div style="font-size:14px;font-weight:800">${w.methodNumber}</div><div style="font-size:10px;color:var(--mu);font-weight:700">${w.method||"Easypaisa"}</div></div>
+        <div style="background:#F8F8F8;border-radius:8px;padding:10px"><div style="font-size:18px;font-weight:800;color:var(--or)">Rs ${w.amount}</div><div style="font-size:11px;color:var(--mu)">Amount</div></div>
+        <div style="background:#F8F8F8;border-radius:8px;padding:10px"><div style="font-size:14px;font-weight:800">${w.methodNumber}</div><div style="font-size:11px;color:var(--mu)">${w.method}</div></div>
       </div>
-      ${w.status!=="paid"?`<button onclick="approveWithdrawal('${w.id}','${w.userId}',${w.amount},'${w.method||"easypaisa"}')" style="width:100%;padding:11px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit">✅ Mark as Paid</button>`:"<div style='text-align:center;font-size:12px;color:var(--gr);font-weight:700'>✅ Already Paid</div>"}`;
+      ${w.status!=="paid"?`<button onclick="appWd('${w.id}','${w.userId}',${w.amount},'${w.method}')" class="bog bog-gr">✅ Mark as Paid</button>`:`<div style="text-align:center;color:var(--gr);font-weight:700;font-size:13px">✅ Already Paid</div>`}`;
     el.appendChild(d);
   });
 }
 
-window.approveWithdrawal=async function(wdId,userId,amount,method){
+window.appWd=async function(wdId,userId,amount,method){
   try{
     await updateDoc(doc(db,"withdrawals",wdId),{status:"paid",paidAt:new Date().toISOString()});
-    // Deduct from user pendingEarnings, add to paidEarnings
-    const userSnap=await getDoc(doc(db,"users",userId));
-    if(userSnap.exists()){
-      const u=userSnap.data();
-      const payment={id:"PAY-"+Date.now(),amount,method,note:"Withdrawal approved",status:"paid",createdAt:new Date().toISOString()};
+    const uSnap=await getDoc(doc(db,"users",userId));
+    if(uSnap.exists()){
+      const u=uSnap.data();
+      const payment={id:"PAY-"+Date.now(),amount,method,note:"Withdrawal",status:"paid",createdAt:new Date().toISOString()};
       const payments=[...(u.payments||[]),payment];
-      await updateDoc(doc(db,"users",userId),{
-        pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amount),
-        paidEarnings:(u.paidEarnings||0)+amount,
-        payments
-      });
+      const notifs=[...(u.notifications||[])];
+      notifs.unshift({id:"N-"+Date.now(),type:"paid",msg:`Rs. ${amount} aapke ${method} pe bhej diya gaya! ✅`,time:new Date().toISOString(),read:false});
+      await updateDoc(doc(db,"users",userId),{pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amount),paidEarnings:(u.paidEarnings||0)+amount,payments,notifications:notifs.slice(0,20)});
     }
-    toast("✅ Withdrawal paid! Rs "+amount+" to "+method);
-    await refreshAdmin();
-  }catch(e){toast("❌ Error: "+e.message);}
+    toast("✅ Paid! Rs "+amount+" to "+method);await refreshAdmin();
+  }catch(e){toast("❌ "+e.message);}
 };
 
-function renderAdminWorkers(users,prods,wds){
+function renderAdminWorkers(){
   const el=document.getElementById("adm-workers");
-  if(!users.length){el.innerHTML=`<div style="text-align:center;padding:20px;color:var(--mu);font-size:13px;font-weight:600">No workers registered yet</div>`;return;}
+  if(!allUsers.length){el.innerHTML=`<div class="empty"><div class="empty-ic">👥</div><div class="empty-t">No workers yet</div></div>`;return}
   el.innerHTML="";
-  users.sort((a,b)=>(b.totalEarned||0)-(a.totalEarned||0)).forEach(u=>{
-    const uProds=prods.filter(p=>p.workerId===u.userId);
-    let uClicks=0,uComp=0,uPend=0;
-    uProds.forEach(p=>{uClicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")uComp++;else if(o.status==="pending")uPend++;});});
-    const d=document.createElement("div");d.className="adm-wk";
-    d.onclick=()=>openWorkerDetail(u.userId,prods,wds);
-    d.innerHTML=`
-      <div class="adm-wk-h">
-        <div class="adm-av">${(u.name||"U")[0].toUpperCase()}</div>
-        <div style="flex:1">
-          <div class="adm-nm">${u.name}</div>
-          <div class="adm-sb">${u.userId} • ${u.phone} • ${safeDate(u.joinedAt)}</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:14px;font-weight:800;color:var(--or)">Rs ${(u.pendingEarnings||0).toFixed(0)}</div>
-          <div style="font-size:10px;color:var(--mu);font-weight:600">Pending</div>
-        </div>
-      </div>
-      <div class="adm-4" style="margin-top:10px">
-        <div class="a4"><div class="a4v" style="color:var(--bl)">${uProds.length}</div><div class="a4l">Links</div></div>
-        <div class="a4"><div class="a4v" style="color:var(--bl)">${uClicks}</div><div class="a4l">Clicks</div></div>
-        <div class="a4"><div class="a4v" style="color:var(--ye)">${uPend}</div><div class="a4l">Pending</div></div>
-        <div class="a4"><div class="a4v" style="color:var(--gr)">${uComp}</div><div class="a4l">Done</div></div>
-      </div>
-      <div style="text-align:center;font-size:11px;color:var(--or);font-weight:700;margin-top:8px">👆 Click for Full Dashboard</div>`;
+  [...allUsers].sort((a,b)=>(b.totalEarned||0)-(a.totalEarned||0)).forEach(u=>{
+    const uProds=allProds.filter(p=>p.workerId===u.userId);
+    let clicks=0,comp=0,pend=0;
+    uProds.forEach(p=>{clicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")comp++;else if(o.status==="pending")pend++;});});
+    const d=document.createElement("div");d.className="wk-item";
+    d.onclick=()=>openWorkerDetail(u.userId);
+    d.innerHTML=`<div class="wk-av">${(u.name||"U")[0].toUpperCase()}</div><div class="wk-info"><div class="wk-nm">${u.name}</div><div class="wk-sub">${u.userId} • ${u.phone}</div><div class="wk-sub">📅 ${sds(u.joinedAt)} • 🔗 ${uProds.length} links • 🖱 ${clicks} clicks</div></div><div style="text-align:right"><div class="wk-earn">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu);font-weight:600">Pending</div><div style="font-size:10px;color:var(--or);font-weight:700;margin-top:4px">Tap to view →</div></div>`;
     el.appendChild(d);
   });
 }
 
-async function openWorkerDetail(userId, allProds, allWds){
+async function openWorkerDetail(userId){
   try{
-    const [userSnap]=await Promise.all([getDoc(doc(db,"users",userId))]);
-    if(!userSnap.exists()) return;
-    const u={...userSnap.data(),userId};
+    const uSnap=await getDoc(doc(db,"users",userId));
+    if(!uSnap.exists())return;
+    const u={...uSnap.data(),userId};
     const uProds=allProds.filter(p=>p.workerId===userId);
     const uWds=allWds.filter(w=>w.userId===userId);
-    let totalClicks=0,totalComp=0,totalPend=0,totalRet=0;
-    uProds.forEach(p=>{totalClicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")totalComp++;else if(o.status==="pending")totalPend++;else totalRet++;});});
+    let totalClicks=0,comp=0,pend=0,ret=0;
+    uProds.forEach(p=>{totalClicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")comp++;else if(o.status==="pending")pend++;else ret++;});});
 
-    let prodsHTML="";
-    uProds.forEach(p=>{
-      const orders=p.orders||[];
-      const trackUrl=window.location.origin+window.location.pathname+"?track="+p.id+"&wk="+userId;
-      prodsHTML+=`
-        <div style="background:var(--lt);border-radius:14px;padding:12px;margin-bottom:10px">
-          <div style="font-size:13px;font-weight:800;margin-bottom:6px">${p.name}</div>
-          <div style="font-size:11px;color:var(--mu);font-weight:600;margin-bottom:6px">📅 ${safeDate(p.submittedAt)} • ${p.category} • <span class="chip ${p.status==="active"?"chip-or":p.status==="ready"?"chip-gr":p.status==="pending_admin"?"chip-ye":"chip-mu"}">${p.status}</span></div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px">
-            <div style="background:#fff;border-radius:6px;padding:6px;text-align:center"><div style="font-size:12px;font-weight:800;color:var(--bl)">${p.clicks||0}</div><div style="font-size:9px;color:var(--mu)">Clicks</div></div>
-            <div style="background:#fff;border-radius:6px;padding:6px;text-align:center"><div style="font-size:12px;font-weight:800;color:var(--ye)">${orders.filter(o=>o.status==="pending").length}</div><div style="font-size:9px;color:var(--mu)">Pending</div></div>
-            <div style="background:#fff;border-radius:6px;padding:6px;text-align:center"><div style="font-size:12px;font-weight:800;color:var(--gr)">${orders.filter(o=>o.status==="completed").length}</div><div style="font-size:9px;color:var(--mu)">Done</div></div>
-            <div style="background:#fff;border-radius:6px;padding:6px;text-align:center"><div style="font-size:12px;font-weight:800;color:var(--or)">Rs ${(p.totalEarned||0).toFixed(0)}</div><div style="font-size:9px;color:var(--mu)">Earned</div></div>
-          </div>
-          ${p.darazTrackLink?`<div style="font-size:10px;color:var(--mu);font-weight:700;word-break:break-all;background:#fff;padding:6px;border-radius:6px;margin-bottom:6px">🔗 ${p.darazTrackLink}</div>`:""}
-          <div style="display:flex;gap:6px">
-            <button onclick="testClick('${p.id}')" style="flex:1;padding:8px;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">Test Click</button>
-            <button onclick="testOrder('${p.id}','${p.workerCommissionDisplay||50}')" style="flex:1;padding:8px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit">Test Order</button>
-          </div>
-        </div>`;
-    });
-
-    let wdHTML="";
-    uWds.forEach(w=>{wdHTML+=`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><div><div style="font-size:12px;font-weight:800">Rs ${w.amount} — ${w.method}</div><div style="font-size:11px;color:var(--mu)">${safeDate(w.date)} • ${w.methodNumber}</div></div><span class="chip ${w.status==="paid"?"chip-gr":"chip-ye"}">${w.status}</span></div>`;});
-
-    document.getElementById("mod-box").innerHTML=`
-      <div class="mod-t"><span>👤 ${u.name}</span><button class="mod-x" onclick="closeMod()">✕</button></div>
-      <div style="background:linear-gradient(135deg,#FF6B2B,#E85520);border-radius:16px;padding:16px;margin-bottom:14px;color:#fff">
-        <div style="font-size:16px;font-weight:800">${u.name}</div>
-        <div style="font-size:12px;opacity:.8;font-weight:600">${u.userId} • ${u.phone}</div>
-        <div style="font-size:12px;opacity:.8;font-weight:600">Joined: ${safeDate(u.joinedAt)}</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px">
-          <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div style="font-size:10px;opacity:.8">Pending</div></div>
-          <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800">Rs ${(u.paidEarnings||0).toFixed(0)}</div><div style="font-size:10px;opacity:.8">Paid</div></div>
-          <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800">Rs ${(u.totalEarned||0).toFixed(0)}</div><div style="font-size:10px;opacity:.8">Total</div></div>
+    document.getElementById("mod-t").textContent=u.name+"'s Dashboard";
+    document.getElementById("mod-body").innerHTML=`
+      <div class="or-box" style="border-radius:12px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800">${(u.name||"U")[0].toUpperCase()}</div>
+          <div><div style="font-size:18px;font-weight:800">${u.name}</div><div style="font-size:12px;opacity:.8">${u.userId} • ${u.phone}</div><div style="font-size:11px;opacity:.7">Joined: ${sds(u.joinedAt)}</div></div>
+        </div>
+        <div class="or-box-grid" style="margin-top:14px">
+          <div class="or-box-item"><div class="or-box-iv">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div class="or-box-il">Pending</div></div>
+          <div class="or-box-item"><div class="or-box-iv">Rs ${(u.paidEarnings||0).toFixed(0)}</div><div class="or-box-il">Paid</div></div>
+          <div class="or-box-item"><div class="or-box-iv">Rs ${(u.totalEarned||0).toFixed(0)}</div><div class="or-box-il">Total</div></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
-        <div style="background:var(--lt);border-radius:12px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--bl)">${uProds.length}</div><div style="font-size:10px;color:var(--mu);font-weight:700">Links</div></div>
-        <div style="background:var(--lt);border-radius:12px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--bl)">${totalClicks}</div><div style="font-size:10px;color:var(--mu);font-weight:700">Clicks</div></div>
-        <div style="background:var(--lt);border-radius:12px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--gr)">${totalComp}</div><div style="font-size:10px;color:var(--mu);font-weight:700">Completed</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px">
+        <div class="ps"><div class="psv" style="color:var(--bl)">${uProds.length}</div><div class="psl">Links</div></div>
+        <div class="ps"><div class="psv" style="color:var(--bl)">${totalClicks}</div><div class="psl">Clicks</div></div>
+        <div class="ps"><div class="psv" style="color:var(--ye)">${pend}</div><div class="psl">Pending</div></div>
+        <div class="ps"><div class="psv" style="color:var(--gr)">${comp}</div><div class="psl">Done</div></div>
       </div>
-      <button onclick="openPayWorker('${u.userId}','${u.name}',${u.pendingEarnings||0})" style="width:100%;padding:12px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-bottom:14px">💸 Pay This Worker</button>
-      <div style="font-size:14px;font-weight:800;margin-bottom:10px">📦 Products (${uProds.length})</div>
-      ${prodsHTML||"<div style='color:var(--mu);font-size:13px;font-weight:600;padding:10px 0'>No products yet</div>"}
-      <div style="font-size:14px;font-weight:800;margin:14px 0 10px">💸 Withdrawals (${uWds.length})</div>
-      ${wdHTML||"<div style='color:var(--mu);font-size:13px;font-weight:600;padding:10px 0'>No withdrawals</div>"}`;
-    document.getElementById("mod-ov").classList.add("on");
-  }catch(e){toast("❌ Error: "+e.message);}
+      <button onclick="openPayWorker('${u.userId}','${u.name}',${u.pendingEarnings||0})" class="bog bog-gr" style="margin-bottom:16px">💸 Pay This Worker</button>
+      <div style="font-size:15px;font-weight:800;margin-bottom:10px">Products (${uProds.length})</div>
+      ${uProds.map(p=>`<div style="background:#F8F8F8;border-radius:10px;padding:12px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><div style="font-size:13px;font-weight:700">${p.name}</div><div style="font-size:11px;color:var(--mu)">${sds(p.submittedAt)}</div></div><span class="chip ${p.status==="active"?"chip-or":p.status==="ready"?"chip-gr":p.status==="pending_admin"?"chip-ye":"chip-mu"}">${p.status}</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px"><div class="ps"><div class="psv" style="font-size:13px;color:var(--bl)">${p.clicks||0}</div><div class="psl">Clicks</div></div><div class="ps"><div class="psv" style="font-size:13px;color:var(--ye)">${(p.orders||[]).filter(o=>o.status==="pending").length}</div><div class="psl">Pend</div></div><div class="ps"><div class="psv" style="font-size:13px;color:var(--gr)">${(p.orders||[]).filter(o=>o.status==="completed").length}</div><div class="psl">Done</div></div><div class="ps"><div class="psv" style="font-size:13px;color:var(--or)">Rs ${(p.totalEarned||0).toFixed(0)}</div><div class="psl">Earned</div></div></div>${p.darazTrackLink?`<div style="font-size:10px;color:var(--mu);font-family:monospace;word-break:break-all">🔗 ${p.darazTrackLink}</div>`:""}</div>`).join("")||"<div style='color:var(--mu);font-size:13px;padding:10px 0'>No products</div>"}
+      <div style="font-size:15px;font-weight:800;margin:14px 0 10px">Withdrawals (${uWds.length})</div>
+      ${uWds.map(w=>`<div class="stat-row"><div style="flex:1"><div style="font-size:13px;font-weight:700">Rs ${w.amount} — ${w.method}</div><div style="font-size:11px;color:var(--mu)">${sds(w.date)} • ${w.methodNumber}</div></div><span class="chip ${w.status==="paid"?"chip-gr":"chip-ye"}">${w.status}</span></div>`).join("")||"<div style='color:var(--mu);font-size:13px;padding:10px 0'>No withdrawals</div>"}`;
+    openMod();
+  }catch(e){toast("❌ "+e.message);}
 }
 
 window.openPayWorker=function(userId,name,pending){
-  document.getElementById("mod-box").innerHTML=`
-    <div class="mod-t"><span>💸 Pay ${name}</span><button class="mod-x" onclick="closeMod()">✕</button></div>
-    <div style="background:var(--lt);border-radius:14px;padding:14px;margin-bottom:14px">
-      <div style="font-size:14px;font-weight:800">${name}</div>
-      <div style="font-size:24px;font-weight:800;color:var(--gr);margin-top:6px">Rs ${pending.toFixed(2)}</div>
-      <div style="font-size:12px;color:var(--mu);font-weight:600">Pending Earnings</div>
-    </div>
-    <input class="inp" id="pay-a" type="number" placeholder="Amount to pay" value="${pending.toFixed(0)}">
+  document.getElementById("mod-t").textContent="Pay "+name;
+  document.getElementById("mod-body").innerHTML=`
+    <div style="background:#F0FFF5;border-radius:10px;padding:14px;margin-bottom:16px"><div style="font-size:28px;font-weight:800;color:var(--gr)">Rs ${pending.toFixed(2)}</div><div style="font-size:12px;color:var(--mu);font-weight:600">Available to pay</div></div>
+    <input class="inp" id="pay-a" type="number" placeholder="Amount" value="${pending.toFixed(0)}">
     <select class="inp" id="pay-m"><option value="easypaisa">Easypaisa</option><option value="jazzcash">JazzCash</option></select>
-    <input class="inp" id="pay-n" placeholder="Note (optional)">
-    <button onclick="processPayment('${userId}','${name}')" style="width:100%;padding:13px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">💸 Process Payment</button>`;
+    <input class="inp" id="pay-n" placeholder="Note">
+    <button onclick="processPay('${userId}','${name}')" class="bog bog-gr">💸 Process Payment</button>`;
 };
 
-window.processPayment=async function(userId,name){
+window.processPay=async function(userId,name){
   const amt=parseFloat(document.getElementById("pay-a")?.value)||0;
   const mth=document.getElementById("pay-m")?.value||"easypaisa";
-  const note=document.getElementById("pay-n")?.value||"Commission payment";
-  if(!amt||amt<=0){toast("❌ Valid amount enter karo");return;}
+  const note=document.getElementById("pay-n")?.value||"Commission";
+  if(!amt||amt<=0){toast("❌ Valid amount enter karo");return}
   try{
-    const userSnap=await getDoc(doc(db,"users",userId));
-    if(!userSnap.exists()) return;
-    const u=userSnap.data();
+    const uSnap=await getDoc(doc(db,"users",userId));if(!uSnap.exists())return;
+    const u=uSnap.data();
     const payment={id:"PAY-"+Date.now(),amount:amt,method:mth,note,status:"paid",createdAt:new Date().toISOString()};
-    const payments=[...(u.payments||[]),payment];
-    await updateDoc(doc(db,"users",userId),{
-      pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amt),
-      paidEarnings:(u.paidEarnings||0)+amt, payments
-    });
-    toast("✅ Rs "+amt.toFixed(0)+" paid to "+name+"!");
-    closeMod();
-    await refreshAdmin();
-  }catch(e){toast("❌ Error: "+e.message);}
+    const notifs=[...(u.notifications||[])];
+    notifs.unshift({id:"N-"+Date.now(),type:"paid",msg:`Rs. ${amt} aapke ${mth} pe bhej diya gaya! ✅`,time:new Date().toISOString(),read:false});
+    await updateDoc(doc(db,"users",userId),{pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amt),paidEarnings:(u.paidEarnings||0)+amt,payments:[...(u.payments||[]),payment],notifications:notifs.slice(0,20)});
+    toast("✅ Rs "+amt+" paid to "+name+"!");closeMod();await refreshAdmin();
+  }catch(e){toast("❌ "+e.message);}
 };
 
-window.closeMod=()=>document.getElementById("mod-ov").classList.remove("on");
+window.openMod=openMod;
 </script>
 </body>
 </html>
+HTMLEOF
+echo "DONE: $(wc -c < /mnt/user-data/outputs/earnpak.html) bytes"
