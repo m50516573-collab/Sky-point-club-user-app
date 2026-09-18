@@ -205,7 +205,7 @@ select.inp{cursor:pointer}
           <div style="font-size:12px;color:var(--mu);font-weight:600">To Earn</div>
         </div>
         <div onclick="nav('mylinks')" style="cursor:pointer;padding:10px">
-          <div style="font-size:30px;margin-bottom:6px">↩</div>
+          <div style="font-size:30px;margin-bottom:6px">↩️</div>
           <div style="font-size:16px;font-weight:800" id="d-ret-cnt">0</div>
           <div style="font-size:12px;color:var(--mu);font-weight:600">Returned</div>
         </div>
@@ -325,10 +325,10 @@ select.inp{cursor:pointer}
     </div>
     <div class="card">
       <div class="ct">Tracking System</div>
-      <div class="sr"><div style="font-size:22px;margin-right:12px">🖱</div><div><div style="font-size:14px;font-weight:700">Link Clicks</div><div style="font-size:12px;color:var(--mu)">Jab koi aapka link click kare</div></div></div>
+      <div class="sr"><div style="font-size:22px;margin-right:12px">🖱️</div><div><div style="font-size:14px;font-weight:700">Link Clicks</div><div style="font-size:12px;color:var(--mu)">Jab koi aapka link click kare</div></div></div>
       <div class="sr"><div style="font-size:22px;margin-right:12px">📦</div><div><div style="font-size:14px;font-weight:700">Pending Order</div><div style="font-size:12px;color:var(--mu)">Purchase hua — delivery pending</div></div></div>
       <div class="sr"><div style="font-size:22px;margin-right:12px">✅</div><div><div style="font-size:14px;font-weight:700">Completed</div><div style="font-size:12px;color:var(--mu)">Delivered + 2 day return khatam → Paisa!</div></div></div>
-      <div class="sr"><div style="font-size:22px;margin-right:12px">↩</div><div><div style="font-size:14px;font-weight:700">Returned</div><div style="font-size:12px;color:var(--mu)">Customer ne wapas kiya — no commission</div></div></div>
+      <div class="sr"><div style="font-size:22px;margin-right:12px">↩️</div><div><div style="font-size:14px;font-weight:700">Returned</div><div style="font-size:12px;color:var(--mu)">Customer ne wapas kiya — no commission</div></div></div>
     </div>
   </div>
 </div><!-- /worker app -->
@@ -388,7 +388,7 @@ select.inp{cursor:pointer}
 <div id="adm-bnav" style="display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#1A1A1A;border-top:1px solid #333;z-index:100">
   <div style="display:flex">
     <button onclick="refreshAdmin()" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">🔄</span>Refresh</button>
-    <button onclick="scrollTo(0,0)" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">⬆</span>Top</button>
+    <button onclick="scrollTo(0,0)" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">⬆️</span>Top</button>
     <button onclick="if(confirm('Logout?'))location.href=location.pathname" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:var(--re);border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">🚪</span>Logout</button>
   </div>
 </div>
@@ -727,7 +727,7 @@ function renderLinks(){
           <div class="link-box"><div class="link-txt">${trackUrl}</div><button class="cp-btn" onclick="cp('${trackUrl}')">Copy</button></div>
           <div style="font-size:11px;color:var(--gr);font-weight:700;margin-bottom:10px">✅ Direct Daraz link — No block, No error</div>
           <div style="display:flex;gap:8px">
-            <button onclick="testClick('${p.id}')" style="flex:1;padding:10px;background:var(--bl);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🖱 Test Click +1</button>
+            <button onclick="testClick('${p.id}')" style="flex:1;padding:10px;background:var(--bl);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🖱️ Test Click +1</button>
             <button onclick="testOrder('${p.id}',${p.workerComm||50})" style="flex:1;padding:10px;background:var(--ye);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">📦 Test Order</button>
           </div>
         </div>`;
@@ -752,7 +752,7 @@ function renderLinks(){
         <div style="font-size:12px;color:var(--mu);font-weight:600">Earned from this link</div>
         <div style="font-size:14px;font-weight:800;color:var(--gr)">Rs. ${(p.totalEarned||0).toFixed(2)}</div>
       </div>
-      ${orders.length?`<div style="margin-top:10px">${orders.slice(0,5).map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)"><div><div style="font-size:12px;font-weight:700">${sds(o.date)}</div><div style="font-size:11px;color:var(--mu)">${o.id}</div></div><div style="text-align:right"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}">${o.status==="completed"?"✅ Complete":o.status==="pending"?"⏳ Pending":"↩ Returned"}</span><div style="font-size:13px;font-weight:800;color:var(--gr);margin-top:3px">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
+      ${orders.length?`<div style="margin-top:10px">${orders.slice(0,5).map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)"><div><div style="font-size:12px;font-weight:700">${sds(o.date)}</div><div style="font-size:11px;color:var(--mu)">${o.id}</div></div><div style="text-align:right"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}">${o.status==="completed"?"✅ Complete":o.status==="pending"?"⏳ Pending":"↩️ Returned"}</span><div style="font-size:13px;font-weight:800;color:var(--gr);margin-top:3px">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
       ${extra}`;
     el.appendChild(d);
   });
@@ -929,7 +929,7 @@ function renderAdminPendingOrders(){
       <div style="background:#FFFBEE;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:12px;font-weight:600;color:#7A6000">⏱ 2 day return policy ke baad approve karo. Verify via Daraz dashboard sub_id tracking.</div>
       <div style="display:flex;gap:8px">
         <button onclick="approveOrder('${o.prodId}','${o.id}','${o.workerId}',${o.workerEarn||0},${o.adminEarn||0})" class="bog bog-gr bog-sm" style="flex:1">✅ Mark Complete</button>
-        <button onclick="returnOrder('${o.prodId}','${o.id}')" class="bog bog-re bog-sm" style="flex:1">↩ Return</button>
+        <button onclick="returnOrder('${o.prodId}','${o.id}')" class="bog bog-re bog-sm" style="flex:1">↩️ Return</button>
       </div>`;
     el.appendChild(d);
   });
@@ -958,7 +958,7 @@ window.returnOrder=async function(prodId,ordId){
     const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
     const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"returned"}:o);
     await updateDoc(doc(db,"products",prodId),{orders});
-    toast("↩ Order returned");await refreshAdmin();
+    toast("↩️ Order returned");await refreshAdmin();
   }catch(e){toast("❌ "+e.message);}
 };
 
@@ -1018,7 +1018,7 @@ function renderAdminWorkers(){
       <div style="flex:1">
         <div style="font-size:15px;font-weight:800">${u.name}</div>
         <div style="font-size:12px;color:var(--mu);font-weight:600">${u.userId} • ${u.phone}</div>
-        <div style="font-size:11px;color:var(--mu)">📅 ${sds(u.joinedAt)} • 🔗 ${uProds.length} links • 🖱 ${clicks} clicks</div>
+        <div style="font-size:11px;color:var(--mu)">📅 ${sds(u.joinedAt)} • 🔗 ${uProds.length} links • 🖱️ ${clicks} clicks</div>
         <div style="display:flex;gap:8px;margin-top:6px">
           <span class="chip chip-ye" style="font-size:11px">⏳ ${pend}</span>
           <span class="chip chip-gr" style="font-size:11px">✅ ${comp}</span>
