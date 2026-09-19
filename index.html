@@ -1062,29 +1062,31 @@ function renderLinks(){
     const pend=orders.filter(o=>o.status==="pending").length;
     const comp=orders.filter(o=>o.status==="completed").length;
     const ret=orders.filter(o=>o.status==="returned").length;
+    // Tracking redirect URL — counts clicks then goes to real Daraz link
     const trackUrl=location.origin+location.pathname+"?track="+p.id+"&wk="+U.userId;
+    const realLink=p.darazTrackLink||p.affiliateLink||"";
     const sMap={pending_admin:{t:"⏳ Pending Admin",c:"chip-ye"},ready:{t:"✅ Ready",c:"chip-gr"},active:{t:"🔥 Active",c:"chip-or"},rejected:{t:"❌ Rejected",c:"chip-re"}};
     const st=sMap[p.status]||{t:p.status,c:"chip-mu"};
     let linkSec="";
     if(p.status==="pending_admin"){
-      linkSec=`<div class="info-box info-ye" style="margin-top:10px;margin-bottom:0">⏳ Admin review kar raha hai. Approve hone ke baad 🔔 notification milegi.</div>`;
+      linkSec=`<div class="info-box info-ye" style="margin-top:10px;margin-bottom:0">⏳ Admin review kar raha hai. Approve hone ke baad 🔔 notification milegi aur link yahan show ho ga.</div>`;
     } else if(p.status==="ready"||p.status==="active"){
       linkSec=`<div style="background:var(--gr2);border-radius:12px;padding:14px;margin-top:10px;border:1px solid rgba(5,150,105,.15)">
-        <div style="font-size:13px;font-weight:800;color:var(--gr);margin-bottom:10px">✅ Link Ready — Share karo aur kamao!</div>
-        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">🔗 Aapka Tracking Link:</div>
+        <div style="font-size:13px;font-weight:800;color:var(--gr);margin-bottom:10px">✅ Link Ready — Copy karo aur share karo!</div>
+        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">🔗 Aapka Affiliate Link (Yahi share karo):</div>
         <div class="link-box"><div class="link-txt">${trackUrl}</div><button style="padding:7px 14px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0" onclick="cp('${trackUrl}')">Copy</button></div>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button onclick="shareLink('${trackUrl}','${p.name.replace(/'/g,"\\'")}',${p.workerComm||0})" style="flex:1;padding:10px;background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📤 Share</button>
-          <button onclick="cp('${trackUrl}')" style="flex:1;padding:10px;background:var(--lt);border:1.5px solid var(--line);color:var(--dark);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy</button>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button onclick="shareLink('${trackUrl}','${p.name.replace(/'/g,"\\'")}',${p.workerComm||0})" style="flex:1;padding:12px;background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(5,150,105,.3)">📤 Share</button>
+          <button onclick="cp('${trackUrl}')" style="flex:1;padding:12px;background:var(--lt);border:1.5px solid var(--line);color:var(--dark);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy</button>
         </div>
-        <div style="font-size:11px;color:var(--gr);font-weight:600;margin-top:8px;line-height:1.6">
-          ✅ Click count automatic track hoga<br>
-          ✅ Daraz pe purchase → Admin verify → Order pending<br>
-          ✅ 2 din baad → Complete → Rs.${p.workerComm||0} add!
+        <div style="margin-top:10px;padding:10px;background:rgba(5,150,105,.08);border-radius:8px;font-size:11px;font-weight:600;color:#065F46;line-height:1.8">
+          🖱️ Koi link click kare → Clicks +1 automatic<br>
+          🛒 Daraz pe khareedey → Admin verify kare<br>
+          ✅ Admin complete kare → Rs.${p.workerComm||0} aapke account mein!
         </div>
       </div>`;
     } else if(p.status==="rejected"){
-      linkSec=`<div class="info-box info-re" style="margin-top:10px;margin-bottom:0;background:var(--re2);color:var(--re)">❌ Admin ne reject kar diya. Naya product submit karo.</div>`;
+      linkSec=`<div class="info-box" style="margin-top:10px;margin-bottom:0;background:var(--re2);color:var(--re);border:1px solid rgba(220,38,38,.2)">❌ Admin ne reject kar diya. Naya product submit karo.</div>`;
     }
     const d=document.createElement("div");
     d.className="card";
@@ -1231,7 +1233,11 @@ function rPendProds(){
           <button onclick="approveP('${p.id}','${p.workerId}')" class="btn btn-gr btn-sm" style="flex:1">✅ Approve</button>
           <button onclick="rejectP('${p.id}')" class="btn btn-re btn-sm" style="flex:1">❌ Reject</button>
         </div>
-      </div>`;
+      </div>
+      ${p.status==="ready"||p.status==="active"?`<div style="margin-top:10px">
+        <button onclick="openAddOrder('${p.id}','${p.workerId}','${p.workerName}',${p.workerComm||50},'${p.name.replace(/'/g,"\\'")}')" class="btn btn-sm" style="width:100%;background:linear-gradient(135deg,#F57224,#E85520)">➕ Add Order Manually</button>
+      </div>`:""}
+      `;
     el.appendChild(d);
   });
 }
@@ -1268,14 +1274,29 @@ function rPendOrds(){
   allProds.forEach(p=>(p.orders||[]).filter(o=>o.status==="pending").forEach(o=>ords.push({...o,prodId:p.id,prodName:p.name,workerId:p.workerId,workerName:p.workerName})));
   document.getElementById("adm-po-cnt").textContent=ords.length;
   const el=document.getElementById("adm-po");
-  if(!ords.length){el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:36px">✅</span><div class="empty-t">No pending orders</div></div>`;return}
+  if(!ords.length){
+    // Show active products with add order button
+    const activeProds=allProds.filter(p=>p.status==="ready"||p.status==="active");
+    let html=`<div class="empty" style="padding:16px 20px 8px"><span class="empty-ic" style="font-size:36px">✅</span><div class="empty-t">No pending orders</div><div class="empty-s">Daraz pe order verify karke manually add karo</div></div>`;
+    if(activeProds.length){
+      html+=`<div style="font-size:13px;font-weight:700;color:var(--mu);margin:8px 0 10px;text-align:center">Active Links — Order Add Karo:</div>`;
+      activeProds.forEach(p=>{
+        html+=`<div style="background:#fff;border-radius:var(--rd);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh);display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</div><div style="font-size:11px;color:var(--mu)">👤 ${p.workerName} • Rs.${p.workerComm||0}/order</div></div>
+          <button onclick="openAddOrder('${p.id}','${p.workerId}','${p.workerName}',${p.workerComm||50},'${p.name.replace(/'/g,"\\'")}')" class="btn btn-sm" style="flex-shrink:0;white-space:nowrap">➕ Add Order</button>
+        </div>`;
+      });
+    }
+    el.innerHTML=html;return;
+  }
   el.innerHTML="";
   ords.forEach(o=>{
     const d=document.createElement("div");d.className="p-card p-card-gr";
     d.innerHTML=`
       <div style="font-size:15px;font-weight:800;margin-bottom:4px">${o.prodName}</div>
-      <div style="font-size:12px;color:var(--mu);font-weight:500;margin-bottom:12px">👤 ${o.workerName} • 📅 ${sds(o.date)}</div>
-      <div style="font-size:11px;color:var(--mu);font-weight:600;margin-bottom:10px;word-break:break-all">📋 ${o.id}</div>
+      <div style="font-size:12px;color:var(--mu);font-weight:500;margin-bottom:6px">👤 ${o.workerName} • 📅 ${sds(o.date)}</div>
+      ${o.externalOrderId&&o.externalOrderId!=="—"?`<div style="background:var(--bl2);border-radius:8px;padding:6px 10px;margin-bottom:8px;font-size:12px;font-weight:700;color:var(--bl)">🛒 Daraz Order ID: ${o.externalOrderId}</div>`:""}
+      <div style="font-size:11px;color:var(--mu);font-weight:600;margin-bottom:10px;word-break:break-all">📋 EarnPak ID: ${o.id}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
         <div style="background:var(--gr2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:800;color:var(--gr)">Rs ${(o.workerEarn||0).toFixed(0)}</div><div style="font-size:11px;color:var(--gr);font-weight:600;margin-top:2px">Worker Pay</div></div>
         <div style="background:var(--o3);border-radius:10px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:800;color:var(--or)">Rs ${(o.adminEarn||0).toFixed(0)}</div><div style="font-size:11px;color:var(--or);font-weight:600;margin-top:2px">My Profit</div></div>
@@ -1456,6 +1477,51 @@ window.openPayWorker=(userId,name,pending)=>{
     <label class="fl">Note</label>
     <input class="inp" id="pay-n" placeholder="e.g. Commission for Sep 2026">
     <button onclick="processPay('${userId}','${name}')" class="btn btn-gr">💸 Process Payment</button>`;
+};
+
+// ── MANUAL ORDER ADD ──
+window.openAddOrder=async(prodId,workerId,workerName,comm,prodName)=>{
+  document.getElementById("mod-t").textContent="➕ Add Order — "+prodName;
+  document.getElementById("mod-body").innerHTML=`
+    <div class="info-box info-bl" style="margin-bottom:16px">
+      ℹ️ Daraz dashboard pe order verify karke yahan add karo. Admin verify kare ga baad mein complete mark karne ke liye.
+    </div>
+    <label class="fl">Daraz Order ID (optional)</label>
+    <input class="inp" id="ord-ext" placeholder="e.g. 123456789">
+    <label class="fl">Commission Rs (worker ko milega)</label>
+    <input class="inp" id="ord-comm" type="number" value="${comm}" placeholder="e.g. 50" inputmode="numeric">
+    <div style="background:var(--lt);border-radius:10px;padding:12px;margin-bottom:16px;font-size:13px;font-weight:600">
+      👤 Worker: <b>${workerName}</b><br>
+      📦 Product: <b>${prodName}</b>
+    </div>
+    <button onclick="addOrderManual('${prodId}','${workerId}')" class="btn btn-gr">✅ Add as Pending Order</button>`;
+  openMod();
+};
+
+window.addOrderManual=async(prodId,workerId)=>{
+  const extId=document.getElementById("ord-ext")?.value.trim()||"";
+  const comm=parseFloat(document.getElementById("ord-comm")?.value)||0;
+  if(!comm||comm<=0){toast("Commission amount enter karo","error");return}
+  const workerEarn=comm;
+  const adminEarn=Math.round(comm*0.2);
+  const order={
+    id:"ORD-"+Date.now(),
+    externalOrderId:extId||"—",
+    status:"pending",
+    workerEarn,adminEarn,
+    totalComm:comm+adminEarn,
+    date:new Date().toISOString(),
+    addedBy:"admin",
+    _ns:false
+  };
+  try{
+    const ps=await getDoc(doc(db,"products",prodId));
+    if(!ps.exists())return;
+    const orders=[...(ps.data().orders||[]),order];
+    await updateDoc(doc(db,"products",prodId),{orders});
+    toast("Order added! Pending mein show ho ga.","success");
+    closeMod();await refreshAdmin();
+  }catch(e){toast("Error: "+e.message,"error");}
 };
 
 window.processPay=async(userId,name)=>{
