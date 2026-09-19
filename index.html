@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#F57224">
 <title>EarnPak — Daraz Affiliate</title>
+<link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F5F5F5;--card:#fff;--line:#E8E8E8;--dark:#1A1A1A;--or:#F57224;--o2:#E85520;--gr:#00A650;--re:#E02020;--bl:#0F78F4;--mu:#888;--lt:#F8F8F8;--ye:#F5A623}
+:root[data-theme="dark"]{--bg:#121212;--card:#1E1E1E;--line:#2E2E2E;--dark:#F0F0F0;--mu:#999;--lt:#252525}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;max-width:480px;margin:0 auto;overflow-x:hidden}
 #splash{position:fixed;inset:0;background:#F57224;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -18,8 +20,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .sp-bar{width:200px;height:4px;background:rgba(255,255,255,.3);border-radius:99px;margin-top:28px;overflow:hidden}
 .sp-f{height:100%;background:#fff;border-radius:99px;animation:ld 1.2s ease forwards}
 @keyframes ld{from{width:0}to{width:100%}}
-/* AUTH */
-#apg{display:none;min-height:100vh;background:#fff;flex-direction:column}
+#apg{display:none;min-height:100vh;background:var(--card);flex-direction:column}
 .auth-top{background:linear-gradient(160deg,#F57224,#E85520);padding:48px 24px 32px;color:#fff}
 .auth-logo{width:64px;height:64px;background:rgba(255,255,255,.25);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px}
 .auth-t{font-size:28px;font-weight:800}
@@ -28,7 +29,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .tabs{display:flex;border-bottom:2px solid var(--line);margin-bottom:24px}
 .tb{flex:1;padding:12px;font-size:15px;font-weight:700;border:none;background:transparent;cursor:pointer;font-family:inherit;color:var(--mu);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s}
 .tb.on{color:var(--or);border-bottom-color:var(--or)}
-.inp{width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;font-family:inherit;outline:none;background:#fff;margin-bottom:14px;transition:.2s;color:var(--dark)}
+.inp{width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;font-family:inherit;outline:none;background:var(--card);margin-bottom:14px;transition:.2s;color:var(--dark)}
 .inp:focus{border-color:var(--or)}
 select.inp{cursor:pointer}
 .bog{width:100%;padding:15px;background:var(--or);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
@@ -36,48 +37,38 @@ select.inp{cursor:pointer}
 .bog:disabled{background:#ccc;cursor:not-allowed}
 .bog-gr{background:var(--gr)!important}
 .bog-re{background:var(--re)!important}
-.bog-dark{background:#1A1A1A!important}
 .bog-sm{padding:10px 14px!important;font-size:13px!important;width:auto!important;border-radius:8px!important}
 .err{color:var(--re);font-size:13px;font-weight:600;padding:10px;background:#FFF0F0;border-radius:10px;margin-bottom:12px;display:none}
-/* WORKER HEADER */
 #hdr{position:sticky;top:0;z-index:100;background:var(--or);padding:0 16px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(245,114,36,.3)}
 .h-logo-t{font-size:20px;font-weight:800;color:#fff;flex:1;padding:14px 0}
 .h-bell{font-size:22px;cursor:pointer;position:relative;padding:4px}
 .h-nb{position:absolute;top:-2px;right:-2px;width:18px;height:18px;background:var(--re);color:#fff;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--or)}
 .h-av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-/* ADMIN HEADER */
 #adm-hdr{position:sticky;top:0;z-index:100;background:#1A1A1A;padding:0 16px;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
-/* BOTTOM NAV WORKER */
-#bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--line);display:none;z-index:100}
+#bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--line);display:none;z-index:100}
 .bn-wrap{display:flex}
 .bn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;cursor:pointer;font-size:11px;font-weight:600;color:var(--mu);border:none;background:transparent;font-family:inherit}
 .bn.on{color:var(--or)}
 .bni{font-size:22px}
-/* ADMIN BOTTOM NAV */
 #adm-bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#1A1A1A;border-top:1px solid #333;display:none;z-index:100}
-/* APP */
 #app{display:none}
 #adm-app{display:none}
 .pg{display:none;padding:14px 16px 90px}
 .pg.on{display:block}
-/* CARDS */
-.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .ct{font-size:15px;font-weight:700;margin-bottom:14px}
 .sec{font-size:15px;font-weight:700;margin:16px 0 10px}
-/* ORANGE BOX */
 .or-box{background:linear-gradient(135deg,#F57224,#E85520);border-radius:12px;padding:20px;margin-bottom:12px;color:#fff}
 .or-box-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
 .or-box-item{background:rgba(255,255,255,.2);border-radius:10px;padding:12px;text-align:center}
 .or-box-iv{font-size:20px;font-weight:800}
 .or-box-il{font-size:10px;opacity:.85;font-weight:600;margin-top:2px}
-/* CONV TABS */
 .conv-tabs{display:flex;gap:8px;margin-bottom:16px}
-.ct-btn{flex:1;padding:9px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;background:#fff;color:var(--mu);transition:.2s}
+.ct-btn{flex:1;padding:9px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;background:var(--card);color:var(--mu);transition:.2s}
 .ct-btn.on{border-color:var(--or);color:var(--or);background:#FFF5EE}
 .conv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .conv-item-t{font-size:13px;color:var(--mu);font-weight:600;margin-bottom:4px}
 .conv-item-v{font-size:22px;font-weight:800}
-/* CHIPS */
 .chip{display:inline-block;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700}
 .chip-or{background:#FFF5EE;color:var(--or)}
 .chip-gr{background:#F0FFF5;color:var(--gr)}
@@ -85,40 +76,31 @@ select.inp{cursor:pointer}
 .chip-ye{background:#FFFBEE;color:var(--ye)}
 .chip-bl{background:#F0F7FF;color:var(--bl)}
 .chip-mu{background:#F5F5F5;color:var(--mu)}
-/* PROD STATS */
 .prod-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
-.ps{background:#F8F8F8;border-radius:8px;padding:8px 4px;text-align:center}
+.ps{background:var(--lt);border-radius:8px;padding:8px 4px;text-align:center}
 .psv{font-size:15px;font-weight:800}
 .psl{font-size:10px;color:var(--mu);font-weight:600;margin-top:2px}
-/* LINK BOX */
-.link-box{display:flex;align-items:center;background:#F8F8F8;border-radius:8px;padding:10px 12px;margin:8px 0;gap:8px}
+.link-box{display:flex;align-items:center;background:var(--lt);border-radius:8px;padding:10px 12px;margin:8px 0;gap:8px}
 .link-txt{font-size:11px;color:var(--mu);font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace}
 .cp-btn{padding:8px 16px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
-/* STAT ROW */
 .sr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .sr:last-child{border:none}
-/* WORKER ITEM */
-.wk-item{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer;transition:.15s}
-.wk-item:active{background:#FFF5EE}
+.wk-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border-radius:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer;transition:.15s}
 .wk-av{width:46px;height:46px;border-radius:50%;background:var(--or);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-/* PENDING CARD */
-.p-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:4px solid var(--or)}
+.p-card{background:var(--card);border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:4px solid var(--or)}
 .p-card-gr{border-left-color:var(--gr)}
 .p-card-re{border-left-color:var(--re)}
 .p-card-bl{border-left-color:var(--bl)}
-/* Q GRID */
 .q-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.q-box{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.q-box{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .q-label{font-size:12px;color:var(--mu);font-weight:600;margin-bottom:6px}
-/* MODAL */
 #mod-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;align-items:flex-end;justify-content:center}
 #mod-ov.on{display:flex}
-#mod-box{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto}
-.mod-hdr{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:2}
+#mod-box{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto}
+.mod-hdr{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--card);z-index:2}
 .mod-t{font-size:17px;font-weight:800}
-.mod-x{width:32px;height:32px;border-radius:50%;background:#F5F5F5;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.mod-x{width:32px;height:32px;border-radius:50%;background:var(--lt);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--dark)}
 .mod-body{padding:16px 20px 32px}
-/* TOAST */
 #tst{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;z-index:10000;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:92%}
 #tst.on{opacity:1}
 .empty{text-align:center;padding:40px 20px}
@@ -126,27 +108,16 @@ select.inp{cursor:pointer}
 .empty-t{font-size:16px;font-weight:700;margin-bottom:6px}
 .empty-s{font-size:13px;color:var(--mu);font-weight:600}
 .fl{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px;display:block}
-/* ADMIN TRACKING DASHBOARD */
-.adm-stat-big{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center}
-.adm-stat-v{font-size:28px;font-weight:800}
-.adm-stat-l{font-size:12px;color:var(--mu);font-weight:600;margin-top:4px}
-/* REALTIME BADGE */
 .rt-badge{display:inline-flex;align-items:center;gap:6px;background:#F0FFF5;color:var(--gr);padding:6px 12px;border-radius:99px;font-size:12px;font-weight:700;margin-bottom:12px}
 .rt-dot{width:8px;height:8px;border-radius:50%;background:var(--gr);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.theme-toggle{background:rgba(255,255,255,.2);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
 
-<!-- SPLASH -->
-<div id="splash">
-  <div class="sp-logo">🛒</div>
-  <div class="sp-t">EarnPak</div>
-  <div class="sp-s">Daraz Affiliate Network</div>
-  <div class="sp-bar"><div class="sp-f"></div></div>
-</div>
+<div id="splash"><div class="sp-logo">🛒</div><div class="sp-t">EarnPak</div><div class="sp-s">Daraz Affiliate Network</div><div class="sp-bar"><div class="sp-f"></div></div></div>
 
-<!-- AUTH -->
 <div id="apg">
   <div class="auth-top">
     <div class="auth-logo">🛒</div>
@@ -155,39 +126,30 @@ select.inp{cursor:pointer}
   </div>
   <div class="auth-body">
     <div class="tabs">
-      <button class="tb on" id="tbl" onclick="swTab('login')">Login</button>
-      <button class="tb" id="tbs" onclick="swTab('signup')">Sign Up</button>
+      <button class="tb on" id="tbl" type="button">Login</button>
+      <button class="tb" id="tbs" type="button">Sign Up</button>
     </div>
     <input class="inp" id="a-nm" placeholder="Full Name" style="display:none">
     <input class="inp" id="a-ph" placeholder="Phone 03XXXXXXXXX" type="tel" maxlength="11">
-    <input class="inp" id="a-ps" type="password" placeholder="Password">
+    <input class="inp" id="a-ps" type="password" placeholder="Password (min 6 characters)">
     <div class="err" id="a-err"></div>
-    <button class="bog" id="a-btn" onclick="doAuth()">Continue</button>
+    <button class="bog" id="a-btn" type="button">Continue</button>
   </div>
 </div>
 
-<!-- WORKER HEADER -->
 <div id="hdr" style="display:none">
   <div class="h-logo-t">EarnPak</div>
-  <div style="position:relative;cursor:pointer" onclick="openNotifs()">
-    <span class="h-bell">🔔</span>
-    <div class="h-nb" id="notif-cnt" style="display:none">0</div>
-  </div>
-  <div class="h-av" id="h-av" onclick="openProfile()">U</div>
+  <button class="theme-toggle" id="theme-btn-w" type="button">🌙</button>
+  <div style="position:relative;cursor:pointer" id="bell-btn"><span class="h-bell">🔔</span><div class="h-nb" id="notif-cnt" style="display:none">0</div></div>
+  <div class="h-av" id="h-av"></div>
 </div>
 
-<!-- WORKER APP -->
 <div id="app">
-
-  <!-- DASHBOARD -->
   <div id="pg-dash" class="pg on">
     <div class="or-box" style="border-radius:0 0 16px 16px;margin:0 -16px 12px;padding:20px 20px 24px">
       <div style="font-size:13px;opacity:.85;font-weight:600">My Account</div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
-        <div>
-          <div style="font-size:13px;opacity:.8;font-weight:600">Pending Earnings</div>
-          <div style="font-size:32px;font-weight:800">Rs. <span id="d-bal">0.00</span></div>
-        </div>
+        <div><div style="font-size:13px;opacity:.8;font-weight:600">Pending Earnings</div><div style="font-size:32px;font-weight:800">Rs. <span id="d-bal">0.00</span></div></div>
         <div style="font-size:48px;opacity:.2">🛒</div>
       </div>
       <div class="or-box-grid">
@@ -196,57 +158,16 @@ select.inp{cursor:pointer}
         <div class="or-box-item"><div class="or-box-iv" id="d-links">0</div><div class="or-box-il">Links</div></div>
       </div>
     </div>
-    <!-- Generated Orders -->
-    <div class="card">
-      <div class="ct">Generated Orders</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center">
-        <div onclick="nav('mylinks')" style="cursor:pointer;padding:10px">
-          <div style="font-size:30px;margin-bottom:6px">📋</div>
-          <div style="font-size:16px;font-weight:800" id="d-pend-cnt">0</div>
-          <div style="font-size:12px;color:var(--mu);font-weight:600">Pending</div>
-        </div>
-        <div onclick="nav('mylinks')" style="cursor:pointer;padding:10px;border-left:1px solid var(--line);border-right:1px solid var(--line)">
-          <div style="font-size:30px;margin-bottom:6px">💰</div>
-          <div style="font-size:16px;font-weight:800" id="d-earn-cnt">0</div>
-          <div style="font-size:12px;color:var(--mu);font-weight:600">To Earn</div>
-        </div>
-        <div onclick="nav('mylinks')" style="cursor:pointer;padding:10px">
-          <div style="font-size:30px;margin-bottom:6px">↩️</div>
-          <div style="font-size:16px;font-weight:800" id="d-ret-cnt">0</div>
-          <div style="font-size:12px;color:var(--mu);font-weight:600">Returned</div>
-        </div>
-      </div>
-    </div>
-    <!-- Conversion Report (Daraz style) -->
-    <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <div class="ct" style="margin:0">Conversion Report</div>
-        <div style="font-size:11px;color:var(--mu);font-weight:600" id="conv-time">—</div>
-      </div>
-      <div class="conv-tabs">
-        <button class="ct-btn on" onclick="setConv('yesterday',this)">Yesterday</button>
-        <button class="ct-btn" onclick="setConv('7days',this)">Past 7 days</button>
-        <button class="ct-btn" onclick="setConv('15days',this)">Past 15 days</button>
-      </div>
-      <div class="conv-grid">
-        <div><div class="conv-item-t">Sales</div><div class="conv-item-v" style="color:var(--or)" id="cv-sales">Rs. 0.00</div></div>
-        <div><div class="conv-item-t">Est.Rev</div><div class="conv-item-v" style="color:var(--or)" id="cv-rev">Rs. 0.00</div></div>
-        <div style="margin-top:14px"><div class="conv-item-t">Click</div><div class="conv-item-v" id="cv-click">0</div></div>
-        <div style="margin-top:14px"><div class="conv-item-t">Orders</div><div class="conv-item-v" id="cv-orders">0</div></div>
-      </div>
-    </div>
-    <!-- Tools -->
     <div class="card">
       <div class="ct">Tools & Services</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center">
-        <div onclick="nav('submit')" style="cursor:pointer;padding:10px"><div style="font-size:28px;margin-bottom:6px">➕</div><div style="font-size:12px;font-weight:700">Submit Link</div></div>
-        <div onclick="nav('earnings')" style="cursor:pointer;padding:10px;border-left:1px solid var(--line);border-right:1px solid var(--line)"><div style="font-size:28px;margin-bottom:6px">💸</div><div style="font-size:12px;font-weight:700">Withdraw</div></div>
-        <div onclick="nav('howto')" style="cursor:pointer;padding:10px"><div style="font-size:28px;margin-bottom:6px">📖</div><div style="font-size:12px;font-weight:700">How To</div></div>
+        <div class="nav-tile" data-nav="submit" style="cursor:pointer;padding:10px"><div style="font-size:28px;margin-bottom:6px">➕</div><div style="font-size:12px;font-weight:700">Submit Link</div></div>
+        <div class="nav-tile" data-nav="earnings" style="cursor:pointer;padding:10px;border-left:1px solid var(--line);border-right:1px solid var(--line)"><div style="font-size:28px;margin-bottom:6px">💸</div><div style="font-size:12px;font-weight:700">Withdraw</div></div>
+        <div class="nav-tile" data-nav="howto" style="cursor:pointer;padding:10px"><div style="font-size:28px;margin-bottom:6px">📖</div><div style="font-size:12px;font-weight:700">How To</div></div>
       </div>
     </div>
   </div>
 
-  <!-- SUBMIT -->
   <div id="pg-submit" class="pg">
     <div class="card">
       <div class="ct">➕ Submit Daraz Product</div>
@@ -268,29 +189,26 @@ select.inp{cursor:pointer}
         <option value="food">🍕 Food</option>
         <option value="other">📦 Other</option>
       </select>
-      <button class="bog" onclick="submitProd()">Submit to Admin →</button>
+      <button class="bog" id="submit-prod-btn" type="button">Submit to Admin →</button>
     </div>
   </div>
 
-  <!-- MY LINKS -->
   <div id="pg-mylinks" class="pg">
     <div class="rt-badge"><span class="rt-dot"></span>Real-time sync active</div>
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:8px;scrollbar-width:none">
-      <button class="ct-btn on" style="white-space:nowrap;flex-shrink:0" onclick="setLF('all',this)">All</button>
-      <button class="ct-btn" style="white-space:nowrap;flex-shrink:0" onclick="setLF('pending_admin',this)">⏳ Pending</button>
-      <button class="ct-btn" style="white-space:nowrap;flex-shrink:0" onclick="setLF('ready',this)">✅ Ready</button>
-      <button class="ct-btn" style="white-space:nowrap;flex-shrink:0" onclick="setLF('active',this)">🔥 Active</button>
+      <button class="ct-btn on" data-lf="all" type="button" style="white-space:nowrap;flex-shrink:0">All</button>
+      <button class="ct-btn" data-lf="pending_admin" type="button" style="white-space:nowrap;flex-shrink:0">⏳ Pending</button>
+      <button class="ct-btn" data-lf="ready" type="button" style="white-space:nowrap;flex-shrink:0">✅ Ready</button>
+      <button class="ct-btn" data-lf="rejected" type="button" style="white-space:nowrap;flex-shrink:0">❌ Rejected</button>
     </div>
     <div id="links-list"></div>
   </div>
 
-  <!-- EARNINGS -->
   <div id="pg-earnings" class="pg">
     <div class="or-box" style="margin-bottom:12px">
       <div style="font-size:12px;opacity:.8;font-weight:600">My Report</div>
-      <div style="font-size:11px;opacity:.6;font-weight:600;margin-top:2px" id="e-time">—</div>
       <div style="font-size:36px;font-weight:800;margin-top:8px">Rs. <span id="e-total">0.00</span></div>
-      <div style="font-size:12px;opacity:.8;font-weight:600;margin-top:4px">Est. Income (Total)</div>
+      <div style="font-size:12px;opacity:.8;font-weight:600;margin-top:4px">Total Earned (lifetime)</div>
       <div class="or-box-grid">
         <div class="or-box-item"><div class="or-box-iv" id="e-paid">0</div><div class="or-box-il">Paid</div></div>
         <div class="or-box-item"><div class="or-box-iv" id="e-pend">0</div><div class="or-box-il">Pending</div></div>
@@ -306,7 +224,7 @@ select.inp{cursor:pointer}
       <select class="inp" id="wd-mth"><option value="easypaisa">Easypaisa</option><option value="jazzcash">JazzCash</option></select>
       <label class="fl">Account Number</label>
       <input class="inp" id="wd-num" type="tel" placeholder="03XXXXXXXXX" maxlength="11">
-      <button class="bog" onclick="doWithdraw()">Request Withdrawal</button>
+      <button class="bog" id="wd-btn" type="button">Request Withdrawal</button>
     </div>
     <div class="card">
       <div class="ct">Payment History</div>
@@ -314,524 +232,418 @@ select.inp{cursor:pointer}
     </div>
   </div>
 
-  <!-- HOW TO -->
   <div id="pg-howto" class="pg">
     <div class="card">
       <div class="ct">How To Earn</div>
-      <div style="font-size:14px;font-weight:600;line-height:2.4;color:#444">
+      <div style="font-size:14px;font-weight:600;line-height:2.4;color:var(--mu)">
         <b style="color:var(--or)">1.</b> Daraz app pe product → Share → Copy Link<br>
         <b style="color:var(--or)">2.</b> EarnPak → Submit karo → Admin ko jata hai<br>
         <b style="color:var(--or)">3.</b> Admin link approve kare → Notification aye ga<br>
         <b style="color:var(--or)">4.</b> My Links → Final link copy → WhatsApp share<br>
         <b style="color:var(--or)">5.</b> Koi click kare → Daraz pe jaye → Khareedey<br>
-        <b style="color:var(--or)">6.</b> Order Pending → 2 day return khatam → Completed<br>
+        <b style="color:var(--or)">6.</b> Order Pending → 2 din return khatam → Completed<br>
         <b style="color:var(--or)">7.</b> Rs. 500+ hone pe withdraw karo
       </div>
     </div>
   </div>
-</div><!-- /worker app -->
-
-<!-- WORKER BOTTOM NAV -->
-<div id="bnav">
-  <div class="bn-wrap">
-    <button class="bn on" id="bn-dash" onclick="nav('dash')"><span class="bni">🏠</span>Home</button>
-    <button class="bn" id="bn-submit" onclick="nav('submit')"><span class="bni">➕</span>Submit</button>
-    <button class="bn" id="bn-mylinks" onclick="nav('mylinks')"><span class="bni">🔗</span>My Links</button>
-    <button class="bn" id="bn-earnings" onclick="nav('earnings')"><span class="bni">💰</span>Earnings</button>
-  </div>
 </div>
 
-<!-- ══════════════════════════════════ -->
-<!-- ADMIN APP — COMPLETELY SEPARATE   -->
-<!-- ══════════════════════════════════ -->
+<div id="bnav"><div class="bn-wrap">
+  <button class="bn on" data-nav="dash" type="button"><span class="bni">🏠</span>Home</button>
+  <button class="bn" data-nav="submit" type="button"><span class="bni">➕</span>Submit</button>
+  <button class="bn" data-nav="mylinks" type="button"><span class="bni">🔗</span>My Links</button>
+  <button class="bn" data-nav="earnings" type="button"><span class="bni">💰</span>Earnings</button>
+</div></div>
+
 <div id="adm-hdr" style="display:none">
   <div style="font-size:18px;font-weight:800;color:#fff;flex:1;padding:14px 0">👑 EarnPak Admin</div>
-  <button onclick="refreshAdmin()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px">🔄 Refresh</button>
-  <div style="width:36px;height:36px;border-radius:50%;background:var(--or);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:8px" onclick="if(confirm('Admin logout?'))location.href=location.pathname">A</div>
+  <button class="theme-toggle" id="theme-btn-a" type="button">🌙</button>
+  <button id="adm-refresh" type="button" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px">🔄 Refresh</button>
+  <div style="width:36px;height:36px;border-radius:50%;background:var(--or);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:8px" id="adm-logout">A</div>
 </div>
 
-<div id="adm-app">
-  <div style="padding:14px 16px 90px">
-    <!-- Admin Stats Header -->
-    <div style="background:linear-gradient(135deg,#1A1A1A,#2B2B2B);border-radius:12px;padding:20px;margin-bottom:12px;color:#fff">
-      <div style="font-size:12px;opacity:.5;font-weight:600">Admin Dashboard — EarnPak</div>
-      <div style="font-size:28px;font-weight:800;margin-top:6px">Rs. <span id="adm-tc">0</span></div>
-      <div style="font-size:12px;opacity:.5;margin-top:2px">Total Commission Issued to Workers</div>
-      <div class="or-box-grid" style="margin-top:16px">
-        <div class="or-box-item"><div class="or-box-iv" id="adm-wc">0</div><div class="or-box-il">Workers</div></div>
-        <div class="or-box-item"><div class="or-box-iv" id="adm-lc">0</div><div class="or-box-il">Links</div></div>
-        <div class="or-box-item"><div class="or-box-iv" id="adm-oc">0</div><div class="or-box-il">Orders</div></div>
-      </div>
+<div id="adm-app"><div style="padding:14px 16px 90px">
+  <div style="background:linear-gradient(135deg,#1A1A1A,#2B2B2B);border-radius:12px;padding:20px;margin-bottom:12px;color:#fff">
+    <div style="font-size:12px;opacity:.5;font-weight:600">Admin Dashboard — EarnPak</div>
+    <div style="font-size:28px;font-weight:800;margin-top:6px">Rs. <span id="adm-tc">0</span></div>
+    <div style="font-size:12px;opacity:.5;margin-top:2px">Total Commission Issued to Workers</div>
+    <div class="or-box-grid" style="margin-top:16px">
+      <div class="or-box-item"><div class="or-box-iv" id="adm-wc">0</div><div class="or-box-il">Workers</div></div>
+      <div class="or-box-item"><div class="or-box-iv" id="adm-lc">0</div><div class="or-box-il">Links</div></div>
+      <div class="or-box-item"><div class="or-box-iv" id="adm-oc">0</div><div class="or-box-il">Orders</div></div>
     </div>
-    <div class="q-grid">
-      <div class="q-box"><div class="q-label">My 20% Profit</div><div style="font-size:22px;font-weight:800;color:var(--gr)">Rs <span id="adm-pr">0</span></div></div>
-      <div class="q-box"><div class="q-label">Pending Pay</div><div style="font-size:22px;font-weight:800;color:var(--ye)">Rs <span id="adm-pp">0</span></div></div>
-      <div class="q-box"><div class="q-label">Total Clicks</div><div style="font-size:22px;font-weight:800;color:var(--bl)"><span id="adm-cl">0</span></div></div>
-      <div class="q-box"><div class="q-label">Paid Out</div><div style="font-size:22px;font-weight:800;color:var(--or)">Rs <span id="adm-po-tot">0</span></div></div>
-    </div>
-
-    <!-- Realtime badge -->
-    <div class="rt-badge"><span class="rt-dot"></span>Firebase Realtime Connected</div>
-
-    <!-- Pending Submissions -->
-    <div class="sec">📦 Pending Submissions <span id="adm-ps-cnt" style="background:#FFF5EE;color:var(--or);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800;margin-left:6px">0</span></div>
-    <div id="adm-pps"></div>
-
-    <!-- Pending Orders -->
-    <div class="sec">📋 Pending Orders <span id="adm-po-cnt" style="background:#FFFBEE;color:var(--ye);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800;margin-left:6px">0</span></div>
-    <div id="adm-po"></div>
-
-    <!-- Withdrawals -->
-    <div class="sec">💸 Withdrawal Requests <span id="adm-wd-cnt" style="background:#F0FFF5;color:var(--gr);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800;margin-left:6px">0</span></div>
-    <div id="adm-wds"></div>
-
-    <!-- All Workers -->
-    <div class="sec">👥 All Workers</div>
-    <div id="adm-workers"></div>
   </div>
-</div>
-
-<!-- ADMIN BOTTOM NAV -->
-<div id="adm-bnav">
-  <div style="display:flex">
-    <button onclick="refreshAdmin()" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">🔄</span>Refresh</button>
-    <button onclick="scrollTo(0,0)" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">⬆️</span>Top</button>
-    <button onclick="if(confirm('Logout?'))location.href=location.pathname" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#E02020;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">🚪</span>Logout</button>
+  <div class="q-grid">
+    <div class="q-box"><div class="q-label">My Profit</div><div style="font-size:22px;font-weight:800;color:var(--gr)">Rs <span id="adm-pr">0</span></div></div>
+    <div class="q-box"><div class="q-label">Pending Pay</div><div style="font-size:22px;font-weight:800;color:var(--ye)">Rs <span id="adm-pp">0</span></div></div>
+    <div class="q-box"><div class="q-label">Total Clicks</div><div style="font-size:22px;font-weight:800;color:var(--bl)"><span id="adm-cl">0</span></div></div>
+    <div class="q-box"><div class="q-label">Paid Out</div><div style="font-size:22px;font-weight:800;color:var(--or)">Rs <span id="adm-po-tot">0</span></div></div>
   </div>
-</div>
+  <div class="sec">📦 Pending Submissions <span id="adm-ps-cnt" style="background:#FFF5EE;color:var(--or);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800;margin-left:6px">0</span></div>
+  <div id="adm-pps"></div>
+  <div class="sec">📋 Pending Orders <span id="adm-po-cnt" style="background:#FFFBEE;color:var(--ye);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800;margin-left:6px">0</span></div>
+  <div style="margin-bottom:8px"><button class="bog bog-sm" id="new-order-btn" type="button">➕ Record New Order</button></div>
+  <div id="adm-po"></div>
+  <div class="sec">💸 Withdrawal Requests <span id="adm-wd-cnt" style="background:#F0FFF5;color:var(--gr);padding:2px 8px;border-radius:99px;font-size:12px;font-weight:800;margin-left:6px">0</span></div>
+  <div id="adm-wds"></div>
+  <div class="sec">👥 All Workers</div>
+  <div id="adm-workers"></div>
+</div></div>
 
-<!-- MODAL -->
-<div id="mod-ov" onclick="if(event.target===this)closeMod()">
-  <div id="mod-box">
-    <div class="mod-hdr">
-      <div class="mod-t" id="mod-t">Details</div>
-      <button class="mod-x" onclick="closeMod()">✕</button>
-    </div>
-    <div class="mod-body" id="mod-body"></div>
-  </div>
-</div>
+<div id="adm-bnav"><div style="display:flex">
+  <button id="adm-nav-refresh" type="button" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">🔄</span>Refresh</button>
+  <button id="adm-nav-top" type="button" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#aaa;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">⬆️</span>Top</button>
+  <button id="adm-nav-logout" type="button" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;gap:3px;font-size:11px;font-weight:600;color:#E02020;border:none;background:transparent;cursor:pointer;font-family:inherit"><span style="font-size:22px">🚪</span>Logout</button>
+</div></div>
+
+<div id="mod-ov"><div id="mod-box">
+  <div class="mod-hdr"><div class="mod-t" id="mod-t">Details</div><button class="mod-x" id="mod-close" type="button">✕</button></div>
+  <div class="mod-body" id="mod-body"></div>
+</div></div>
 
 <div id="tst"></div>
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import{getFirestore,doc,setDoc,getDoc,getDocs,updateDoc,collection,query,where,limit,increment,serverTimestamp,onSnapshot}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import{getFirestore,doc,getDoc,collection,query,where,onSnapshot,orderBy}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import{getFunctions,httpsCallable}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
 
 const fb=initializeApp({apiKey:"AIzaSyBXZaME3Z0rd_jsa5LpVG5ZbLpvf6cbu8M",authDomain:"aviator-781d9.firebaseapp.com",projectId:"aviator-781d9",storageBucket:"aviator-781d9.firebasestorage.app",messagingSenderId:"151636540667",appId:"1:151636540667:web:a16b6ed543fbf04368c45e"});
 const db=getFirestore(fb);
-let U=null,aMode="login",lfFilter="all",convPeriod="yesterday";
-let allProds=[],allUsers=[],allWds=[];
+const auth=getAuth(fb);
+const fx=getFunctions(fb);
+
+// ---- callable functions ----
+const cInitProfile=httpsCallable(fx,"initWorkerProfile");
+const cApproveProduct=httpsCallable(fx,"approveProduct");
+const cRejectProduct=httpsCallable(fx,"rejectProduct");
+const cCreateOrder=httpsCallable(fx,"createOrder");
+const cCompleteOrder=httpsCallable(fx,"completeOrder");
+const cReturnOrder=httpsCallable(fx,"returnOrder");
+const cRequestWithdrawal=httpsCallable(fx,"requestWithdrawal");
+const cPayWithdrawal=httpsCallable(fx,"payWithdrawal");
+const cRejectWithdrawal=httpsCallable(fx,"rejectWithdrawal");
+const cBootstrapAdmin=httpsCallable(fx,"bootstrapFirstAdmin");
+
+let U=null, role="worker", aMode="login", lfFilter="all";
+let allProds=[],allUsers=[],allWds=[],myProds=[];
 const catIcons={beauty:"💄",fashion:"👗",electronics:"📱",home:"🏠",health:"💊",baby:"👶",sports:"⚽",food:"🍕",other:"📦"};
 
-function sds(v){try{if(!v)return"—";if(v?.toDate)return v.toDate().toLocaleDateString("en-PK");if(v?.seconds)return new Date(v.seconds*1000).toLocaleDateString("en-PK");const d=new Date(v);return isNaN(d)?"—":d.toLocaleDateString("en-PK")}catch{return"—"}}
-function sdt(v){try{if(!v)return"—";if(v?.toDate)return v.toDate().toLocaleString("en-PK");if(v?.seconds)return new Date(v.seconds*1000).toLocaleString("en-PK");const d=new Date(v);return isNaN(d)?"—":d.toLocaleString("en-PK")}catch{return"—"}}
+// ── XSS-safe text helper: build DOM text nodes instead of trusting strings
+// inside innerHTML. Anything that came from a user (names, product titles,
+// phone numbers, rejection reasons...) MUST go through this before display. ──
+function esc(str){
+  const d=document.createElement("div");
+  d.textContent=(str===undefined||str===null)?"":String(str);
+  return d.innerHTML;
+}
+
+function sds(v){try{if(!v)return"—";const d=new Date(v);return isNaN(d)?"—":d.toLocaleDateString("en-PK")}catch{return"—"}}
 function toast(msg,dur=3500){const t=document.getElementById("tst");t.textContent=msg;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),dur)}
-
-const up=new URLSearchParams(location.search);
-const isAdmin=up.get("admin")==="1";
-const trackId=up.get("track");
-const trackWk=up.get("wk");
-
-// ── TRACKING REDIRECT ──
-if(trackId&&trackWk){
-  (async()=>{
-    document.body.innerHTML=`<div style="font-family:sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F57224;color:#fff;padding:24px;text-align:center"><div style="font-size:64px;margin-bottom:20px">🛒</div><div style="font-size:24px;font-weight:800;margin-bottom:8px">EarnPak</div><div style="font-size:15px;opacity:.85;margin-bottom:24px">Daraz pe redirect ho raha hai...</div><div style="width:200px;height:4px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden"><div style="height:100%;background:#fff;animation:ld 2s ease forwards;border-radius:99px"></div></div><style>@keyframes ld{from{width:0}to{width:100%}}</style></div>`;
-    try{
-      await updateDoc(doc(db,"products",trackId),{clicks:increment(1)});
-      await updateDoc(doc(db,"users",trackWk),{totalClicks:increment(1)});
-      const s=await getDoc(doc(db,"products",trackId));
-      if(s.exists()){
-        const p=s.data();
-        setTimeout(()=>window.location.href=p.darazTrackLink||p.affiliateLink||p.link,2000);
-      }
-    }catch(e){console.error(e);}
-  })();
+function friendlyErr(e){
+  const m=(e&&e.message)||"";
+  if(m.includes("permission")) return "You don't have permission to do that.";
+  if(m.includes("failed-precondition")||m.includes("already")) return "That's already been processed.";
+  if(m.includes("network")) return "Network issue — check your connection and try again.";
+  return m.replace(/^\w+\/[\w-]+:\s*/,"")||"Something went wrong.";
 }
-// ── ADMIN MODE ──
-else if(isAdmin){
-  setTimeout(()=>{
-    document.getElementById("splash").classList.add("hide");
-    const pw=prompt("🔐 Admin Password:");
-    if(pw==="ADMIN123"){
-      // Show ONLY admin — hide worker completely
-      document.getElementById("apg").style.display="none";
-      document.getElementById("hdr").style.display="none";
-      document.getElementById("app").style.display="none";
-      document.getElementById("bnav").style.display="none";
-      const ah=document.getElementById("adm-hdr");
-      ah.style.display="flex";
-      document.getElementById("adm-app").style.display="block";
-      document.getElementById("adm-bnav").style.display="block";
-      refreshAdmin();
-    } else {
-      if(pw!==null)alert("❌ Wrong password!");
-      location.href=location.pathname;
+
+// ── theme ──
+function applyTheme(t){document.documentElement.setAttribute("data-theme",t);localStorage.setItem("ep_theme",t);["theme-btn-w","theme-btn-a"].forEach(id=>{const b=document.getElementById(id);if(b)b.textContent=t==="dark"?"☀️":"🌙"})}
+applyTheme(localStorage.getItem("ep_theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark")}
+document.getElementById("theme-btn-w").onclick=toggleTheme;
+document.getElementById("theme-btn-a").onclick=toggleTheme;
+
+// ── boot ──
+onAuthStateChanged(auth, async (fbUser)=>{
+  document.getElementById("splash").classList.add("hide");
+  if(!fbUser){U=null;showLogin();return}
+  const tok=await fbUser.getIdTokenResult(true);
+  role=tok.claims.role||"worker";
+  if(["admin","super_admin","finance","moderator"].includes(role)){
+    showAdmin();
+  } else {
+    const snap=await getDoc(doc(db,"users",fbUser.uid));
+    if(!snap.exists()){
+      // e.g. signup just happened; profile creation is async — retry once
+      setTimeout(()=>getDoc(doc(db,"users",fbUser.uid)).then(s=>{if(s.exists()){U={...s.data(),userId:fbUser.uid};showApp()}}),1200);
+      return;
     }
-  },1400);
-}
-// ── WORKER MODE ──
-else{
-  setTimeout(async()=>{
-    document.getElementById("splash").classList.add("hide");
-    try{
-      const sid=sessionStorage.getItem("ep_sid");
-      if(sid){
-        const snap=await getDoc(doc(db,"users",sid));
-        if(snap.exists()){U={...snap.data(),userId:snap.id};showApp();return;}
-      }
-    }catch(e){}
-    showLogin();
-  },1400);
-}
+    U={...snap.data(),userId:fbUser.uid};
+    showApp();
+  }
+});
 
-// ══════════════════
-// WORKER AUTH
-// ══════════════════
-window.swTab=t=>{
+// ── auth screen ──
+document.getElementById("tbl").onclick=()=>swTab("login");
+document.getElementById("tbs").onclick=()=>swTab("signup");
+function swTab(t){
   aMode=t;
   document.getElementById("tbl").className="tb "+(t==="login"?"on":"");
   document.getElementById("tbs").className="tb "+(t==="signup"?"on":"");
   document.getElementById("a-nm").style.display=t==="signup"?"block":"none";
   document.getElementById("a-err").style.display="none";
-};
+}
 function showLogin(){
   document.getElementById("apg").style.display="flex";
   document.getElementById("hdr").style.display="none";
   document.getElementById("bnav").style.display="none";
   document.getElementById("app").style.display="none";
+  document.getElementById("adm-hdr").style.display="none";
+  document.getElementById("adm-app").style.display="none";
+  document.getElementById("adm-bnav").style.display="none";
 }
-window.doAuth=async()=>{
+document.getElementById("a-btn").onclick=async()=>{
   const ph=document.getElementById("a-ph").value.trim();
-  const ps=document.getElementById("a-ps").value.trim();
+  const ps=document.getElementById("a-ps").value;
   const nm=document.getElementById("a-nm").value.trim();
   const e=document.getElementById("a-err"),btn=document.getElementById("a-btn");
   e.style.display="none";
-  if(!ph||ph.length<11){e.textContent="Valid 03XXXXXXXXX enter karo";e.style.display="block";return}
-  if(!ps){e.textContent="Password enter karo";e.style.display="block";return}
+  if(!/^03\d{9}$/.test(ph)){e.textContent="Valid 03XXXXXXXXX enter karo";e.style.display="block";return}
+  if(!ps||ps.length<6){e.textContent="Password kam az kam 6 characters ka ho";e.style.display="block";return}
+  const email=ph+"@earnpak.app";
   btn.disabled=true;btn.textContent="Please wait...";
   try{
     if(aMode==="signup"){
       if(!nm){e.textContent="Full name enter karo";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
-      const q=query(collection(db,"users"),where("phone","==",ph),limit(1));
-      const sn=await getDocs(q);
-      if(!sn.empty){e.textContent="Phone already registered — Login karo";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
-      const uid="WK-"+Math.floor(10000+Math.random()*90000);
-      const nu={userId:uid,name:nm,phone:ph,password:ps,role:"worker",totalClicks:0,totalOrders:0,totalEarned:0,pendingEarnings:0,paidEarnings:0,payments:[],notifications:[],joinedAt:new Date().toISOString(),createdAt:serverTimestamp()};
-      await setDoc(doc(db,"users",uid),nu);
-      U={...nu};sessionStorage.setItem("ep_sid",uid);showApp();
+      const cred=await createUserWithEmailAndPassword(auth,email,ps);
+      await cInitProfile({name:nm,phone:ph});
+      toast("✅ Account bann gaya!");
     } else {
-      const q=query(collection(db,"users"),where("phone","==",ph),limit(1));
-      const sn=await getDocs(q);
-      if(sn.empty){e.textContent="Account nahi mila — Sign Up karo";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
-      const ud=sn.docs[0];
-      if(ud.data().password!==ps){e.textContent="Wrong password";e.style.display="block";btn.disabled=false;btn.textContent="Continue";return}
-      U={...ud.data(),userId:ud.id};sessionStorage.setItem("ep_sid",ud.id);showApp();
+      await signInWithEmailAndPassword(auth,email,ps);
     }
-  }catch(err){e.textContent="Error: "+err.message;e.style.display="block";}
+  }catch(err){
+    const map={"auth/email-already-in-use":"Phone already registered — Login karo","auth/user-not-found":"Account nahi mila — Sign Up karo","auth/wrong-password":"Wrong password","auth/invalid-credential":"Phone ya password ghalat hai","auth/weak-password":"Password kam az kam 6 characters ka ho"};
+    e.textContent=map[err.code]||friendlyErr(err);e.style.display="block";
+  }
   btn.disabled=false;btn.textContent="Continue";
 };
-window.doOut=()=>{sessionStorage.removeItem("ep_sid");location.href=location.pathname};
+window.doOut=()=>signOut(auth);
+document.getElementById("adm-logout").onclick=()=>{if(confirm("Logout?"))signOut(auth)};
+document.getElementById("adm-nav-logout").onclick=()=>{if(confirm("Logout?"))signOut(auth)};
 
-// ── SHOW APP ──
+// ── worker app ──
 function showApp(){
   document.getElementById("apg").style.display="none";
   document.getElementById("hdr").style.display="flex";
   document.getElementById("bnav").style.display="block";
   document.getElementById("app").style.display="block";
   document.getElementById("h-av").textContent=(U.name||"U")[0].toUpperCase();
-  listenUser();
   listenProducts();
   nav("dash");
 }
-
-// ── REALTIME LISTENERS ──
-function listenUser(){
-  onSnapshot(doc(db,"users",U.userId),snap=>{
-    if(snap.exists()){
-      const prev=U.notifications||[];
-      U={...snap.data(),userId:U.userId};
-      updUI();
-      // Notif badge
-      const unread=(U.notifications||[]).filter(n=>!n.read).length;
-      const cnt=document.getElementById("notif-cnt");
-      cnt.textContent=unread;cnt.style.display=unread>0?"flex":"none";
-    }
-  });
-}
-
 function listenProducts(){
   const q=query(collection(db,"products"),where("workerId","==",U.userId));
-  onSnapshot(q,snap=>{
+  onSnapshot(q,async(snap)=>{
     const prods=[];
-    snap.forEach(d=>prods.push({...d.data(),id:d.id}));
+    for(const d of snap.docs){
+      const p={...d.data(),id:d.id};
+      const ordSnap=await getDoc(doc(db,"products",d.id)); // placeholder; orders read below
+      prods.push(p);
+    }
     prods.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
-    localStorage.setItem("ep_prods_"+U.userId,JSON.stringify(prods));
+    myProds=prods;
     updUI();renderLinks();renderEarnings();
-    // Check new admin approvals
-    prods.filter(p=>p.status==="ready"&&!p._notifShown).forEach(async p=>{
-      await updateDoc(doc(db,"products",p.id),{_notifShown:true}).catch(()=>{});
-      const notifs=[{id:"N-"+Date.now(),type:"ready",msg:`✅ "${p.name}" — Admin ne approve kar diya! Link ready hai.`,time:new Date().toISOString(),read:false},...(U.notifications||[])];
-      U.notifications=notifs.slice(0,20);
-      await updateDoc(doc(db,"users",U.userId),{notifications:notifs.slice(0,20)}).catch(()=>{});
-      toast("🔔 "+p.name+" — Admin ne approve kar diya!");
-    });
-    // Check new completed orders
-    prods.forEach(p=>(p.orders||[]).filter(o=>o.status==="completed"&&!o._nShown).forEach(async o=>{
-      const upOrders=(p.orders||[]).map(x=>x.id===o.id?{...x,_nShown:true}:x);
-      await updateDoc(doc(db,"products",p.id),{orders:upOrders}).catch(()=>{});
-      toast("💰 Order complete! Rs."+o.workerEarn.toFixed(0)+" add ho gaya!");
-    }));
-  },err=>{
-    console.error("Listener error:",err);
-    // Fallback manual fetch
-    getDocs(query(collection(db,"products"),where("workerId","==",U.userId))).then(snap=>{
-      const prods=[];snap.forEach(d=>prods.push({...d.data(),id:d.id}));
-      prods.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
-      localStorage.setItem("ep_prods_"+U.userId,JSON.stringify(prods));
-      updUI();renderLinks();
-    });
+  });
+  // live balance/profile updates
+  onSnapshot(doc(db,"users",U.userId),snap=>{if(snap.exists()){U={...snap.data(),userId:U.userId};updUI()}});
+  onSnapshot(query(collection(db,"users",U.userId,"notifications"),orderBy("createdAt","desc")),snap=>{
+    const notifs=[];snap.forEach(d=>notifs.push({...d.data(),id:d.id}));
+    U._notifs=notifs;
+    const unread=notifs.filter(n=>!n.read).length;
+    const cnt=document.getElementById("notif-cnt");cnt.textContent=unread;cnt.style.display=unread>0?"flex":"none";
+  });
+  onSnapshot(query(collection(db,"users",U.userId,"payments"),orderBy("createdAt","desc")),snap=>{
+    const pays=[];snap.forEach(d=>pays.push(d.data()));
+    U._payments=pays;renderEarnings();
   });
 }
-
-function getProds(){try{return JSON.parse(localStorage.getItem("ep_prods_"+U.userId)||"[]")}catch{return[]}}
-
-// ── UI UPDATE ──
 function updUI(){
   if(!U)return;
-  const prods=getProds();
-  let pendOrders=0,toEarn=0,retOrders=0,compOrders=0;
-  prods.forEach(p=>(p.orders||[]).forEach(o=>{
-    if(o.status==="pending")pendOrders++;
-    else if(o.status==="completed"){toEarn++;compOrders++;}
-    else if(o.status==="returned")retOrders++;
-  }));
   document.getElementById("d-bal").textContent=(U.pendingEarnings||0).toFixed(2);
   document.getElementById("d-clicks").textContent=U.totalClicks||0;
   document.getElementById("d-orders").textContent=U.totalOrders||0;
-  document.getElementById("d-links").textContent=prods.length;
-  document.getElementById("d-pend-cnt").textContent=pendOrders;
-  document.getElementById("d-earn-cnt").textContent=toEarn;
-  document.getElementById("d-ret-cnt").textContent=retOrders;
+  document.getElementById("d-links").textContent=myProds.length;
   document.getElementById("e-total").textContent=(U.totalEarned||0).toFixed(2);
   document.getElementById("e-paid").textContent=(U.paidEarnings||0).toFixed(0);
   document.getElementById("e-pend").textContent=(U.pendingEarnings||0).toFixed(0);
-  document.getElementById("e-comp").textContent=compOrders;
-  const now=new Date().toLocaleString("en-PK");
-  const ct=document.getElementById("conv-time");if(ct)ct.textContent=now;
-  const et=document.getElementById("e-time");if(et)et.textContent="Update Time: "+now;
-  updConv();
 }
-
-let cvp="yesterday";
-function updConv(){
-  const prods=getProds();const now=Date.now();
-  let days=1;if(cvp==="7days")days=7;else if(cvp==="15days")days=15;
-  const cutoff=now-days*86400000;
-  let orders=0,sales=0,rev=0;
-  prods.forEach(p=>(p.orders||[]).filter(o=>new Date(o.date||0).getTime()>=cutoff).forEach(o=>{
-    orders++;if(o.status==="completed"){sales+=(o.totalComm||0);rev+=(o.workerEarn||0);}
-  }));
-  document.getElementById("cv-sales").textContent="Rs. "+sales.toFixed(2);
-  document.getElementById("cv-rev").textContent="Rs. "+rev.toFixed(2);
-  document.getElementById("cv-click").textContent=U?.totalClicks||0;
-  document.getElementById("cv-orders").textContent=orders;
-}
-window.setConv=(p,el)=>{cvp=p;document.querySelectorAll(".conv-tabs .ct-btn").forEach(b=>b.classList.remove("on"));el.classList.add("on");updConv()};
-
-// ── NAV ──
-window.nav=function(pg){
+document.querySelectorAll(".nav-tile,.bn").forEach(el=>el.addEventListener("click",()=>nav(el.dataset.nav)));
+function nav(pg){
   document.querySelectorAll(".pg").forEach(p=>p.classList.remove("on"));
   document.querySelectorAll(".bn").forEach(b=>b.classList.remove("on"));
   document.getElementById("pg-"+pg)?.classList.add("on");
-  const mp={dash:"bn-dash",submit:"bn-submit",mylinks:"bn-mylinks",earnings:"bn-earnings"};
-  if(mp[pg])document.getElementById(mp[pg])?.classList.add("on");
+  document.querySelectorAll(".bn").forEach(b=>{if(b.dataset.nav===pg)b.classList.add("on")});
   if(pg==="mylinks")renderLinks();
   if(pg==="earnings")renderEarnings();
-  if(pg==="dash")updUI();
-};
-
-// ── NOTIFS ──
-window.openNotifs=function(){
-  const notifs=U?.notifications||[];
-  if(U&&notifs.some(n=>!n.read)){
-    U.notifications=notifs.map(n=>({...n,read:true}));
-    updateDoc(doc(db,"users",U.userId),{notifications:U.notifications}).catch(()=>{});
-    document.getElementById("notif-cnt").style.display="none";
-  }
+}
+document.getElementById("bell-btn").onclick=()=>{
+  const notifs=U._notifs||[];
   document.getElementById("mod-t").textContent="🔔 Notifications";
   const body=document.getElementById("mod-body");
   if(!notifs.length){body.innerHTML=`<div class="empty"><div class="empty-ic">🔔</div><div class="empty-t">No notifications</div></div>`;openMod();return}
-  body.innerHTML=notifs.map(n=>`<div style="padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:${n.read?"#ccc":"var(--or)"};flex-shrink:0;margin-top:6px"></div><div><div style="font-size:14px;font-weight:700">${n.msg}</div><div style="font-size:11px;color:var(--mu);margin-top:4px">${sds(n.time)}</div></div></div>`).join("");
+  body.innerHTML="";
+  notifs.forEach(n=>{
+    const row=document.createElement("div");
+    row.style.cssText="padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:10px";
+    row.innerHTML=`<div style="width:8px;height:8px;border-radius:50%;background:${n.read?"#ccc":"var(--or)"};flex-shrink:0;margin-top:6px"></div><div><div style="font-size:14px;font-weight:700"></div><div style="font-size:11px;color:var(--mu);margin-top:4px"></div></div>`;
+    row.querySelectorAll("div>div")[0].textContent=n.msg||"";
+    row.querySelectorAll("div>div")[1].textContent=sds(n.time);
+    body.appendChild(row);
+  });
   openMod();
 };
-window.openProfile=function(){
+document.getElementById("h-av").onclick=()=>{
   if(!U)return;
   document.getElementById("mod-t").textContent="My Account";
-  document.getElementById("mod-body").innerHTML=`
+  const body=document.getElementById("mod-body");
+  body.innerHTML=`
     <div style="text-align:center;margin-bottom:20px">
-      <div style="width:72px;height:72px;border-radius:50%;background:var(--or);color:#fff;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">${(U.name||"U")[0].toUpperCase()}</div>
-      <div style="font-size:18px;font-weight:800">${U.name}</div>
-      <div style="font-size:13px;color:var(--mu);font-weight:600">${U.userId} • ${U.phone}</div>
-      <div style="font-size:12px;color:var(--mu);margin-top:4px">Joined: ${sds(U.joinedAt)}</div>
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--or);color:#fff;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px"></div>
+      <div style="font-size:18px;font-weight:800" id="prof-name"></div>
+      <div style="font-size:13px;color:var(--mu);font-weight:600" id="prof-sub"></div>
     </div>
-    <button onclick="doOut()" style="width:100%;padding:13px;background:#FFF0F0;color:var(--re);border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">🚪 Logout</button>`;
+    <button id="prof-logout" style="width:100%;padding:13px;background:#FFF0F0;color:var(--re);border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">🚪 Logout</button>`;
+  body.querySelector("div>div").textContent=(U.name||"U")[0].toUpperCase();
+  body.querySelector("#prof-name").textContent=U.name;
+  body.querySelector("#prof-sub").textContent=U.phone;
+  body.querySelector("#prof-logout").onclick=()=>signOut(auth);
   openMod();
 };
 
-// ── SUBMIT ──
-window.submitProd=async()=>{
+document.getElementById("submit-prod-btn").onclick=async()=>{
   const link=document.getElementById("p-link").value.trim();
   const name=document.getElementById("p-name").value.trim();
   const cat=document.getElementById("p-cat").value;
   if(!link||(!link.includes("daraz")&&!link.includes(".pk")&&!link.includes("s.click"))){toast("❌ Valid Daraz link paste karo");return}
   if(!name){toast("❌ Product name likho");return}
   if(!cat){toast("❌ Category select karo");return}
-  const prodId="PRD-"+Date.now();
-  const prod={id:prodId,workerId:U.userId,workerName:U.name,workerPhone:U.phone,name,link,category:cat,status:"pending_admin",clicks:0,orders:[],totalEarned:0,affiliateLink:"",darazTrackLink:"",workerComm:0,_notifShown:false,submittedAt:new Date().toISOString(),createdAt:serverTimestamp()};
+  const{addDoc,collection:col,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
   try{
-    await setDoc(doc(db,"products",prodId),prod);
-    document.getElementById("p-link").value="";
-    document.getElementById("p-name").value="";
-    document.getElementById("p-cat").value="";
-    toast("✅ Submitted! Admin review karega — link ready hote hi notification aye ga.");
-    nav("mylinks");
-  }catch(e){toast("❌ Error: "+e.message);}
+    await addDoc(col(db,"products"),{workerId:U.userId,workerName:U.name,workerPhone:U.phone,name:name.slice(0,120),link,category:cat,status:"pending_admin",clicks:0,totalEarned:0,submittedAt:new Date().toISOString(),createdAt:serverTimestamp()});
+    document.getElementById("p-link").value="";document.getElementById("p-name").value="";document.getElementById("p-cat").value="";
+    toast("✅ Submitted! Admin review karega.");nav("mylinks");
+  }catch(e){toast("❌ "+friendlyErr(e))}
 };
 
-// ── MY LINKS ──
-window.setLF=function(f,el){
-  lfFilter=f;
-  document.querySelectorAll("#pg-mylinks .ct-btn").forEach(b=>b.classList.remove("on"));
-  el.classList.add("on");renderLinks();
-};
+document.querySelectorAll('[data-lf]').forEach(b=>b.addEventListener("click",()=>{
+  lfFilter=b.dataset.lf;
+  document.querySelectorAll('#pg-mylinks .ct-btn').forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");renderLinks();
+}));
 function renderLinks(){
   if(!U)return;
-  let prods=getProds();
+  let prods=myProds;
   if(lfFilter!=="all")prods=prods.filter(p=>p.status===lfFilter);
-  const el=document.getElementById("links-list");
+  const el=document.getElementById("links-list");el.innerHTML="";
   if(!prods.length){el.innerHTML=`<div class="empty"><div class="empty-ic">🔗</div><div class="empty-t">Koi link nahi</div><div class="empty-s">${lfFilter==="all"?"Pehla product submit karo!":"Is filter mein koi link nahi"}</div></div>`;return}
-  el.innerHTML="";
+  const statusMap={pending_admin:{t:"⏳ Pending Admin Approval",c:"chip-ye"},ready:{t:"✅ Ready — Link Available",c:"chip-gr"},rejected:{t:"❌ Rejected",c:"chip-re"}};
   prods.forEach(p=>{
-    const orders=p.orders||[];
-    const pend=orders.filter(o=>o.status==="pending").length;
-    const comp=orders.filter(o=>o.status==="completed").length;
-    const ret=orders.filter(o=>o.status==="returned").length;
-    // ONE tracking link for worker
-    const trackUrl=location.origin+location.pathname+"?track="+p.id+"&wk="+U.userId;
-    const statusMap={
-      pending_admin:{t:"⏳ Pending Admin Approval",c:"chip-ye"},
-      ready:{t:"✅ Ready — Link Available",c:"chip-gr"},
-      active:{t:"🔥 Active",c:"chip-or"},
-      rejected:{t:"❌ Rejected",c:"chip-re"}
-    };
     const st=statusMap[p.status]||{t:p.status,c:"chip-mu"};
-    let linkSection="";
-    if(p.status==="pending_admin"){
-      linkSection=`<div style="background:#FFFBEE;border-radius:10px;padding:14px;margin-top:10px;font-size:13px;font-weight:600;color:#7A6000;line-height:1.7">⏳ Admin aapka product review kar raha hai.<br>Approve hone ke baad aapko <b>🔔 notification</b> aye ga aur link yahan dikh jaye ga.</div>`;
-    } else if(p.status==="ready"||p.status==="active"){
-      linkSection=`
-        <div style="background:#F0FFF5;border-radius:10px;padding:14px;margin-top:10px">
-          <div style="font-size:13px;font-weight:800;color:#006630;margin-bottom:10px">✅ Aapka Tracking Link — Copy karo aur share karo!</div>
-          <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:6px">🔗 Final Link (Is se share karo — click + order sab track hoga):</div>
-          <div class="link-box">
-            <div class="link-txt">${trackUrl}</div>
-            <button class="cp-btn" onclick="cp('${trackUrl}')">Copy</button>
-          </div>
-          <div style="font-size:12px;font-weight:600;color:var(--gr);margin-top:6px">✅ Jab koi is link se click kare ga → automatically count ho ga<br>✅ Daraz pe purchase ho → Admin verify karega → Order pending<br>✅ 2 din baad return nahi → Admin complete kare ga → Paisa!</div>
-        </div>`;
-    } else if(p.status==="rejected"){
-      linkSection=`<div style="background:#FFF0F0;border-radius:10px;padding:12px;margin-top:10px;font-size:13px;font-weight:600;color:#7A0000">❌ Admin ne reject kar diya. Naya product submit karo.</div>`;
-    }
+    const trackUrl=location.origin+"/track?p="+p.id+"&w="+U.userId;
     const d=document.createElement("div");
-    d.style.cssText="background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)";
+    d.style.cssText="background:var(--card);border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)";
     d.innerHTML=`
       <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
         <div style="width:48px;height:48px;border-radius:10px;background:#FFF5EE;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${catIcons[p.category]||"📦"}</div>
-        <div style="flex:1">
-          <div style="font-size:14px;font-weight:800;margin-bottom:4px">${p.name}</div>
-          <div style="font-size:11px;color:var(--mu);font-weight:600">${sds(p.submittedAt)} • ${p.category}</div>
-          <span class="chip ${st.c}" style="margin-top:6px;display:inline-block">${st.t}</span>
-        </div>
+        <div style="flex:1"><div class="pname" style="font-size:14px;font-weight:800;margin-bottom:4px"></div><div style="font-size:11px;color:var(--mu);font-weight:600">${sds(p.submittedAt)} • ${esc(p.category)}</div><span class="chip ${st.c}" style="margin-top:6px;display:inline-block">${st.t}</span></div>
       </div>
-      <div class="prod-stats">
-        <div class="ps"><div class="psv" style="color:var(--bl)">${p.clicks||0}</div><div class="psl">Clicks</div></div>
-        <div class="ps"><div class="psv" style="color:var(--ye)">${pend}</div><div class="psl">Pending</div></div>
-        <div class="ps"><div class="psv" style="color:var(--gr)">${comp}</div><div class="psl">Complete</div></div>
-        <div class="ps"><div class="psv" style="color:var(--re)">${ret}</div><div class="psl">Return</div></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0 0;border-top:1px solid var(--line)">
-        <div style="font-size:12px;color:var(--mu);font-weight:600">Earned from this link</div>
-        <div style="font-size:14px;font-weight:800;color:var(--gr)">Rs. ${(p.totalEarned||0).toFixed(2)}</div>
-      </div>
-      ${orders.length?`<div style="margin-top:10px">${orders.slice(0,5).map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)"><div><div style="font-size:12px;font-weight:700">${sds(o.date)}</div><div style="font-size:11px;color:var(--mu)">${o.id}</div></div><div style="text-align:right"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}">${o.status==="completed"?"✅ Complete":o.status==="pending"?"⏳ Pending":"↩️ Returned"}</span><div style="font-size:13px;font-weight:800;color:var(--gr);margin-top:3px">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
-      ${linkSection}`;
+      <div class="prod-stats"><div class="ps"><div class="psv" style="color:var(--bl)">${p.clicks||0}</div><div class="psl">Clicks</div></div><div class="ps"><div class="psv" style="color:var(--gr)">Rs ${(p.totalEarned||0).toFixed(0)}</div><div class="psl">Earned</div></div></div>
+      <div class="link-area"></div>`;
+    d.querySelector(".pname").textContent=p.name;
+    const area=d.querySelector(".link-area");
+    if(p.status==="pending_admin"){
+      area.innerHTML=`<div style="background:#FFFBEE;border-radius:10px;padding:14px;margin-top:10px;font-size:13px;font-weight:600;color:#7A6000;line-height:1.7">⏳ Admin aapka product review kar raha hai. Approve hone ke baad notification aye ga.</div>`;
+    } else if(p.status==="ready"){
+      area.innerHTML=`<div style="background:#F0FFF5;border-radius:10px;padding:14px;margin-top:10px">
+        <div style="font-size:13px;font-weight:800;color:#006630;margin-bottom:10px">✅ Aapka Tracking Link:</div>
+        <div class="link-box"><div class="link-txt">${trackUrl}</div><button class="cp-btn" type="button">Copy</button></div></div>`;
+      area.querySelector(".cp-btn").onclick=()=>cp(trackUrl);
+    } else if(p.status==="rejected"){
+      const reasonDiv=document.createElement("div");
+      reasonDiv.style.cssText="background:#FFF0F0;border-radius:10px;padding:12px;margin-top:10px;font-size:13px;font-weight:600;color:#7A0000";
+      reasonDiv.textContent="❌ Reject: "+(p.rejectionReason||"Not specified");
+      area.appendChild(reasonDiv);
+    }
     el.appendChild(d);
   });
 }
+function cp(t){navigator.clipboard?.writeText(t).then(()=>toast("✅ Copied!")).catch(()=>toast("Copy failed — long-press to copy manually"))}
 
-window.cp=function(t){navigator.clipboard?.writeText(t).then(()=>toast("✅ Copied!")).catch(()=>{const i=document.createElement("input");i.value=t;document.body.appendChild(i);i.select();document.execCommand("copy");i.remove();toast("✅ Copied!")})};
-
-// ── EARNINGS ──
 function renderEarnings(){
-  if(!U)return;updUI();
-  const hist=document.getElementById("pay-hist");
-  const pays=U.payments||[];
-  if(!pays.length){hist.innerHTML=`<div class="empty"><div class="empty-ic">💰</div><div class="empty-t">No payments yet</div><div class="empty-s">Orders complete ho jaye to admin pay kare ga</div></div>`;return}
-  hist.innerHTML=pays.slice(0,20).map(p=>`<div class="sr"><div><div style="font-size:14px;font-weight:700">Rs. ${(p.amount||0).toFixed(0)} — ${p.method||"Easypaisa"}</div><div style="font-size:12px;color:var(--mu)">${sds(p.createdAt||p.date)} • ${p.note||"Commission"}</div></div><span class="chip chip-gr">✅ Paid</span></div>`).join("");
-}
-window.doWithdraw=async()=>{
   if(!U)return;
-  const amt=parseFloat(document.getElementById("wd-amt").value)||0;
-  const mth=document.getElementById("wd-mth").value;
-  const num=document.getElementById("wd-num").value.trim();
-  if(amt<500){toast("❌ Minimum Rs. 500");return}
-  if((U.pendingEarnings||0)<amt){toast("❌ Balance nahi hai — Rs."+(U.pendingEarnings||0).toFixed(0)+" available");return}
-  if(!num||num.length<11){toast("❌ Valid number enter karo");return}
+  const hist=document.getElementById("pay-hist");
+  const pays=U._payments||[];
+  if(!pays.length){hist.innerHTML=`<div class="empty"><div class="empty-ic">💰</div><div class="empty-t">No payments yet</div></div>`;return}
+  hist.innerHTML="";
+  pays.forEach(p=>{
+    const row=document.createElement("div");row.className="sr";
+    row.innerHTML=`<div><div style="font-size:14px;font-weight:700"></div><div style="font-size:12px;color:var(--mu)"></div></div><span class="chip chip-gr">✅ Paid</span>`;
+    row.querySelectorAll("div>div")[0].textContent="Rs. "+(p.amount||0).toFixed(0)+" — "+p.method;
+    row.querySelectorAll("div>div")[1].textContent=sds(p.createdAt?.toDate?p.createdAt.toDate():p.createdAt)+" • "+(p.note||"Commission");
+    hist.appendChild(row);
+  });
+}
+document.getElementById("wd-btn").onclick=async()=>{
+  const amount=parseFloat(document.getElementById("wd-amt").value)||0;
+  const method=document.getElementById("wd-mth").value;
+  const methodNumber=document.getElementById("wd-num").value.trim();
+  const btn=document.getElementById("wd-btn");btn.disabled=true;btn.textContent="Please wait...";
   try{
-    const wdId="WD-"+Date.now();
-    await setDoc(doc(db,"withdrawals",wdId),{id:wdId,userId:U.userId,workerName:U.name,workerPhone:U.phone,amount:amt,method:mth,methodNumber:num,status:"pending",date:new Date().toISOString(),createdAt:serverTimestamp()});
-    toast("✅ Withdrawal request submitted! Admin process karega.");
+    await cRequestWithdrawal({amount,method,methodNumber});
+    toast("✅ Withdrawal request submitted!");
     document.getElementById("wd-amt").value="";document.getElementById("wd-num").value="";
-  }catch(e){toast("❌ "+e.message);}
+  }catch(e){toast("❌ "+friendlyErr(e))}
+  btn.disabled=false;btn.textContent="Request Withdrawal";
 };
 
 function openMod(){document.getElementById("mod-ov").classList.add("on")}
-window.closeMod=()=>document.getElementById("mod-ov").classList.remove("on");
-window.openMod=openMod;
+document.getElementById("mod-close").onclick=()=>document.getElementById("mod-ov").classList.remove("on");
+document.getElementById("mod-ov").addEventListener("click",e=>{if(e.target.id==="mod-ov")e.currentTarget.classList.remove("on")});
 
-// ══════════════════════════════
-// ADMIN FUNCTIONS
-// ══════════════════════════════
-window.refreshAdmin=async function(){
+// ══════════ ADMIN ══════════
+function showAdmin(){
+  document.getElementById("apg").style.display="none";
+  document.getElementById("hdr").style.display="none";
+  document.getElementById("app").style.display="none";
+  document.getElementById("bnav").style.display="none";
+  document.getElementById("adm-hdr").style.display="flex";
+  document.getElementById("adm-app").style.display="block";
+  document.getElementById("adm-bnav").style.display="block";
+  refreshAdmin();
+}
+document.getElementById("adm-refresh").onclick=refreshAdmin;
+document.getElementById("adm-nav-refresh").onclick=refreshAdmin;
+document.getElementById("adm-nav-top").onclick=()=>scrollTo(0,0);
+
+async function refreshAdmin(){
   try{
-    const[uSnap,pSnap,wSnap]=await Promise.all([
-      getDocs(collection(db,"users")),
-      getDocs(collection(db,"products")),
-      getDocs(collection(db,"withdrawals"))
-    ]);
+    const{getDocs,collectionGroup}=await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const[uSnap,pSnap,wSnap]=await Promise.all([getDocs(collection(db,"users")),getDocs(collection(db,"products")),getDocs(collection(db,"withdrawals"))]);
     allUsers=[];allProds=[];allWds=[];
     uSnap.forEach(d=>{const u=d.data();if(u.role==="worker")allUsers.push({...u,userId:d.id})});
-    pSnap.forEach(d=>allProds.push({...d.data(),id:d.id}));
+    for(const d of pSnap.docs){
+      const p={...d.data(),id:d.id};
+      const ordSnap=await getDocs(collection(db,"products",d.id,"orders"));
+      p.orders=[];ordSnap.forEach(o=>p.orders.push({...o.data(),id:o.id}));
+      allProds.push(p);
+    }
     wSnap.forEach(d=>allWds.push({...d.data(),id:d.id}));
     allProds.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
     allWds.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
     renderAdminStats();renderAdminPendingProds();renderAdminPendingOrders();renderAdminWds();renderAdminWorkers();
-    toast("✅ Refreshed — "+allUsers.length+" workers, "+allProds.length+" links");
-  }catch(e){toast("❌ Error: "+e.message);}
-};
+    toast("✅ Refreshed");
+  }catch(e){toast("❌ "+friendlyErr(e))}
+}
 
 function renderAdminStats(){
   document.getElementById("adm-wc").textContent=allUsers.length;
   document.getElementById("adm-lc").textContent=allProds.length;
   let totalOrders=0,totalComm=0,myProfit=0,pendPay=0,paidOut=0,totalClicks=0;
-  allProds.forEach(p=>{
-    totalClicks+=(p.clicks||0);
-    (p.orders||[]).forEach(o=>{
-      totalOrders++;
-      if(o.status==="completed"){totalComm+=(o.totalComm||0);myProfit+=(o.adminEarn||0);}
-    });
-  });
-  allUsers.forEach(u=>{pendPay+=(u.pendingEarnings||0);paidOut+=(u.paidEarnings||0);});
+  allProds.forEach(p=>{totalClicks+=(p.clicks||0);p.orders.forEach(o=>{totalOrders++;if(o.status==="completed"){totalComm+=(o.totalComm||0);myProfit+=(o.adminEarn||0)}})});
+  allUsers.forEach(u=>{pendPay+=(u.pendingEarnings||0);paidOut+=(u.paidEarnings||0)});
   document.getElementById("adm-oc").textContent=totalOrders;
   document.getElementById("adm-tc").textContent=totalComm.toFixed(0);
   document.getElementById("adm-pr").textContent=myProfit.toFixed(0);
@@ -843,295 +655,146 @@ function renderAdminStats(){
 function renderAdminPendingProds(){
   const pend=allProds.filter(p=>p.status==="pending_admin");
   document.getElementById("adm-ps-cnt").textContent=pend.length;
-  const el=document.getElementById("adm-pps");
-  if(!pend.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600;background:#fff;border-radius:12px">No pending submissions ✅</div>`;return}
-  el.innerHTML="";
+  const el=document.getElementById("adm-pps");el.innerHTML="";
+  if(!pend.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600;background:var(--card);border-radius:12px">No pending submissions ✅</div>`;return}
   pend.forEach(p=>{
     const d=document.createElement("div");d.className="p-card";
     d.innerHTML=`
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
         <div style="font-size:24px">${catIcons[p.category]||"📦"}</div>
-        <div style="flex:1">
-          <div style="font-size:14px;font-weight:800">${p.name}</div>
-          <div style="font-size:12px;color:var(--mu);font-weight:600">👤 ${p.workerName} • ${p.workerPhone}</div>
-          <div style="font-size:11px;color:var(--mu)">📅 ${sds(p.submittedAt)} • ${p.category}</div>
-        </div>
+        <div style="flex:1"><div class="f-name" style="font-size:14px;font-weight:800"></div><div class="f-worker" style="font-size:12px;color:var(--mu);font-weight:600"></div><div style="font-size:11px;color:var(--mu)">📅 ${sds(p.submittedAt)} • ${esc(p.category)}</div></div>
       </div>
-      <div style="background:#F5F5F5;border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:11px;font-weight:600;color:var(--mu);word-break:break-all">🔗 Original: ${p.link}</div>
-      <label class="fl">✅ Apne Daraz Affiliate Dashboard se link copy karo aur yahan paste karo:</label>
-      <input class="inp" id="aff-${p.id}" placeholder="https://s.daraz.pk/s.XXXXX?cc" value="${p.affiliateLink||""}">
-      <label class="fl">💰 Worker Commission Rs per sale (Daraz dashboard se check karo):</label>
-      <input class="inp" id="comm-${p.id}" type="number" placeholder="e.g. 50" value="${p.workerComm||""}">
-      <div style="background:#F0FFF5;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:11px;font-weight:600;color:#006630">
-        ℹ️ System automatically add karega: sub_id=${p.workerId}_${p.id}<br>
-        Daraz dashboard mein is sub_id se orders track honge.
-      </div>
+      <div class="f-link" style="background:var(--lt);border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:11px;font-weight:600;color:var(--mu);word-break:break-all"></div>
+      <label class="fl">✅ Affiliate link (from your Daraz dashboard):</label>
+      <input class="inp aff-inp" placeholder="https://s.daraz.pk/s.XXXXX?cc">
+      <label class="fl">💰 Worker commission Rs per sale:</label>
+      <input class="inp comm-inp" type="number" placeholder="e.g. 50">
       <div style="display:flex;gap:8px">
-        <button onclick="approveProduct('${p.id}','${p.workerId}')" class="bog bog-gr bog-sm" style="flex:1">✅ Approve</button>
-        <button onclick="rejectProduct('${p.id}')" class="bog bog-re bog-sm" style="flex:1">❌ Reject</button>
+        <button class="bog bog-gr bog-sm appr-btn" type="button" style="flex:1">✅ Approve</button>
+        <button class="bog bog-re bog-sm rej-btn" type="button" style="flex:1">❌ Reject</button>
       </div>`;
+    d.querySelector(".f-name").textContent=p.name;
+    d.querySelector(".f-worker").textContent="👤 "+p.workerName+" • "+p.workerPhone;
+    d.querySelector(".f-link").textContent="🔗 Original: "+p.link;
+    d.querySelector(".appr-btn").onclick=async(ev)=>{
+      const aff=d.querySelector(".aff-inp").value.trim();
+      const comm=d.querySelector(".comm-inp").value;
+      ev.target.disabled=true;
+      try{await cApproveProduct({productId:p.id,affiliateLink:aff,workerComm:comm});toast("✅ Approved!");await refreshAdmin()}
+      catch(e){toast("❌ "+friendlyErr(e));ev.target.disabled=false}
+    };
+    d.querySelector(".rej-btn").onclick=async()=>{
+      const reason=prompt("Rejection reason:")||"Not specified";
+      try{await cRejectProduct({productId:p.id,reason});toast("Rejected");await refreshAdmin()}
+      catch(e){toast("❌ "+friendlyErr(e))}
+    };
     el.appendChild(d);
   });
 }
 
-window.approveProduct=async function(prodId,workerId){
-  const aff=document.getElementById("aff-"+prodId)?.value.trim();
-  const comm=parseFloat(document.getElementById("comm-"+prodId)?.value)||0;
-  if(!aff){toast("❌ Affiliate link enter karo");return}
-  if(!comm){toast("❌ Commission amount enter karo");return}
-  const sep=aff.includes("?")?"&":"?";
-  const darazTrackLink=aff+sep+"sub_id="+workerId+"_"+prodId;
-  // Worker tracking link = earnpak redirect (counts clicks then goes to daraz)
-  try{
-    await updateDoc(doc(db,"products",prodId),{
-      status:"ready",affiliateLink:aff,darazTrackLink,
-      finalTrackingLink:darazTrackLink,workerComm:comm,
-      _notifShown:false,approvedAt:new Date().toISOString()
-    });
-    // Send notification to worker
-    const uSnap=await getDoc(doc(db,"users",workerId));
-    if(uSnap.exists()){
-      const u=uSnap.data();
-      const notifs=[{id:"N-"+Date.now(),type:"ready",msg:`✅ Aapka product approve ho gaya! Rs.${comm} commission per sale. My Links mein link ready hai.`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
-      await updateDoc(doc(db,"users",workerId),{notifications:notifs.slice(0,20)});
-    }
-    toast("✅ Approved! Worker ko notification gaya. sub_id="+workerId+"_"+prodId);
-    await refreshAdmin();
-  }catch(e){toast("❌ "+e.message);}
-};
-
-window.rejectProduct=async function(prodId){
-  if(!confirm("Reject this product?"))return;
-  try{await updateDoc(doc(db,"products",prodId),{status:"rejected"});toast("Product rejected");await refreshAdmin();}
-  catch(e){toast("❌ "+e.message);}
+document.getElementById("new-order-btn").onclick=()=>{
+  const ready=allProds.filter(p=>p.status==="ready");
+  document.getElementById("mod-t").textContent="➕ Record Order";
+  const body=document.getElementById("mod-body");
+  body.innerHTML=`
+    <label class="fl">Product</label>
+    <select class="inp" id="ord-prod"></select>
+    <label class="fl">External Order ID (from Daraz, optional)</label>
+    <input class="inp" id="ord-ext" placeholder="e.g. DP123456">
+    <label class="fl">Worker Commission (Rs)</label>
+    <input class="inp" id="ord-we" type="number" placeholder="e.g. 50">
+    <label class="fl">Your Profit (Rs)</label>
+    <input class="inp" id="ord-ae" type="number" placeholder="e.g. 30">
+    <button class="bog bog-gr" id="ord-save">Save Order</button>`;
+  const sel=body.querySelector("#ord-prod");
+  ready.forEach(p=>{const o=document.createElement("option");o.value=p.id;o.textContent=p.name+" — "+p.workerName;sel.appendChild(o)});
+  body.querySelector("#ord-save").onclick=async(ev)=>{
+    ev.target.disabled=true;
+    try{
+      await cCreateOrder({productId:sel.value,externalOrderId:body.querySelector("#ord-ext").value,workerEarn:body.querySelector("#ord-we").value,adminEarn:body.querySelector("#ord-ae").value});
+      toast("✅ Order recorded");document.getElementById("mod-ov").classList.remove("on");await refreshAdmin();
+    }catch(e){toast("❌ "+friendlyErr(e));ev.target.disabled=false}
+  };
+  openMod();
 };
 
 function renderAdminPendingOrders(){
   let pendOrds=[];
-  allProds.forEach(p=>(p.orders||[]).filter(o=>o.status==="pending").forEach(o=>pendOrds.push({...o,prodId:p.id,prodName:p.name,workerId:p.workerId,workerName:p.workerName})));
+  allProds.forEach(p=>p.orders.filter(o=>o.status==="pending").forEach(o=>pendOrds.push({...o,prodId:p.id,prodName:p.name})));
   document.getElementById("adm-po-cnt").textContent=pendOrds.length;
-  const el=document.getElementById("adm-po");
-  if(!pendOrds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600;background:#fff;border-radius:12px">No pending orders ✅</div>`;return}
-  el.innerHTML="";
+  const el=document.getElementById("adm-po");el.innerHTML="";
+  if(!pendOrds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600;background:var(--card);border-radius:12px">No pending orders ✅</div>`;return}
   pendOrds.forEach(o=>{
     const d=document.createElement("div");d.className="p-card p-card-gr";
     d.innerHTML=`
-      <div style="font-size:14px;font-weight:800;margin-bottom:4px">${o.prodName}</div>
-      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:10px">👤 ${o.workerName} • 📅 ${sds(o.date)} • ${o.id}</div>
+      <div class="f-name" style="font-size:14px;font-weight:800;margin-bottom:4px"></div>
+      <div style="font-size:12px;color:var(--mu);font-weight:600;margin-bottom:10px">📅 ${sds(o.date)}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-        <div style="background:#F8F8F8;border-radius:8px;padding:10px;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:var(--gr)">Rs ${(o.workerEarn||0).toFixed(0)}</div>
-          <div style="font-size:11px;color:var(--mu)">Worker Pay</div>
-        </div>
-        <div style="background:#F8F8F8;border-radius:8px;padding:10px;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:var(--or)">Rs ${(o.adminEarn||0).toFixed(0)}</div>
-          <div style="font-size:11px;color:var(--mu)">My Profit</div>
-        </div>
+        <div style="background:var(--lt);border-radius:8px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--gr)">Rs ${(o.workerEarn||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu)">Worker Pay</div></div>
+        <div style="background:var(--lt);border-radius:8px;padding:10px;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--or)">Rs ${(o.adminEarn||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu)">My Profit</div></div>
       </div>
-      <div style="background:#FFFBEE;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:12px;font-weight:600;color:#7A6000">
-        ⏱ 2 day return policy ke baad approve karo.<br>
-        Verify via Daraz dashboard: sub_id = ${o.workerId||""}_${o.prodId}
-      </div>
-      <div style="display:flex;gap:8px">
-        <button onclick="approveOrder('${o.prodId}','${o.id}','${o.workerId}',${o.workerEarn||0},${o.adminEarn||0})" class="bog bog-gr bog-sm" style="flex:1">✅ Mark Complete</button>
-        <button onclick="returnOrder('${o.prodId}','${o.id}')" class="bog bog-re bog-sm" style="flex:1">↩️ Return</button>
-      </div>`;
+      <div style="display:flex;gap:8px"><button class="bog bog-gr bog-sm cmp-btn" type="button" style="flex:1">✅ Mark Complete</button><button class="bog bog-re bog-sm ret-btn" type="button" style="flex:1">↩️ Return</button></div>`;
+    d.querySelector(".f-name").textContent=o.prodName;
+    d.querySelector(".cmp-btn").onclick=async(ev)=>{ev.target.disabled=true;try{await cCompleteOrder({productId:o.prodId,orderId:o.id});toast("✅ Complete!");await refreshAdmin()}catch(e){toast("❌ "+friendlyErr(e));ev.target.disabled=false}};
+    d.querySelector(".ret-btn").onclick=async(ev)=>{ev.target.disabled=true;try{await cReturnOrder({productId:o.prodId,orderId:o.id});toast("↩️ Returned");await refreshAdmin()}catch(e){toast("❌ "+friendlyErr(e));ev.target.disabled=false}};
     el.appendChild(d);
   });
 }
-
-window.approveOrder=async function(prodId,ordId,workerId,we,ae){
-  try{
-    const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
-    const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"completed",completedAt:new Date().toISOString(),_nShown:false}:o);
-    const totalEarned=(ps.data().totalEarned||0)+we;
-    await updateDoc(doc(db,"products",prodId),{orders,totalEarned});
-    await updateDoc(doc(db,"users",workerId),{totalEarned:increment(we),pendingEarnings:increment(we),totalOrders:increment(1)});
-    // Notify worker
-    const uSnap=await getDoc(doc(db,"users",workerId));
-    if(uSnap.exists()){
-      const u=uSnap.data();
-      const notifs=[{id:"N-"+Date.now(),type:"paid",msg:`💰 Order complete! Rs.${we.toFixed(0)} aapke account mein add ho gaya.`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
-      await updateDoc(doc(db,"users",workerId),{notifications:notifs.slice(0,20)});
-    }
-    toast("✅ Complete! Rs."+we.toFixed(0)+" worker ko add hua.");await refreshAdmin();
-  }catch(e){toast("❌ "+e.message);}
-};
-
-window.returnOrder=async function(prodId,ordId){
-  try{
-    const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
-    const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"returned"}:o);
-    await updateDoc(doc(db,"products",prodId),{orders});
-    toast("↩️ Order returned");await refreshAdmin();
-  }catch(e){toast("❌ "+e.message);}
-};
 
 function renderAdminWds(){
   const pend=allWds.filter(w=>w.status==="pending");
   document.getElementById("adm-wd-cnt").textContent=pend.length;
-  const el=document.getElementById("adm-wds");
-  if(!allWds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600;background:#fff;border-radius:12px">No withdrawal requests</div>`;return}
-  el.innerHTML="";
+  const el=document.getElementById("adm-wds");el.innerHTML="";
+  if(!allWds.length){el.innerHTML=`<div style="text-align:center;padding:16px;color:var(--mu);font-size:13px;font-weight:600;background:var(--card);border-radius:12px">No withdrawal requests</div>`;return}
   allWds.forEach(w=>{
     const d=document.createElement("div");d.className="p-card p-card-bl";
     d.innerHTML=`
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-        <div><div style="font-size:15px;font-weight:800">${w.workerName}</div><div style="font-size:12px;color:var(--mu);font-weight:600">${w.workerPhone} • ${sds(w.date)}</div></div>
-        <span class="chip ${w.status==="paid"?"chip-gr":"chip-ye"}">${w.status==="paid"?"✅ Paid":"⏳ Pending"}</span>
+        <div><div class="f-name" style="font-size:15px;font-weight:800"></div><div class="f-sub" style="font-size:12px;color:var(--mu);font-weight:600"></div></div>
+        <span class="chip ${w.status==="paid"?"chip-gr":w.status==="rejected"?"chip-re":"chip-ye"}">${w.status}</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-        <div style="background:#F8F8F8;border-radius:8px;padding:10px"><div style="font-size:18px;font-weight:800;color:var(--or)">Rs ${w.amount}</div><div style="font-size:11px;color:var(--mu)">Amount</div></div>
-        <div style="background:#F8F8F8;border-radius:8px;padding:10px"><div style="font-size:14px;font-weight:800">${w.methodNumber}</div><div style="font-size:11px;color:var(--mu)">${w.method}</div></div>
+        <div style="background:var(--lt);border-radius:8px;padding:10px"><div style="font-size:18px;font-weight:800;color:var(--or)">Rs ${w.amount}</div><div style="font-size:11px;color:var(--mu)">Amount</div></div>
+        <div class="f-acct" style="background:var(--lt);border-radius:8px;padding:10px"></div>
       </div>
-      ${w.status!=="paid"?`<button onclick="appWd('${w.id}','${w.userId}',${w.amount},'${w.method}')" class="bog bog-gr">✅ Mark as Paid</button>`:`<div style="text-align:center;color:var(--gr);font-weight:700;font-size:13px">✅ Already Paid</div>`}`;
+      <div class="btn-area"></div>`;
+    d.querySelector(".f-name").textContent=w.workerName;
+    d.querySelector(".f-sub").textContent=w.workerPhone+" • "+sds(w.date);
+    d.querySelector(".f-acct").innerHTML=`<div style="font-size:14px;font-weight:800"></div><div style="font-size:11px;color:var(--mu)"></div>`;
+    d.querySelectorAll(".f-acct>div")[0].textContent=w.methodNumber;
+    d.querySelectorAll(".f-acct>div")[1].textContent=w.method;
+    const area=d.querySelector(".btn-area");
+    if(w.status==="pending"){
+      area.innerHTML=`<div style="display:flex;gap:8px"><button class="bog bog-gr pay-btn" type="button" style="flex:1">✅ Mark Paid</button><button class="bog bog-re rej-btn" type="button" style="flex:1">❌ Reject</button></div>`;
+      area.querySelector(".pay-btn").onclick=async(ev)=>{ev.target.disabled=true;try{await cPayWithdrawal({id:w.id});toast("✅ Paid!");await refreshAdmin()}catch(e){toast("❌ "+friendlyErr(e));ev.target.disabled=false}};
+      area.querySelector(".rej-btn").onclick=async(ev)=>{ev.target.disabled=true;try{await cRejectWithdrawal({id:w.id});toast("Rejected — funds returned");await refreshAdmin()}catch(e){toast("❌ "+friendlyErr(e));ev.target.disabled=false}};
+    } else {
+      area.innerHTML=`<div style="text-align:center;font-weight:700;font-size:13px;color:var(--mu)">Already processed</div>`;
+    }
     el.appendChild(d);
   });
 }
-
-window.appWd=async function(wdId,userId,amount,method){
-  try{
-    await updateDoc(doc(db,"withdrawals",wdId),{status:"paid",paidAt:new Date().toISOString()});
-    const uSnap=await getDoc(doc(db,"users",userId));
-    if(uSnap.exists()){
-      const u=uSnap.data();
-      const payment={id:"PAY-"+Date.now(),amount,method,note:"Withdrawal approved",status:"paid",createdAt:new Date().toISOString()};
-      const notifs=[{id:"N-"+Date.now(),type:"paid",msg:`💸 Rs.${amount} aapke ${method} pe bhej diya gaya! ✅`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
-      await updateDoc(doc(db,"users",userId),{
-        pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amount),
-        paidEarnings:(u.paidEarnings||0)+amount,
-        payments:[payment,...(u.payments||[])],
-        notifications:notifs.slice(0,20)
-      });
-    }
-    toast("✅ Paid! Rs."+amount+" processed.");await refreshAdmin();
-  }catch(e){toast("❌ "+e.message);}
-};
 
 function renderAdminWorkers(){
-  const el=document.getElementById("adm-workers");
+  const el=document.getElementById("adm-workers");el.innerHTML="";
   if(!allUsers.length){el.innerHTML=`<div class="empty"><div class="empty-ic">👥</div><div class="empty-t">No workers yet</div></div>`;return}
-  el.innerHTML="";
   [...allUsers].sort((a,b)=>(b.totalEarned||0)-(a.totalEarned||0)).forEach(u=>{
     const uProds=allProds.filter(p=>p.workerId===u.userId);
-    let clicks=0,comp=0,pend=0,ret=0;
-    uProds.forEach(p=>{clicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")comp++;else if(o.status==="pending")pend++;else if(o.status==="returned")ret++;});});
+    let clicks=0,comp=0,pend=0;
+    uProds.forEach(p=>{clicks+=(p.clicks||0);p.orders.forEach(o=>{if(o.status==="completed")comp++;else if(o.status==="pending")pend++})});
     const d=document.createElement("div");d.className="wk-item";
-    d.onclick=()=>openWorkerDetail(u.userId);
-    d.innerHTML=`
-      <div class="wk-av">${(u.name||"U")[0].toUpperCase()}</div>
-      <div style="flex:1">
-        <div style="font-size:15px;font-weight:800">${u.name}</div>
-        <div style="font-size:12px;color:var(--mu);font-weight:600">${u.userId} • ${u.phone}</div>
-        <div style="font-size:11px;color:var(--mu)">📅 ${sds(u.joinedAt)}</div>
-        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
-          <span class="chip chip-bl" style="font-size:11px">🔗 ${uProds.length}</span>
-          <span class="chip chip-bl" style="font-size:11px">🖱️ ${clicks}</span>
-          <span class="chip chip-ye" style="font-size:11px">⏳ ${pend}</span>
-          <span class="chip chip-gr" style="font-size:11px">✅ ${comp}</span>
-          <span class="chip chip-re" style="font-size:11px">↩️ ${ret}</span>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:15px;font-weight:800;color:var(--or)">Rs ${(u.pendingEarnings||0).toFixed(0)}</div>
-        <div style="font-size:11px;color:var(--mu);font-weight:600">Pending</div>
-        <div style="font-size:10px;color:var(--or);font-weight:700;margin-top:4px">Tap →</div>
-      </div>`;
+    d.innerHTML=`<div class="wk-av"></div><div style="flex:1"><div class="f-name" style="font-size:15px;font-weight:800"></div><div class="f-sub" style="font-size:12px;color:var(--mu);font-weight:600"></div>
+      <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><span class="chip chip-bl" style="font-size:11px">🔗 ${uProds.length}</span><span class="chip chip-bl" style="font-size:11px">🖱️ ${clicks}</span><span class="chip chip-ye" style="font-size:11px">⏳ ${pend}</span><span class="chip chip-gr" style="font-size:11px">✅ ${comp}</span></div></div>
+      <div style="text-align:right"><div style="font-size:15px;font-weight:800;color:var(--or)">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div style="font-size:11px;color:var(--mu);font-weight:600">Pending</div></div>`;
+    d.querySelector(".wk-av").textContent=(u.name||"U")[0].toUpperCase();
+    d.querySelector(".f-name").textContent=u.name;
+    d.querySelector(".f-sub").textContent=u.userId+" • "+u.phone;
     el.appendChild(d);
   });
 }
 
-async function openWorkerDetail(userId){
-  try{
-    const uSnap=await getDoc(doc(db,"users",userId));
-    if(!uSnap.exists()){toast("❌ User not found");return}
-    const u={...uSnap.data(),userId};
-    const uProds=allProds.filter(p=>p.workerId===userId);
-    const uWds=allWds.filter(w=>w.userId===userId);
-    let totalClicks=0,comp=0,pend=0,ret=0;
-    uProds.forEach(p=>{totalClicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{if(o.status==="completed")comp++;else if(o.status==="pending")pend++;else ret++;});});
-    document.getElementById("mod-t").textContent=u.name+"'s Dashboard";
-    document.getElementById("mod-body").innerHTML=`
-      <div class="or-box" style="margin-bottom:16px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800">${(u.name||"U")[0].toUpperCase()}</div>
-          <div><div style="font-size:18px;font-weight:800">${u.name}</div><div style="font-size:12px;opacity:.8">${u.userId} • ${u.phone}</div><div style="font-size:11px;opacity:.7">Joined: ${sds(u.joinedAt)}</div></div>
-        </div>
-        <div class="or-box-grid" style="margin-top:14px">
-          <div class="or-box-item"><div class="or-box-iv">Rs ${(u.pendingEarnings||0).toFixed(0)}</div><div class="or-box-il">Pending</div></div>
-          <div class="or-box-item"><div class="or-box-iv">Rs ${(u.paidEarnings||0).toFixed(0)}</div><div class="or-box-il">Paid</div></div>
-          <div class="or-box-item"><div class="or-box-iv">Rs ${(u.totalEarned||0).toFixed(0)}</div><div class="or-box-il">Total</div></div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px">
-        <div class="ps"><div class="psv" style="color:var(--bl)">${uProds.length}</div><div class="psl">Links</div></div>
-        <div class="ps"><div class="psv" style="color:var(--bl)">${totalClicks}</div><div class="psl">Clicks</div></div>
-        <div class="ps"><div class="psv" style="color:var(--ye)">${pend}</div><div class="psl">Pending</div></div>
-        <div class="ps"><div class="psv" style="color:var(--gr)">${comp}</div><div class="psl">Done</div></div>
-        <div class="ps"><div class="psv" style="color:var(--re)">${ret}</div><div class="psl">Return</div></div>
-      </div>
-      <button onclick="openPayWorker('${u.userId}','${u.name}',${u.pendingEarnings||0})" class="bog bog-gr" style="margin-bottom:16px">💸 Pay This Worker</button>
-      <div style="font-size:15px;font-weight:800;margin-bottom:10px">📦 All Products (${uProds.length})</div>
-      ${uProds.length?uProds.map(p=>{
-        const ords=p.orders||[];
-        const trackUrl=location.origin+location.pathname+"?track="+p.id+"&wk="+userId;
-        return`<div style="background:#F8F8F8;border-radius:10px;padding:12px;margin-bottom:8px">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-            <div style="flex:1"><div style="font-size:13px;font-weight:800">${p.name}</div><div style="font-size:11px;color:var(--mu)">${sds(p.submittedAt)} • ${p.category}</div></div>
-            <span class="chip ${p.status==="active"?"chip-or":p.status==="ready"?"chip-gr":p.status==="pending_admin"?"chip-ye":p.status==="rejected"?"chip-re":"chip-mu"}">${p.status}</span>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px">
-            <div class="ps"><div class="psv" style="font-size:13px;color:var(--bl)">${p.clicks||0}</div><div class="psl">Clicks</div></div>
-            <div class="ps"><div class="psv" style="font-size:13px;color:var(--ye)">${ords.filter(o=>o.status==="pending").length}</div><div class="psl">Pend</div></div>
-            <div class="ps"><div class="psv" style="font-size:13px;color:var(--gr)">${ords.filter(o=>o.status==="completed").length}</div><div class="psl">Done</div></div>
-            <div class="ps"><div class="psv" style="font-size:13px;color:var(--or)">Rs ${(p.totalEarned||0).toFixed(0)}</div><div class="psl">Earned</div></div>
-          </div>
-          ${p.darazTrackLink?`<div style="font-size:10px;color:var(--mu);word-break:break-all;background:#fff;padding:6px;border-radius:6px;margin-bottom:6px">🔗 Daraz: ${p.darazTrackLink}</div>`:""}
-          <div style="font-size:10px;color:var(--bl);word-break:break-all;background:#fff;padding:6px;border-radius:6px">📊 Track: ${trackUrl}</div>
-          ${ords.length?`<div style="margin-top:8px">${ords.slice(0,3).map(o=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)"><div style="font-size:11px;font-weight:700">${sds(o.date)}</div><div style="display:flex;gap:6px;align-items:center"><span class="chip ${o.status==="completed"?"chip-gr":o.status==="pending"?"chip-ye":"chip-re"}" style="font-size:10px">${o.status}</span><div style="font-size:12px;font-weight:800;color:var(--gr)">+Rs ${(o.workerEarn||0).toFixed(0)}</div></div></div>`).join("")}</div>`:""}
-        </div>`;
-      }).join(""):`<div style="color:var(--mu);font-size:13px;padding:10px 0">No products yet</div>`}
-      <div style="font-size:15px;font-weight:800;margin:14px 0 10px">💸 Withdrawals (${uWds.length})</div>
-      ${uWds.length?uWds.map(w=>`<div class="sr"><div><div style="font-size:13px;font-weight:700">Rs ${w.amount} — ${w.method}</div><div style="font-size:11px;color:var(--mu)">${sds(w.date)} • ${w.methodNumber}</div></div><span class="chip ${w.status==="paid"?"chip-gr":"chip-ye"}">${w.status}</span></div>`).join(""):`<div style="color:var(--mu);font-size:13px;padding:10px 0">No withdrawals</div>`}`;
-    openMod();
-  }catch(e){toast("❌ "+e.message);}
-}
-
-window.openPayWorker=function(userId,name,pending){
-  document.getElementById("mod-t").textContent="💸 Pay "+name;
-  document.getElementById("mod-body").innerHTML=`
-    <div style="background:#F0FFF5;border-radius:10px;padding:14px;margin-bottom:16px;text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--gr)">Rs ${pending.toFixed(2)}</div>
-      <div style="font-size:12px;color:var(--mu);font-weight:600">Available to pay</div>
-    </div>
-    <label class="fl">Amount</label>
-    <input class="inp" id="pay-a" type="number" value="${pending.toFixed(0)}" placeholder="Amount">
-    <label class="fl">Method</label>
-    <select class="inp" id="pay-m"><option value="easypaisa">Easypaisa</option><option value="jazzcash">JazzCash</option></select>
-    <label class="fl">Note</label>
-    <input class="inp" id="pay-n" placeholder="Payment note">
-    <button onclick="processPay('${userId}','${name}')" class="bog bog-gr">💸 Process Payment</button>`;
-};
-
-window.processPay=async function(userId,name){
-  const amt=parseFloat(document.getElementById("pay-a")?.value)||0;
-  const mth=document.getElementById("pay-m")?.value||"easypaisa";
-  const note=document.getElementById("pay-n")?.value||"Commission payment";
-  if(!amt||amt<=0){toast("❌ Valid amount enter karo");return}
-  try{
-    const uSnap=await getDoc(doc(db,"users",userId));if(!uSnap.exists())return;
-    const u=uSnap.data();
-    const payment={id:"PAY-"+Date.now(),amount:amt,method:mth,note,status:"paid",createdAt:new Date().toISOString()};
-    const notifs=[{id:"N-"+Date.now(),type:"paid",msg:`💸 Rs.${amt} aapke ${mth} pe bhej diya gaya! ✅`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
-    await updateDoc(doc(db,"users",userId),{
-      pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amt),
-      paidEarnings:(u.paidEarnings||0)+amt,
-      payments:[payment,...(u.payments||[])],
-      notifications:notifs.slice(0,20)
-    });
-    toast("✅ Rs."+amt+" paid to "+name+"!");closeMod();await refreshAdmin();
-  }catch(e){toast("❌ "+e.message);}
-};
+// service worker (non-financial shell caching only, per PWA spec)
+if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(()=>{})}
 </script>
 </body>
 </html>
