@@ -557,13 +557,20 @@ function listenUser(){
 }
 
 function listenProducts(){
-  const q=query(collection(db,"products"),where("workerId","==",U.userId),orderBy("submittedAt","desc"));
+  // No orderBy — avoids Firebase index requirement. Sort locally.
+  const q=query(collection(db,"products"),where("workerId","==",U.userId));
   onSnapshot(q,snap=>{
     const prods=[];
     snap.forEach(d=>prods.push({...d.data(),id:d.id}));
+    // Sort by submittedAt descending locally
+    prods.sort((a,b)=>{
+      const ta=a.submittedAt?new Date(a.submittedAt).getTime():0;
+      const tb=b.submittedAt?new Date(b.submittedAt).getTime():0;
+      return tb-ta;
+    });
     localStorage.setItem("ep_prods_"+U.userId,JSON.stringify(prods));
     updUI();renderLinks();renderEarnings();
-    // Check new approvals → notifications
+    // Check new approvals → show notification
     prods.filter(p=>p.status==="ready"&&!p._notifShown).forEach(async p=>{
       await updateDoc(doc(db,"products",p.id),{_notifShown:true}).catch(()=>{});
       const notifs=[...(U.notifications||[])];
@@ -572,10 +579,17 @@ function listenProducts(){
       await updateDoc(doc(db,"users",U.userId),{notifications:U.notifications}).catch(()=>{});
       toast("🔔 "+p.name+" — Admin ne approve kar diya!");
     });
-    // Check new payments
-    prods.forEach(p=>(p.orders||[]).filter(o=>o.status==="completed"&&!o._notifShown).forEach(async o=>{
-      await updateDoc(doc(db,"products",p.id),{orders:(p.orders||[]).map(x=>x.id===o.id?{...x,_notifShown:true}:x)}).catch(()=>{});
-    }));
+  },err=>{
+    console.error("Products listener error:",err);
+    toast("⚠️ Sync error — refreshing...");
+    // Fallback: manual fetch
+    getDocs(query(collection(db,"products"),where("workerId","==",U.userId))).then(snap=>{
+      const prods=[];
+      snap.forEach(d=>prods.push({...d.data(),id:d.id}));
+      prods.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
+      localStorage.setItem("ep_prods_"+U.userId,JSON.stringify(prods));
+      updUI();renderLinks();renderEarnings();
+    }).catch(e=>console.error(e));
   });
 }
 
@@ -821,14 +835,17 @@ window.closeMod=()=>document.getElementById("mod-ov").classList.remove("on");
 window.refreshAdmin=async function(){
   try{
     const[uSnap,pSnap,wSnap]=await Promise.all([
-      getDocs(query(collection(db,"users"),where("role","==","worker"))),
-      getDocs(query(collection(db,"products"),orderBy("submittedAt","desc"))),
-      getDocs(query(collection(db,"withdrawals"),orderBy("date","desc")))
+      getDocs(collection(db,"users")),
+      getDocs(collection(db,"products")),
+      getDocs(collection(db,"withdrawals"))
     ]);
     allUsers=[];allProds=[];allWds=[];
-    uSnap.forEach(d=>allUsers.push({...d.data(),userId:d.id}));
+    uSnap.forEach(d=>{const u=d.data();if(u.role==="worker")allUsers.push({...u,userId:d.id})});
     pSnap.forEach(d=>allProds.push({...d.data(),id:d.id}));
     wSnap.forEach(d=>allWds.push({...d.data(),id:d.id}));
+    // Sort locally
+    allProds.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
+    allWds.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
     renderAdminStats();
     renderAdminPendingProds();
     renderAdminPendingOrders();
