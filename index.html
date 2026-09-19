@@ -703,6 +703,9 @@ select.inp{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns=
       </div>
     </div>
 
+    <!-- REALTIME BADGE -->
+    <div class="rt-badge" style="background:#1F2937;color:#6EE7B7;border-color:#374151"><span class="rt-dot" style="background:#6EE7B7"></span>Realtime Connected — Auto updates</div>
+
     <!-- PENDING SUBMISSIONS -->
     <div class="sec">📦 Pending Submissions <span class="sec-cnt" id="adm-ps-cnt">0</span></div>
     <div id="adm-pps"></div>
@@ -805,6 +808,8 @@ else if(isAdmin){
       document.getElementById("adm-hdr").style.display="flex";
       document.getElementById("adm-app").style.display="block";
       document.getElementById("adm-bnav").style.display="block";
+      // Start realtime listeners — no manual refresh needed!
+      startAdminListeners();
       refreshAdmin();
     } else {
       if(pw!==null)alert("❌ Wrong password!");
@@ -886,43 +891,62 @@ function showApp(){
 
 // ── REALTIME LISTENERS ──
 function listenUser(){
+  // Realtime user listener — instant update
   onSnapshot(doc(db,"users",U.userId),snap=>{
     if(!snap.exists())return;
     U={...snap.data(),userId:U.userId};
     updUI();
     const unread=(U.notifications||[]).filter(n=>!n.read).length;
     const cnt=document.getElementById("notif-cnt");
-    cnt.textContent=unread;cnt.style.display=unread>0?"flex":"none";
-  });
+    if(cnt){cnt.textContent=unread;cnt.style.display=unread>0?"flex":"none";}
+  },err=>console.warn("User listener:",err));
 }
+
 function listenProds(){
+  // Realtime products listener — instant update when admin approves
   onSnapshot(query(collection(db,"products"),where("workerId","==",U.userId)),snap=>{
     const prods=[];
     snap.forEach(d=>prods.push({...d.data(),id:d.id}));
     prods.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
     localStorage.setItem("ep_p_"+U.userId,JSON.stringify(prods));
     updUI();renderLinks();renderEarnings();
-    // New approvals
+    // Check new approvals → show notification instantly
     prods.filter(p=>p.status==="ready"&&!p._ns).forEach(async p=>{
       await updateDoc(doc(db,"products",p.id),{_ns:true}).catch(()=>{});
       const notifs=[{id:"N-"+Date.now(),type:"ready",msg:`✅ "${p.name}" — Link ready hai! Commission: Rs.${p.workerComm}/sale`,time:new Date().toISOString(),read:false},...(U.notifications||[])];
       await updateDoc(doc(db,"users",U.userId),{notifications:notifs.slice(0,30)}).catch(()=>{});
-      toast(p.name+" — Link ready hai!","success",4000);
+      toast(p.name+" — Admin ne approve kar diya! Link ready!","success",5000);
     });
-    // New completed orders
+    // Check new completed orders → notify instantly
     prods.forEach(p=>(p.orders||[]).filter(o=>o.status==="completed"&&!o._ns).forEach(async o=>{
       const orders=(p.orders||[]).map(x=>x.id===o.id?{...x,_ns:true}:x);
       await updateDoc(doc(db,"products",p.id),{orders}).catch(()=>{});
-      toast("💰 Order complete! +Rs."+o.workerEarn.toFixed(0)+" added!","success",4000);
+      toast("💰 Order complete! +Rs."+o.workerEarn.toFixed(0)+" account mein add ho gaya!","success",5000);
     }));
   },err=>{
-    getDocs(query(collection(db,"products"),where("workerId","==",U.userId))).then(snap=>{
+    // Fallback: poll every 5 seconds if realtime fails
+    console.warn("Realtime failed, using polling:",err);
+    startPolling();
+  });
+}
+
+// Polling fallback — every 5 seconds
+let pollInterval=null;
+function startPolling(){
+  if(pollInterval)return;
+  pollInterval=setInterval(async()=>{
+    try{
+      const snap=await getDocs(query(collection(db,"products"),where("workerId","==",U.userId)));
       const prods=[];snap.forEach(d=>prods.push({...d.data(),id:d.id}));
       prods.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
       localStorage.setItem("ep_p_"+U.userId,JSON.stringify(prods));
       updUI();renderLinks();
-    }).catch(console.error);
-  });
+      // Also refresh user
+      const uSnap=await getDoc(doc(db,"users",U.userId));
+      if(uSnap.exists())U={...uSnap.data(),userId:U.userId};
+      updUI();
+    }catch(e){console.warn("Poll error:",e);}
+  },5000);
 }
 const getProds=()=>{try{return JSON.parse(localStorage.getItem("ep_p_"+U.userId)||"[]")}catch{return[]}};
 
@@ -1174,6 +1198,45 @@ window.openMod=openMod;
 // ══════════════════════════════
 // ADMIN PANEL
 // ══════════════════════════════
+// ── ADMIN REALTIME LISTENERS ──
+let admUnsubs=[];
+function startAdminListeners(){
+  // Clear previous
+  admUnsubs.forEach(u=>u());admUnsubs=[];
+
+  // Listen to ALL products realtime
+  const u1=onSnapshot(collection(db,"products"),snap=>{
+    allProds=[];
+    snap.forEach(d=>allProds.push({...d.data(),id:d.id}));
+    allProds.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
+    rStats();rPendProds();rPendOrds();
+  },err=>console.warn("Admin prods listener:",err));
+
+  // Listen to ALL users realtime
+  const u2=onSnapshot(collection(db,"users"),snap=>{
+    allUsers=[];
+    snap.forEach(d=>{const u=d.data();if(u.role==="worker")allUsers.push({...u,userId:d.id})});
+    rStats();rWorkers();
+  },err=>console.warn("Admin users listener:",err));
+
+  // Listen to ALL withdrawals realtime
+  const u3=onSnapshot(collection(db,"withdrawals"),snap=>{
+    allWds=[];
+    snap.forEach(d=>allWds.push({...d.data(),id:d.id}));
+    allWds.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    rWds();
+    // Badge update
+    const pend=allWds.filter(w=>w.status==="pending").length;
+    if(pend>0)toast("💸 "+pend+" withdrawal request pending!","warning",3000);
+  },err=>console.warn("Admin wds listener:",err));
+
+  admUnsubs=[u1,u2,u3];
+
+  // Update realtime indicator
+  const badge=document.querySelector(".rt-badge");
+  if(badge)badge.innerHTML=`<span class="rt-dot"></span>Admin Realtime Connected`;
+}
+
 window.refreshAdmin=async()=>{
   try{
     const[uS,pS,wS]=await Promise.all([getDocs(collection(db,"users")),getDocs(collection(db,"products")),getDocs(collection(db,"withdrawals"))]);
