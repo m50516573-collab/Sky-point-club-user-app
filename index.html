@@ -686,25 +686,42 @@ select.inp{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns=
     <!-- ADMIN STATS GRID -->
     <div class="adm-4grid">
       <div class="adm-stat">
-        <div class="adm-stat-l">Total Commission</div>
-        <div class="adm-stat-v" style="color:var(--or)">Rs <span id="adm-tc">0</span></div>
+        <div class="adm-stat-l">💰 Commission</div>
+        <div class="adm-stat-v" style="color:var(--or);font-size:20px">Rs <span id="adm-tc">0</span></div>
       </div>
       <div class="adm-stat">
-        <div class="adm-stat-l">My Profit</div>
-        <div class="adm-stat-v" style="color:var(--gr)">Rs <span id="adm-pr">0</span></div>
+        <div class="adm-stat-l">🏦 My Profit</div>
+        <div class="adm-stat-v" style="color:var(--gr);font-size:20px">Rs <span id="adm-pr">0</span></div>
       </div>
       <div class="adm-stat">
-        <div class="adm-stat-l">Pending Pay</div>
-        <div class="adm-stat-v" style="color:var(--ye)">Rs <span id="adm-pp">0</span></div>
+        <div class="adm-stat-l">⏳ Pending Pay</div>
+        <div class="adm-stat-v" style="color:var(--ye);font-size:20px">Rs <span id="adm-pp">0</span></div>
       </div>
       <div class="adm-stat">
-        <div class="adm-stat-l">Total Clicks</div>
-        <div class="adm-stat-v" style="color:var(--bl)"><span id="adm-cl">0</span></div>
+        <div class="adm-stat-l">✅ Paid Out</div>
+        <div class="adm-stat-v" style="color:var(--gr);font-size:20px">Rs <span id="adm-paid-out">0</span></div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-l">🖱️ Total Clicks</div>
+        <div class="adm-stat-v" style="color:var(--bl);font-size:20px"><span id="adm-cl">0</span></div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-l">📋 Pending Orders</div>
+        <div class="adm-stat-v" style="color:var(--ye);font-size:20px"><span id="adm-pend-ords">0</span></div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-l">✅ Completed</div>
+        <div class="adm-stat-v" style="color:var(--gr);font-size:20px"><span id="adm-comp-ords">0</span></div>
+      </div>
+      <div class="adm-stat">
+        <div class="adm-stat-l">↩️ Returned</div>
+        <div class="adm-stat-v" style="color:var(--re);font-size:20px"><span id="adm-ret-ords">0</span></div>
       </div>
     </div>
 
     <!-- REALTIME BADGE -->
-    <div class="rt-badge" style="background:#1F2937;color:#6EE7B7;border-color:#374151"><span class="rt-dot" style="background:#6EE7B7"></span>Realtime Connected — Auto updates</div>
+    <div class="rt-badge" id="adm-rt-badge" style="background:#1F2937;color:#6EE7B7;border-color:#374151"><span class="rt-dot" style="background:#6EE7B7"></span>Connecting realtime...</div>
+    <div style="font-size:11px;color:#6B7280;font-weight:500;margin-bottom:12px" id="adm-sync-time">Auto sync every 8 seconds</div>
 
     <!-- PENDING SUBMISSIONS -->
     <div class="sec">📦 Pending Submissions <span class="sec-cnt" id="adm-ps-cnt">0</span></div>
@@ -886,6 +903,7 @@ function showApp(){
   document.getElementById("app").style.display="block";
   document.getElementById("h-av").textContent=(U.name||"U")[0].toUpperCase();
   listenUser();listenProds();
+  startWorkerPoll(); // Always poll every 5s for instant updates
   nav("home");
 }
 
@@ -930,10 +948,11 @@ function listenProds(){
   });
 }
 
-// Polling fallback — every 5 seconds
+// Polling fallback — every 8 seconds guaranteed
 let pollInterval=null;
 function startPolling(){
   if(pollInterval)return;
+  console.log("Starting worker poll every 8s");
   pollInterval=setInterval(async()=>{
     try{
       const snap=await getDocs(query(collection(db,"products"),where("workerId","==",U.userId)));
@@ -941,12 +960,33 @@ function startPolling(){
       prods.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
       localStorage.setItem("ep_p_"+U.userId,JSON.stringify(prods));
       updUI();renderLinks();
-      // Also refresh user
+      // Also refresh user balance
       const uSnap=await getDoc(doc(db,"users",U.userId));
-      if(uSnap.exists())U={...uSnap.data(),userId:U.userId};
-      updUI();
+      if(uSnap.exists()){U={...uSnap.data(),userId:U.userId};updUI();}
+      // Check new approvals
+      prods.filter(p=>p.status==="ready"&&!p._ns).forEach(async p=>{
+        await updateDoc(doc(db,"products",p.id),{_ns:true}).catch(()=>{});
+        toast("✅ "+p.name+" — Admin ne approve kar diya!","success",5000);
+      });
     }catch(e){console.warn("Poll error:",e);}
-  },5000);
+  },8000);
+}
+
+// Also start immediate polling for worker (always runs alongside realtime)
+function startWorkerPoll(){
+  setInterval(async()=>{
+    try{
+      // Quick user balance check
+      const uSnap=await getDoc(doc(db,"users",U.userId));
+      if(uSnap.exists()){
+        const newU={...uSnap.data(),userId:U.userId};
+        // Only update if something changed
+        if(JSON.stringify(newU)!==JSON.stringify(U)){
+          U=newU;updUI();
+        }
+      }
+    }catch(e){}
+  },5000); // Every 5 seconds for balance
 }
 const getProds=()=>{try{return JSON.parse(localStorage.getItem("ep_p_"+U.userId)||"[]")}catch{return[]}};
 
@@ -1201,40 +1241,74 @@ window.openMod=openMod;
 // ── ADMIN REALTIME LISTENERS ──
 let admUnsubs=[];
 function startAdminListeners(){
-  // Clear previous
   admUnsubs.forEach(u=>u());admUnsubs=[];
+  let rtWorking=false;
 
-  // Listen to ALL products realtime
-  const u1=onSnapshot(collection(db,"products"),snap=>{
-    allProds=[];
-    snap.forEach(d=>allProds.push({...d.data(),id:d.id}));
-    allProds.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
-    rStats();rPendProds();rPendOrds();
-  },err=>console.warn("Admin prods listener:",err));
+  const setBadge=(ok,msg)=>{
+    const b=document.getElementById("adm-rt-badge");
+    if(!b)return;
+    b.innerHTML=`<span class="rt-dot" style="background:${ok?"#6EE7B7":"#FCA5A5"}"></span>${msg}`;
+    b.style.color=ok?"#6EE7B7":"#FCA5A5";
+  };
 
-  // Listen to ALL users realtime
-  const u2=onSnapshot(collection(db,"users"),snap=>{
-    allUsers=[];
-    snap.forEach(d=>{const u=d.data();if(u.role==="worker")allUsers.push({...u,userId:d.id})});
-    rStats();rWorkers();
-  },err=>console.warn("Admin users listener:",err));
+  // Try realtime first
+  try{
+    const u1=onSnapshot(collection(db,"products"),snap=>{
+      rtWorking=true;
+      allProds=[];
+      snap.forEach(d=>allProds.push({...d.data(),id:d.id}));
+      allProds.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
+      rStats();rPendProds();rPendOrds();
+      setBadge(true,"🔴 Live — Auto sync ON");
+    },err=>{
+      setBadge(false,"⚠️ Polling mode");
+      startAdminPoll();
+    });
 
-  // Listen to ALL withdrawals realtime
-  const u3=onSnapshot(collection(db,"withdrawals"),snap=>{
-    allWds=[];
-    snap.forEach(d=>allWds.push({...d.data(),id:d.id}));
-    allWds.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-    rWds();
-    // Badge update
-    const pend=allWds.filter(w=>w.status==="pending").length;
-    if(pend>0)toast("💸 "+pend+" withdrawal request pending!","warning",3000);
-  },err=>console.warn("Admin wds listener:",err));
+    const u2=onSnapshot(collection(db,"users"),snap=>{
+      allUsers=[];
+      snap.forEach(d=>{const u=d.data();if(u.role==="worker")allUsers.push({...u,userId:d.id})});
+      rStats();rWorkers();
+    },err=>console.warn(err));
 
-  admUnsubs=[u1,u2,u3];
+    const u3=onSnapshot(collection(db,"withdrawals"),snap=>{
+      allWds=[];
+      snap.forEach(d=>allWds.push({...d.data(),id:d.id}));
+      allWds.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+      rWds();
+    },err=>console.warn(err));
 
-  // Update realtime indicator
-  const badge=document.querySelector(".rt-badge");
-  if(badge)badge.innerHTML=`<span class="rt-dot"></span>Admin Realtime Connected`;
+    admUnsubs=[u1,u2,u3];
+  }catch(e){
+    startAdminPoll();
+  }
+
+  // Always run polling as backup — every 8 seconds
+  startAdminPoll();
+}
+
+let admPollTimer=null;
+function startAdminPoll(){
+  if(admPollTimer)clearInterval(admPollTimer);
+  admPollTimer=setInterval(async()=>{
+    try{
+      const[uS,pS,wS]=await Promise.all([
+        getDocs(collection(db,"users")),
+        getDocs(collection(db,"products")),
+        getDocs(collection(db,"withdrawals"))
+      ]);
+      allUsers=[];allProds=[];allWds=[];
+      uS.forEach(d=>{const u=d.data();if(u.role==="worker")allUsers.push({...u,userId:d.id})});
+      pS.forEach(d=>allProds.push({...d.data(),id:d.id}));
+      wS.forEach(d=>allWds.push({...d.data(),id:d.id}));
+      allProds.sort((a,b)=>new Date(b.submittedAt||0)-new Date(a.submittedAt||0));
+      allWds.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+      rStats();rPendProds();rPendOrds();rWds();rWorkers();
+      // Update timer display
+      const t=document.getElementById("adm-sync-time");
+      if(t)t.textContent="Last sync: "+new Date().toLocaleTimeString("en-PK");
+    }catch(e){console.warn("Admin poll:",e);}
+  },8000); // Every 8 seconds
 }
 
 window.refreshAdmin=async()=>{
@@ -1252,17 +1326,32 @@ window.refreshAdmin=async()=>{
 };
 
 function rStats(){
-  const s=id=>document.getElementById(id);
-  s("adm-wc").textContent=allUsers.length;
-  s("adm-lc").textContent=allProds.length;
-  let orders=0,comm=0,profit=0,pendPay=0,clicks=0;
-  allProds.forEach(p=>{clicks+=(p.clicks||0);(p.orders||[]).forEach(o=>{orders++;if(o.status==="completed"){comm+=(o.totalComm||0);profit+=(o.adminEarn||0);}})});
-  allUsers.forEach(u=>pendPay+=(u.pendingEarnings||0));
-  s("adm-oc").textContent=orders;
-  s("adm-tc").textContent=comm.toFixed(0);
-  s("adm-pr").textContent=profit.toFixed(0);
-  s("adm-pp").textContent=pendPay.toFixed(0);
-  s("adm-cl").textContent=clicks;
+  const st=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  st("adm-wc",allUsers.length);
+  st("adm-lc",allProds.length);
+  let orders=0,pendOrds=0,compOrds=0,retOrds=0,comm=0,profit=0,pendPay=0,paidOut=0,clicks=0;
+  allProds.forEach(p=>{
+    clicks+=(p.clicks||0);
+    (p.orders||[]).forEach(o=>{
+      orders++;
+      if(o.status==="pending")pendOrds++;
+      else if(o.status==="completed"){compOrds++;comm+=(o.totalComm||0);profit+=(o.adminEarn||0);}
+      else if(o.status==="returned")retOrds++;
+    });
+  });
+  allUsers.forEach(u=>{pendPay+=(u.pendingEarnings||0);paidOut+=(u.paidEarnings||0);});
+  st("adm-oc",orders);
+  st("adm-tc",comm.toFixed(0));
+  st("adm-pr",profit.toFixed(0));
+  st("adm-pp",pendPay.toFixed(0));
+  st("adm-cl",clicks);
+  st("adm-pend-ords",pendOrds);
+  st("adm-comp-ords",compOrds);
+  st("adm-ret-ords",retOrds);
+  st("adm-paid-out",paidOut.toFixed(0));
+  st("adm-ps-cnt",allProds.filter(p=>p.status==="pending_admin").length);
+  st("adm-po-cnt",pendOrds);
+  st("adm-wd-cnt",allWds.filter(w=>w.status==="pending").length);
 }
 
 function rPendProds(){
