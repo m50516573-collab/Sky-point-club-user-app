@@ -1237,7 +1237,7 @@ window.openMod=openMod;
 
 // ══════════════════════════════
 // ADMIN PANEL
-// ══════════════════════════════
+  // ══════════════════════════════
 // ── ADMIN REALTIME LISTENERS ──
 let admUnsubs=[];
 function startAdminListeners(){
@@ -1361,7 +1361,7 @@ function rPendProds(){
   if(!pend.length){el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:36px">✅</span><div class="empty-t">No pending submissions</div></div>`;return}
   el.innerHTML="";
   pend.forEach(p=>{
-    const d=document.createElement("div");d.className="p-card";
+    const d=document.createElement("div");d.className="p-card";d.id="prod-card-"+p.id;
     d.innerHTML=`
       <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
         <span style="font-size:28px">${CAT_ICONS[p.category]||"📦"}</span>
@@ -1395,29 +1395,65 @@ function rPendProds(){
 }
 
 window.approveP=async(prodId,workerId)=>{
-  const aff=document.getElementById("aff-"+prodId)?.value.trim();
-  const comm=parseFloat(document.getElementById("comm-"+prodId)?.value)||0;
-  if(!aff){toast("Affiliate link enter karo","error");return}
-  if(!comm){toast("Commission amount enter karo","error");return}
+  // Save values FIRST before any async operation
+  const affEl=document.getElementById("aff-"+prodId);
+  const commEl=document.getElementById("comm-"+prodId);
+  const aff=affEl?.value.trim();
+  const comm=parseFloat(commEl?.value)||0;
+
+  // Validate
+  if(!aff||aff.length<5){toast("Affiliate link enter karo — s.daraz.pk/...","error");return}
+  if(!aff.includes("daraz")&&!aff.includes("s.click")){toast("Valid Daraz affiliate link enter karo","error");return}
+  if(!comm||comm<=0){toast("Commission amount enter karo (e.g. 50)","error");return}
+
+  // Show loading on button
+  const btn=document.querySelector(`button[onclick="approveP('${prodId}','${workerId}')"]`);
+  if(btn){btn.disabled=true;btn.textContent="⏳ Saving...";}
+
   const sep=aff.includes("?")?"&":"?";
   const darazTrackLink=aff+sep+"sub_id="+workerId+"_"+prodId;
+
   try{
-    await updateDoc(doc(db,"products",prodId),{status:"ready",affiliateLink:aff,darazTrackLink,finalTrackingLink:darazTrackLink,workerComm:comm,_ns:false,approvedAt:new Date().toISOString()});
+    await updateDoc(doc(db,"products",prodId),{
+      status:"ready",
+      affiliateLink:aff,
+      darazTrackLink,
+      finalTrackingLink:darazTrackLink,
+      workerComm:comm,
+      _ns:false,
+      approvedAt:new Date().toISOString()
+    });
+    // Notify worker
     const uSnap=await getDoc(doc(db,"users",workerId));
     if(uSnap.exists()){
       const u=uSnap.data();
       const notifs=[{id:"N-"+Date.now(),type:"ready",msg:`✅ Product approved! Rs.${comm}/sale. My Links mein link ready hai.`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
       await updateDoc(doc(db,"users",workerId),{notifications:notifs.slice(0,30)});
     }
-    toast("Approved! Worker ko notification gaya.","success");await refreshAdmin();
-  }catch(e){toast("Error: "+e.message,"error");}
+    toast("✅ Approved! Worker ko notification gaya.","success",4000);
+    // Don't call refreshAdmin() — realtime listener will update automatically
+    // Just mark card as approved visually
+    const card=document.getElementById("prod-card-"+prodId);
+    if(card){
+      card.style.opacity="0.5";
+      card.innerHTML=`<div style="padding:16px;text-align:center;color:var(--gr);font-weight:800;font-size:15px">✅ Approved! Realtime mein update ho raha hai...</div>`;
+    }
+  }catch(e){
+    toast("❌ Error: "+e.message,"error");
+    if(btn){btn.disabled=false;btn.textContent="✅ Approve";}
+  }
 };
 
 window.rejectP=async prodId=>{
   const reason=prompt("Rejection reason (optional):")||"Not approved";
   try{
     await updateDoc(doc(db,"products",prodId),{status:"rejected",rejectionReason:reason});
-    toast("Product rejected","warning");await refreshAdmin();
+    toast("Product rejected","warning");
+    const card=document.getElementById("prod-card-"+prodId);
+    if(card){
+      card.style.opacity="0.5";
+      card.innerHTML=`<div style="padding:16px;text-align:center;color:var(--re);font-weight:800;font-size:15px">❌ Rejected! Realtime mein update ho raha hai...</div>`;
+    }
   }catch(e){toast("Error: "+e.message,"error");}
 };
 
@@ -1475,7 +1511,7 @@ window.approveOrd=async(prodId,ordId,workerId,we,ae)=>{
       const notifs=[{id:"N-"+Date.now(),type:"payment",msg:`💰 Order complete! Rs.${we.toFixed(0)} aapke account mein add ho gaya.`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
       await updateDoc(doc(db,"users",workerId),{notifications:notifs.slice(0,30)});
     }
-    toast("Complete! Rs."+we.toFixed(0)+" worker ko add hua.","success");await refreshAdmin();
+    toast("✅ Complete! Rs."+we.toFixed(0)+" worker ko add hua.","success");
   }catch(e){toast("Error: "+e.message,"error");}
 };
 
@@ -1485,7 +1521,7 @@ window.returnOrd=async(prodId,ordId)=>{
     const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
     const orders=(ps.data().orders||[]).map(o=>o.id===ordId?{...o,status:"returned"}:o);
     await updateDoc(doc(db,"products",prodId),{orders});
-    toast("Order returned","warning");await refreshAdmin();
+    toast("↩️ Order returned","warning");
   }catch(e){toast("Error: "+e.message,"error");}
 };
 
@@ -1522,7 +1558,7 @@ window.payWd=async(wdId,userId,amount,method)=>{
       const notifs=[{id:"N-"+Date.now(),type:"paid",msg:`💸 Rs.${amount} aapke ${method} pe send kar diya gaya! ✅`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
       await updateDoc(doc(db,"users",userId),{pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amount),paidEarnings:(u.paidEarnings||0)+amount,payments:[payment,...(u.payments||[])],notifications:notifs.slice(0,30)});
     }
-    toast("Paid! Rs."+amount+" processed.","success");await refreshAdmin();
+    toast("✅ Paid! Rs."+amount+" processed.","success");
   }catch(e){toast("Error: "+e.message,"error");}
 };
 
@@ -1671,8 +1707,8 @@ window.addOrderManual=async(prodId,workerId)=>{
     if(!ps.exists())return;
     const orders=[...(ps.data().orders||[]),order];
     await updateDoc(doc(db,"products",prodId),{orders});
-    toast("Order added! Pending mein show ho ga.","success");
-    closeMod();await refreshAdmin();
+    toast("✅ Order added! Pending mein show ho ga.","success");
+    closeMod();
   }catch(e){toast("Error: "+e.message,"error");}
 };
 
@@ -1688,7 +1724,7 @@ window.processPay=async(userId,name)=>{
     const payment={id:"PAY-"+Date.now(),amount:amt,method:mth,note,status:"paid",createdAt:new Date().toISOString()};
     const notifs=[{id:"N-"+Date.now(),type:"paid",msg:`💸 Rs.${amt} aapke ${mth} pe send kar diya gaya! ✅`,time:new Date().toISOString(),read:false},...(u.notifications||[])];
     await updateDoc(doc(db,"users",userId),{pendingEarnings:Math.max(0,(u.pendingEarnings||0)-amt),paidEarnings:(u.paidEarnings||0)+amt,payments:[payment,...(u.payments||[])],notifications:notifs.slice(0,30)});
-    toast("Rs."+amt+" paid to "+name+"!","success");closeMod();await refreshAdmin();
+    toast("✅ Rs."+amt+" paid to "+name+"!","success");closeMod();
   }catch(e){toast("Error: "+e.message,"error");}
 };
 </script>
