@@ -1237,7 +1237,7 @@ window.openMod=openMod;
 
 // ══════════════════════════════
 // ADMIN PANEL
-  // ══════════════════════════════
+// ══════════════════════════════
 // ── ADMIN REALTIME LISTENERS ──
 let admUnsubs=[];
 function startAdminListeners(){
@@ -1358,10 +1358,36 @@ function rPendProds(){
   const pend=allProds.filter(p=>p.status==="pending_admin");
   document.getElementById("adm-ps-cnt").textContent=pend.length;
   const el=document.getElementById("adm-pps");
-  if(!pend.length){el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:36px">✅</span><div class="empty-t">No pending submissions</div></div>`;return}
+
+  // ★ MAIN FIX: Agar koi bhi input field mein value hai to re-render mat karo
+  const anyFilled=Array.from(el.querySelectorAll("input")).some(i=>i.value.trim()!=="");
+  if(anyFilled) return;
+
+  // Agar pehle se same cards hain to bhi mat karo
+  const existingIds=Array.from(el.querySelectorAll(".p-card")).map(c=>c.id);
+  const newIds=pend.map(p=>"prod-card-"+p.id);
+  if(JSON.stringify(existingIds)===JSON.stringify(newIds)) return;
+
+  if(!pend.length){
+    const activeProds=allProds.filter(p=>p.status==="ready"||p.status==="active");
+    let html=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:36px">✅</span><div class="empty-t">No pending submissions</div></div>`;
+    if(activeProds.length){
+      html+=`<div style="font-size:13px;font-weight:700;color:var(--mu);margin:8px 0 10px">Active Links — Order Add Karo:</div>`;
+      activeProds.forEach(p=>{
+        html+=`<div style="background:#fff;border-radius:var(--rd);padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh);display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.name}</div><div style="font-size:11px;color:var(--mu)">👤 ${p.workerName} • Rs.${p.workerComm||0}/sale</div></div>
+          <button onclick="openAddOrder('${p.id}','${p.workerId}','${p.workerName}',${p.workerComm||50},'${p.name.replace(/'/g,"\\'")}')" class="btn btn-sm" style="flex-shrink:0">➕ Order</button>
+        </div>`;
+      });
+    }
+    el.innerHTML=html;return;
+  }
+
   el.innerHTML="";
   pend.forEach(p=>{
-    const d=document.createElement("div");d.className="p-card";d.id="prod-card-"+p.id;
+    const d=document.createElement("div");
+    d.className="p-card";
+    d.id="prod-card-"+p.id;
     d.innerHTML=`
       <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
         <span style="font-size:28px">${CAT_ICONS[p.category]||"📦"}</span>
@@ -1374,22 +1400,18 @@ function rPendProds(){
       </div>
       <div style="background:var(--lt);border-radius:8px;padding:10px;margin-bottom:14px;font-size:11px;font-weight:600;color:var(--mu);word-break:break-all;border:1px solid var(--line)">🔗 ${p.link}</div>
       <div class="appr-form">
-        <label class="fl">✅ Daraz Affiliate Link (Your dashboard se copy karo)</label>
-        <input class="inp" id="aff-${p.id}" placeholder="https://s.daraz.pk/s.XXXXX?cc" value="${p.affiliateLink||""}">
-        <label class="fl">💰 Worker Commission Rs/sale (Daraz dashboard se check karo)</label>
-        <input class="inp" id="comm-${p.id}" type="number" placeholder="e.g. 50" value="${p.workerComm||""}">
-        <div class="info-box info-bl" style="margin-bottom:12px">
-          ℹ️ System automatically add karega:<br><b>sub_id=${p.workerId}_${p.id}</b><br>Daraz dashboard mein is sub_id se orders verify honge.
+        <label class="fl">✅ Daraz Affiliate Link</label>
+        <input class="inp" id="aff-${p.id}" placeholder="https://s.daraz.pk/s.XXXXX?cc" value="${p.affiliateLink||""}" autocomplete="off">
+        <label class="fl">💰 Worker Commission Rs/sale</label>
+        <input class="inp" id="comm-${p.id}" type="number" placeholder="e.g. 50" value="${p.workerComm||""}" inputmode="numeric" autocomplete="off">
+        <div style="background:var(--bl2);border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:11px;font-weight:600;color:var(--bl)">
+          sub_id = ${p.workerId}_${p.id}
         </div>
         <div style="display:flex;gap:8px">
           <button onclick="approveP('${p.id}','${p.workerId}')" class="btn btn-gr btn-sm" style="flex:1">✅ Approve</button>
           <button onclick="rejectP('${p.id}')" class="btn btn-re btn-sm" style="flex:1">❌ Reject</button>
         </div>
-      </div>
-      ${p.status==="ready"||p.status==="active"?`<div style="margin-top:10px">
-        <button onclick="openAddOrder('${p.id}','${p.workerId}','${p.workerName}',${p.workerComm||50},'${p.name.replace(/'/g,"\\'")}')" class="btn btn-sm" style="width:100%;background:linear-gradient(135deg,#F57224,#E85520)">➕ Add Order Manually</button>
-      </div>`:""}
-      `;
+      </div>`;
     el.appendChild(d);
   });
 }
@@ -1624,7 +1646,7 @@ async function openWorkerDetail(userId){
         <div class="ps"><div class="psv" style="color:var(--ye)">${pend}</div><div class="psl">Pending</div></div>
         <div class="ps"><div class="psv" style="color:var(--gr)">${comp}</div><div class="psl">Done</div></div>
         <div class="ps"><div class="psv" style="color:var(--re)">${ret}</div><div class="psl">Return</div></div>
-      </div>
+        </div>
       <button onclick="openPayWorker('${u.userId}','${u.name}',${u.pendingEarnings||0})" class="btn btn-gr" style="margin-bottom:16px">💸 Pay This Worker</button>
       <div style="font-size:15px;font-weight:800;margin-bottom:10px">📦 Products (${uProds.length})</div>
       ${uProds.length?uProds.map(p=>{
