@@ -277,7 +277,8 @@ select.inp{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns=
 .adm-tab-pg{animation:pg-in .2s ease}
 .adm-bn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 14px;gap:3px;cursor:pointer;font-size:10px;font-weight:600;color:#6B7280;border:none;background:transparent;font-family:inherit;transition:.15s;position:relative}
 .adm-bn.on{color:var(--or)}
-.adm-bn.on span:first-child{transform:scale(1.1)}background:linear-gradient(145deg,#111827,#1F2937);border-radius:0 0 24px 24px;margin:0 -16px 16px;padding:20px 20px 28px;color:#fff;border-bottom:1px solid #374151}
+.adm-bn.on span:first-child{transform:scale(1.1)}
+.adm-hero{
 .adm-4grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .adm-stat{background:#fff;border-radius:var(--rd);padding:16px;box-shadow:var(--sh)}
 .adm-stat-v{font-size:24px;font-weight:800;margin-top:4px}
@@ -956,17 +957,37 @@ window.doForgot=async()=>{
 
 // ── SUPPORT TICKETS ──
 window.submitTicket=async()=>{
-  if(!U)return;
-  const cat=document.getElementById("sup-cat").value;
-  const msg=document.getElementById("sup-msg").value.trim();
-  if(!msg||msg.length<10){toast("Masla detail mein likho","error");return}
+  if(!U){toast("Login karein pehle","error");return}
+  const catEl=document.getElementById("sup-cat");
+  const msgEl=document.getElementById("sup-msg");
+  if(!catEl||!msgEl){toast("Form nahi mila","error");return}
+  const cat=catEl.value;
+  const msg=msgEl.value.trim();
+  if(!msg||msg.length<5){toast("Masla likho (min 5 characters)","error");return}
+  const btn=document.querySelector("#pg-support .btn");
+  if(btn){btn.disabled=true;btn.textContent="Submitting...";}
   const tktId="TKT-"+Date.now();
   try{
-    await setDoc(doc(db,"tickets",tktId),{id:tktId,userId:U.userId,workerName:U.name,workerPhone:U.phone,category:cat,message:msg,status:"open",adminReply:"",date:new Date().toISOString(),createdAt:serverTimestamp()});
-    document.getElementById("sup-msg").value="";
-    toast("✅ Ticket submit! Admin jald reply karega.","success",4000);
+    await setDoc(doc(db,"tickets",tktId),{
+      id:tktId,
+      userId:U.userId,
+      workerName:U.name,
+      workerPhone:U.phone,
+      category:cat,
+      message:msg,
+      status:"open",
+      adminReply:"",
+      date:new Date().toISOString(),
+      createdAt:serverTimestamp()
+    });
+    msgEl.value="";
+    toast("✅ Ticket submit ho gaya! Admin jald reply karega.","success",4000);
     loadMyTickets();
-  }catch(e){toast("Error: "+e.message,"error");}
+  }catch(e){
+    console.error("Ticket error:",e);
+    toast("❌ Error: "+e.message,"error");
+  }
+  if(btn){btn.disabled=false;btn.textContent="📤 Submit Ticket";}
 };
 
 async function loadMyTickets(){
@@ -984,12 +1005,39 @@ async function loadMyTickets(){
 // ── ADMIN BROWSER NOTIFICATIONS ──
 async function requestNotifPermission(){
   if(!("Notification"in window))return;
-  if(Notification.permission==="default")await Notification.requestPermission();
+  if(Notification.permission==="default"){
+    const result=await Notification.requestPermission();
+    if(result==="granted")toast("✅ Notifications ON! Ab mobile pe alert aye ga.","success",4000);
+  }
 }
+
 function sendBrowserNotif(title,body,cb){
-  if(Notification.permission!=="granted")return;
-  const n=new Notification(title,{body,icon:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>"});
-  if(cb)n.onclick=cb;
+  // Try browser notification first
+  if("Notification"in window&&Notification.permission==="granted"){
+    try{
+      const n=new Notification(title,{
+        body,
+        icon:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==",
+        badge:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==",
+        requireInteraction:true,
+        tag:"earnpak-admin"
+      });
+      if(cb)n.onclick=()=>{window.focus();cb();n.close();};
+    }catch(e){}
+  }
+  // Always vibrate on mobile
+  if(navigator.vibrate)navigator.vibrate([200,100,200]);
+  // Play notification sound
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator();const g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.frequency.setValueAtTime(800,ctx.currentTime);
+    o.frequency.setValueAtTime(600,ctx.currentTime+0.1);
+    g.gain.setValueAtTime(0.3,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);
+    o.start(ctx.currentTime);o.stop(ctx.currentTime+0.3);
+  }catch(e){}
 }
 let prevPS=0,prevPO=0,prevPW=0;
 function checkAdminNotifs(){
@@ -1564,7 +1612,6 @@ function rPendProds(){
   const pend=allProds.filter(p=>p.status==="pending_admin");
   document.getElementById("adm-ps-cnt").textContent=pend.length;
   const el=document.getElementById("adm-pps");
-
 // ★ MAIN FIX: Agar koi bhi input field mein value hai to re-render mat karo
   const anyFilled=Array.from(el.querySelectorAll("input")).some(i=>i.value.trim()!=="");
   if(anyFilled) return;
@@ -1756,7 +1803,7 @@ window.returnOrd=async(prodId,ordId)=>{
 function rWds(){
   const pend=allWds.filter(w=>w.status==="pending");
   document.getElementById("adm-wd-cnt").textContent=pend.length;
-  const el=document.getElementById("adm-wds");
+const el=document.getElementById("adm-wds");
   if(!allWds.length){el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:36px">💸</span><div class="empty-t">No withdrawal requests</div></div>`;return}
   el.innerHTML="";
   allWds.forEach(w=>{
@@ -1959,3 +2006,5 @@ window.processPay=async(userId,name)=>{
 </script>
 </body>
 </html>
+
+  
