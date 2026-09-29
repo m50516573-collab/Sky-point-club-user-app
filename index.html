@@ -482,20 +482,44 @@ select.inp{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns=
       <label class="fl">Product Name *</label>
       <input class="inp" id="p-name" placeholder="e.g. Lifebuoy Shampoo 650ml">
       <label class="fl">Category *</label>
-      <select class="inp" id="p-cat">
+      <select class="inp" id="p-cat" onchange="showCatComm()">
         <option value="">Select category</option>
-        <option value="beauty">💄 Beauty & Personal Care</option>
-        <option value="fashion">👗 Fashion & Clothing</option>
-        <option value="electronics">📱 Electronics & Tech</option>
-        <option value="home">🏠 Home & Kitchen</option>
-        <option value="health">💊 Health & Wellness</option>
-        <option value="baby">👶 Baby & Kids</option>
-        <option value="sports">⚽ Sports & Outdoors</option>
-        <option value="food">🍕 Food & Grocery</option>
-        <option value="other">📦 Other</option>
+        <option value="bags">👜 Bags and Travel — 10%</option>
+        <option value="bedding">🛏️ Bedding & Bath — 10%</option>
+        <option value="cameras">📷 Cameras — 2%</option>
+        <option value="computers">💻 Computers & Laptops — 2%</option>
+        <option value="fashion">👗 Fashion — 12%</option>
+        <option value="furniture">🛋️ Furniture & Decor — 5%</option>
+        <option value="health">💄 Health & Beauty — 6%</option>
+        <option value="homeliving">🏠 Home & Living — 10%</option>
+        <option value="appliances">🔌 Home Appliances — 2%</option>
+        <option value="kitchen">🍳 Kitchen & Dining — 10%</option>
+        <option value="laundry">🧹 Laundry & Cleaning — 10%</option>
+        <option value="media">📚 Media, Music & Books — 7%</option>
+        <option value="mobiles">📱 Mobiles & Tablets — 2%</option>
+        <option value="baby">👶 Mother & Baby — 2%</option>
+        <option value="pets">🐱 Pet Supplies — 5%</option>
+        <option value="sports">⚽ Sports & Outdoors — 7%</option>
+        <option value="toys">🧸 Toys & Games — 7%</option>
+        <option value="watches">⌚ Watches, Sunglasses & Jewellery — 7%</option>
       </select>
+      <!-- COMMISSION PREVIEW BOX -->
+      <div id="cat-comm-box" style="display:none;background:linear-gradient(135deg,#F0FFF4,#DCFCE7);border:1.5px solid rgba(5,150,105,.2);border-radius:12px;padding:14px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:800;color:var(--gr);margin-bottom:8px">💰 Commission Rate</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:#fff;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:20px;font-weight:800;color:var(--gr)" id="cat-comm-pct">0%</div>
+            <div style="font-size:11px;color:var(--mu);font-weight:600">Daraz Commission</div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:20px;font-weight:800;color:var(--or)" id="cat-comm-rs">Rs 0</div>
+            <div style="font-size:11px;color:var(--mu);font-weight:600">Your Earning (per Rs 1000)</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#065F46;font-weight:600;text-align:center" id="cat-comm-ex">e.g. Rs 1000 product → Aapko Rs XX milenge</div>
+      </div>
       <label class="fl">Product Price (optional)</label>
-      <div class="inp-wrap"><span class="inp-ic">💰</span><input class="inp" id="p-price" type="number" placeholder="Rs. e.g. 999" inputmode="numeric"></div>
+      <div class="inp-wrap"><span class="inp-ic">💰</span><input class="inp" id="p-price" type="number" placeholder="Rs. e.g. 999" inputmode="numeric" oninput="showCatComm()"></div>
       <label class="fl">Notes for Admin (optional)</label>
       <textarea class="inp" id="p-notes" placeholder="Koi special note..." rows="2" style="resize:none;line-height:1.5"></textarea>
       <button class="btn" onclick="submitProd()" id="submit-btn">📤 Submit to Admin</button>
@@ -1002,42 +1026,78 @@ async function loadMyTickets(){
   }catch(e){console.error(e);}
 }
 
-// ── ADMIN BROWSER NOTIFICATIONS ──
+// ── COMMISSION RATES (Daraz Official) ──
+const CAT_COMM={
+  bags:10,bedding:10,cameras:2,computers:2,fashion:12,
+  furniture:5,health:6,homeliving:10,appliances:2,kitchen:10,
+  laundry:10,media:7,mobiles:2,baby:2,pets:5,sports:7,toys:7,watches:7
+};
+const CAT_NAMES={
+  bags:"Bags & Travel",bedding:"Bedding & Bath",cameras:"Cameras",
+  computers:"Computers & Laptops",fashion:"Fashion",furniture:"Furniture & Decor",
+  health:"Health & Beauty",homeliving:"Home & Living",appliances:"Home Appliances",
+  kitchen:"Kitchen & Dining",laundry:"Laundry & Cleaning",media:"Media & Books",
+  mobiles:"Mobiles & Tablets",baby:"Mother & Baby",pets:"Pet Supplies",
+  sports:"Sports & Outdoors",toys:"Toys & Games",watches:"Watches & Jewellery"
+};
+
+window.showCatComm=()=>{
+  const cat=document.getElementById("p-cat")?.value;
+  const price=parseFloat(document.getElementById("p-price")?.value)||1000;
+  const box=document.getElementById("cat-comm-box");
+  if(!cat||!CAT_COMM[cat]){if(box)box.style.display="none";return}
+  const pct=CAT_COMM[cat];
+  const totalComm=price*(pct/100);
+  const workerEarn=totalComm*0.8; // 80% worker ko
+  if(box)box.style.display="block";
+  const el=id=>document.getElementById(id);
+  if(el("cat-comm-pct"))el("cat-comm-pct").textContent=pct+"%";
+  if(el("cat-comm-rs"))el("cat-comm-rs").textContent="Rs "+workerEarn.toFixed(0);
+  if(el("cat-comm-ex"))el("cat-comm-ex").textContent=`Rs ${price} product pe aapko Rs ${workerEarn.toFixed(0)} milenge`;
+};
+
+// ── NOTIFICATIONS — BACKGROUND (Service Worker) ──
 async function requestNotifPermission(){
-  if(!("Notification"in window))return;
-  if(Notification.permission==="default"){
-    const result=await Notification.requestPermission();
-    if(result==="granted")toast("✅ Notifications ON! Ab mobile pe alert aye ga.","success",4000);
+  if(!("Notification"in window)){toast("⚠️ Yeh browser notifications support nahi karta","warning");return;}
+  if(Notification.permission==="granted"){toast("✅ Notifications already ON!","success",2000);return;}
+  if(Notification.permission==="denied"){toast("❌ Notifications blocked hain. Chrome Settings → Site Settings → Notifications → Allow karo","warning",8000);return;}
+  const result=await Notification.requestPermission();
+  if(result==="granted"){
+    toast("✅ Notifications ON! Jab bhi koi task aye — phone ring aur vibrate karega!","success",5000);
+    // Test notification
+    setTimeout(()=>sendBrowserNotif("✅ EarnPak Admin","Notifications successfully ON! Aap sab tasks receive karein ge.",null),1000);
+  } else {
+    toast("❌ Notifications allow karo — Chrome → 3 dots → Settings → Site Settings → Notifications → Allow","warning",8000);
   }
 }
 
 function sendBrowserNotif(title,body,cb){
-  // Try browser notification first
-  if("Notification"in window&&Notification.permission==="granted"){
-    try{
-      const n=new Notification(title,{
-        body,
-        icon:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==",
-        badge:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==",
-        requireInteraction:true,
-        tag:"earnpak-admin"
-      });
-      if(cb)n.onclick=()=>{window.focus();cb();n.close();};
-    }catch(e){}
-  }
-  // Always vibrate on mobile
-  if(navigator.vibrate)navigator.vibrate([200,100,200]);
-  // Play notification sound
+  // 1. VIBRATE — works even when screen is off
+  if(navigator.vibrate)navigator.vibrate([400,200,400,200,400]);
+  // 2. SOUND
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const o=ctx.createOscillator();const g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.frequency.setValueAtTime(800,ctx.currentTime);
-    o.frequency.setValueAtTime(600,ctx.currentTime+0.1);
-    g.gain.setValueAtTime(0.3,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);
-    o.start(ctx.currentTime);o.stop(ctx.currentTime+0.3);
+    [0,0.2,0.4].forEach((t,i)=>{
+      const o=ctx.createOscillator();const g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=i===0?880:i===1?1100:660;
+      g.gain.setValueAtTime(0.5,ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.15);
+      o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+0.15);
+    });
   }catch(e){}
+  // 3. BROWSER NOTIFICATION
+  if("Notification"in window&&Notification.permission==="granted"){
+    try{
+      const n=new Notification("🛒 "+title,{
+        body:"EarnPak Admin: "+body,
+        requireInteraction:true,
+        tag:"earnpak-"+Date.now(),
+        renotify:true
+      });
+      if(cb)n.onclick=()=>{window.focus();cb();n.close();};
+    }catch(e){console.warn("Notif error:",e);}
+  }
 }
 let prevPS=0,prevPO=0,prevPW=0;
 function checkAdminNotifs(){
@@ -1612,11 +1672,11 @@ function rPendProds(){
   const pend=allProds.filter(p=>p.status==="pending_admin");
   document.getElementById("adm-ps-cnt").textContent=pend.length;
   const el=document.getElementById("adm-pps");
-// ★ MAIN FIX: Agar koi bhi input field mein value hai to re-render mat karo
+
+  // ★ MAIN FIX: Agar koi bhi input field mein value hai to re-render mat karo
   const anyFilled=Array.from(el.querySelectorAll("input")).some(i=>i.value.trim()!=="");
   if(anyFilled) return;
-
-  // Agar pehle se same cards hain to bhi mat karo
+// Agar pehle se same cards hain to bhi mat karo
   const existingIds=Array.from(el.querySelectorAll(".p-card")).map(c=>c.id);
   const newIds=pend.map(p=>"prod-card-"+p.id);
   if(JSON.stringify(existingIds)===JSON.stringify(newIds)) return;
@@ -1718,7 +1778,6 @@ window.approveP=async(prodId,workerId)=>{
     if(btn){btn.disabled=false;btn.textContent="✅ Approve";}
   }
 };
-
 window.rejectP=async prodId=>{
   const reason=prompt("Rejection reason (optional):")||"Not approved";
   try{
@@ -1803,7 +1862,7 @@ window.returnOrd=async(prodId,ordId)=>{
 function rWds(){
   const pend=allWds.filter(w=>w.status==="pending");
   document.getElementById("adm-wd-cnt").textContent=pend.length;
-const el=document.getElementById("adm-wds");
+  const el=document.getElementById("adm-wds");
   if(!allWds.length){el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:36px">💸</span><div class="empty-t">No withdrawal requests</div></div>`;return}
   el.innerHTML="";
   allWds.forEach(w=>{
