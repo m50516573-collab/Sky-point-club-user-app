@@ -1005,10 +1005,11 @@ window.submitTicket=async()=>{
       createdAt:serverTimestamp()
     });
     // Notify admin via ntfy
-    await fetch("https://ntfy.sh/Earnpakadmin",{
+    fetch("https://ntfy.sh/Earnpakadmin",{
       method:"POST",
-      headers:{"Title":"💬 EarnPak — Support Ticket!","Priority":"high","Tags":"sos"},
-      body:`${U.name} ne support ticket submit kiya!\nCategory: ${cat}\nMessage: ${msg.substring(0,100)}`
+      mode:"no-cors",
+      headers:{"Title":"💬 Support Ticket!","Priority":"high"},
+      body:`${U.name} (${U.phone})\nCategory: ${cat}\n${msg.substring(0,150)}`
     }).catch(()=>{});
     msgEl.value="";
     toast("✅ Ticket submit ho gaya! Admin jald reply karega.","success",4000);
@@ -1111,17 +1112,18 @@ const NTFY_TOPIC="Earnpakadmin"; // Tera topic name
 
 async function sendNtfy(title, body, priority="high"){
   try{
-    await fetch("https://ntfy.sh/"+NTFY_TOPIC,{
+    // no-cors mode — GitHub Pages se bhi kaam karta hai
+    fetch("https://ntfy.sh/"+NTFY_TOPIC,{
       method:"POST",
+      mode:"no-cors",
       headers:{
         "Title": title,
         "Priority": priority,
-        "Tags": "shopping_cart,money_with_wings",
-        "Content-Type": "text/plain"
+        "Tags": "shopping_cart"
       },
       body: body
     });
-  }catch(e){console.warn("Ntfy error:",e);}
+  }catch(e){console.warn("Ntfy:",e);}
 }
 
 function checkAdminNotifs(){
@@ -1405,6 +1407,13 @@ window.submitProd=async()=>{
   const prod={id:prodId,workerId:U.userId,workerName:U.name,workerPhone:U.phone,name,link,category:cat,price:parseFloat(price)||0,notes,status:"pending_admin",clicks:0,orders:[],totalEarned:0,affiliateLink:"",darazTrackLink:"",workerComm:0,_ns:false,submittedAt:new Date().toISOString(),createdAt:serverTimestamp()};
   try{
     await setDoc(doc(db,"products",prodId),prod);
+    // Notify admin via ntfy instantly
+    fetch("https://ntfy.sh/Earnpakadmin",{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Title":"📦 New Product Submission!","Priority":"urgent"},
+      body:`${U.name} (${U.phone})\nProduct: ${name}\nCategory: ${cat}${price?`\nPrice: Rs ${price}`:""}`
+    }).catch(()=>{});
     document.getElementById("p-link").value="";
     document.getElementById("p-name").value="";
     document.getElementById("p-cat").value="";
@@ -1535,6 +1544,13 @@ window.doWithdraw=async()=>{
   try{
     const wdId="WD-"+Date.now();
     await setDoc(doc(db,"withdrawals",wdId),{id:wdId,userId:U.userId,workerName:U.name,workerPhone:U.phone,amount:amt,method:mth,methodNumber:num,status:"pending",date:new Date().toISOString(),createdAt:serverTimestamp()});
+    // Notify admin
+    fetch("https://ntfy.sh/Earnpakadmin",{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Title":"💸 Withdrawal Request!","Priority":"urgent"},
+      body:`${U.name} (${U.phone})\nAmount: Rs ${amt}\nMethod: ${mth}\nAccount: ${num}`
+    }).catch(()=>{});
     toast("Withdrawal request submitted! Admin process karega.","success");
     document.getElementById("wd-amt").value="";document.getElementById("wd-num").value="";
   }catch(e){toast("Error: "+e.message,"error");}
@@ -1717,7 +1733,6 @@ function rPendProds(){
   // ★ MAIN FIX: Agar koi bhi input field mein value hai to re-render mat karo
   const anyFilled=Array.from(el.querySelectorAll("input")).some(i=>i.value.trim()!=="");
   if(anyFilled) return;
-
   // Agar pehle se same cards hain to bhi mat karo
   const existingIds=Array.from(el.querySelectorAll(".p-card")).map(c=>c.id);
   const newIds=pend.map(p=>"prod-card-"+p.id);
@@ -1873,9 +1888,8 @@ function rPendOrds(){
       </div>`;
     el.appendChild(d);
   });
-}
-
-window.approveOrd=async(prodId,ordId,workerId,we,ae)=>{
+  }
+  window.approveOrd=async(prodId,ordId,workerId,we,ae)=>{
   if(!confirm("Order complete mark karein? Rs."+we+" worker ko add ho ga."))return;
   try{
     const ps=await getDoc(doc(db,"products",prodId));if(!ps.exists())return;
@@ -1968,7 +1982,7 @@ function rWorkers(){
         <div style="font-size:16px;font-weight:800;color:var(--or)">Rs ${(u.pendingEarnings||0).toFixed(0)}</div>
         <div style="font-size:10px;color:var(--mu);font-weight:500">Pending</div>
         <div style="font-size:10px;color:var(--or);font-weight:700;margin-top:3px">View →</div>
- </div>`;
+      </div>`;
     el.appendChild(d);
   });
 }
