@@ -1004,6 +1004,12 @@ window.submitTicket=async()=>{
       date:new Date().toISOString(),
       createdAt:serverTimestamp()
     });
+    // Notify admin via ntfy
+    await fetch("https://ntfy.sh/Earnpakadmin",{
+      method:"POST",
+      headers:{"Title":"💬 EarnPak — Support Ticket!","Priority":"high","Tags":"sos"},
+      body:`${U.name} ne support ticket submit kiya!\nCategory: ${cat}\nMessage: ${msg.substring(0,100)}`
+    }).catch(()=>{});
     msgEl.value="";
     toast("✅ Ticket submit ho gaya! Admin jald reply karega.","success",4000);
     loadMyTickets();
@@ -1100,13 +1106,48 @@ function sendBrowserNotif(title,body,cb){
   }
 }
 let prevPS=0,prevPO=0,prevPW=0;
+// ── NTFY NOTIFICATIONS — Background notifications even when app closed ──
+const NTFY_TOPIC="Earnpakadmin"; // Tera topic name
+
+async function sendNtfy(title, body, priority="high"){
+  try{
+    await fetch("https://ntfy.sh/"+NTFY_TOPIC,{
+      method:"POST",
+      headers:{
+        "Title": title,
+        "Priority": priority,
+        "Tags": "shopping_cart,money_with_wings",
+        "Content-Type": "text/plain"
+      },
+      body: body
+    });
+  }catch(e){console.warn("Ntfy error:",e);}
+}
+
 function checkAdminNotifs(){
   const ps=allProds.filter(p=>p.status==="pending_admin").length;
   const po=allProds.reduce((a,p)=>a+(p.orders||[]).filter(o=>o.status==="pending").length,0);
   const pw=allWds.filter(w=>w.status==="pending").length;
-  if(ps>prevPS){sendBrowserNotif("📦 New Submission!",`${ps-prevPS} naya product approval ke liye!`,()=>admNav("submissions"));toast("📦 New submission!","warning",5000);}
-  if(po>prevPO){sendBrowserNotif("📋 New Order!",`${po-prevPO} naya order verify karo!`,()=>admNav("orders-pg"));toast("📋 New order!","warning",5000);}
-  if(pw>prevPW){sendBrowserNotif("💸 Withdrawal!",`${pw-prevPW} naya withdrawal request!`,()=>admNav("payouts-pg"));toast("💸 Withdrawal request!","warning",5000);}
+
+  if(ps>prevPS){
+    const msg=`📦 ${ps-prevPS} naya product submission! Worker ne link submit kiya hai.`;
+    sendNtfy("📦 EarnPak — New Submission!",msg,"urgent");
+    sendBrowserNotif("📦 New Submission!",msg,()=>admNav("submissions"));
+    toast("📦 New submission!","warning",5000);
+  }
+  if(po>prevPO){
+    const msg=`📋 ${po-prevPO} naya order! Daraz dashboard se verify karo.`;
+    sendNtfy("📋 EarnPak — New Order!",msg,"urgent");
+    sendBrowserNotif("📋 New Order!",msg,()=>admNav("orders-pg"));
+    toast("📋 New order!","warning",5000);
+  }
+  if(pw>prevPW){
+    const msg=`💸 ${pw-prevPW} naya withdrawal request! Worker paisa maang raha hai.`;
+    sendNtfy("💸 EarnPak — Withdrawal Request!",msg,"urgent");
+    sendBrowserNotif("💸 Withdrawal!",msg,()=>admNav("payouts-pg"));
+    toast("💸 Withdrawal request!","warning",5000);
+  }
+
   prevPS=ps;prevPO=po;prevPW=pw;
   // Update dot badges
   const upd=(id,c)=>{const el=document.getElementById(id);if(el){el.textContent=c;el.style.display=c>0?"flex":"none";}};
@@ -1676,7 +1717,8 @@ function rPendProds(){
   // ★ MAIN FIX: Agar koi bhi input field mein value hai to re-render mat karo
   const anyFilled=Array.from(el.querySelectorAll("input")).some(i=>i.value.trim()!=="");
   if(anyFilled) return;
-// Agar pehle se same cards hain to bhi mat karo
+
+  // Agar pehle se same cards hain to bhi mat karo
   const existingIds=Array.from(el.querySelectorAll(".p-card")).map(c=>c.id);
   const newIds=pend.map(p=>"prod-card-"+p.id);
   if(JSON.stringify(existingIds)===JSON.stringify(newIds)) return;
@@ -1778,6 +1820,7 @@ window.approveP=async(prodId,workerId)=>{
     if(btn){btn.disabled=false;btn.textContent="✅ Approve";}
   }
 };
+
 window.rejectP=async prodId=>{
   const reason=prompt("Rejection reason (optional):")||"Not approved";
   try{
@@ -1925,7 +1968,7 @@ function rWorkers(){
         <div style="font-size:16px;font-weight:800;color:var(--or)">Rs ${(u.pendingEarnings||0).toFixed(0)}</div>
         <div style="font-size:10px;color:var(--mu);font-weight:500">Pending</div>
         <div style="font-size:10px;color:var(--or);font-weight:700;margin-top:3px">View →</div>
-      </div>`;
+ </div>`;
     el.appendChild(d);
   });
 }
@@ -2065,5 +2108,3 @@ window.processPay=async(userId,name)=>{
 </script>
 </body>
 </html>
-
-  
